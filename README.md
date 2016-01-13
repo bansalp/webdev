@@ -1,3 +1,3 @@
-The OpenShift `nodejs` cartridge documentation can be found at:
+# CS5610 Section 02 - Web Development
 
-http://openshift.github.io/documentation/oo_cartridge_guide.html#nodejs
+The purpose of this repository is to make source code available to the TAs and the instructor so they can see how I have implemented the Web application.
