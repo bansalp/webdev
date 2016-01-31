@@ -1,6 +1,6 @@
 /**********************************************************************************************************************/
 
-/* Glyphicons */
+/* Glyphicons - admin.html, forms.html, form-fields.html */
 
 .plusicon {
     font-size: 16px;
@@ -29,15 +29,14 @@
 
 /**********************************************************************************************************************/
 
-/* Table */
+/* Table*/
+/* Table Header - admin.html, forms.html */
 
 .theadrow {
     background-color: #cccccc;
 }
 
-/**********************************************************************************************************************/
-
-/* Table Bordered */
+/* Table Bordered - admin.html, forms.html */
 
 .table-bordered>tbody>tr>td {
     vertical-align: middle;
@@ -45,7 +44,7 @@
 
 /**********************************************************************************************************************/
 
-/* Row */
+/* Row - form-fields.html */
 
 .fieldrow {
     margin-top: 10px;
@@ -53,7 +52,7 @@
 
 /**********************************************************************************************************************/
 
-/* Div */
+/* Div - forms.html, form-fields.html */
 
 .form-div {
     border: 1px solid #ddd;
@@ -61,6 +60,35 @@
 
 .form-div-inner {
     margin: 10px;
+}
+
+/**********************************************************************************************************************/
+
+/* Navbar */
+/* Extra Small Devices */
+.navbar-for-xs {
+    background-color: #f5f5f5;
+}
+
+.div-for-xs-active {
+    padding: 10px;
+    text-align: center;
+    background-color: #428bca;
+}
+
+.div-for-xs {
+    padding: 10px;
+    text-align: center;
+}
+
+.a-for-xs-active {
+    color: white;
+    text-decoration: none;
+}
+
+.a-for-xs {
+    color: #428bca;
+    text-decoration: none;
 }
 
 /**********************************************************************************************************************/
