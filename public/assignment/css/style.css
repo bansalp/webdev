@@ -19,7 +19,11 @@
 
 .pencilicon {
     font-size: 16px;
-    color: yellow;
+    color: brown;
+}
+
+.pencilicon-hide {
+    visibility: hidden;
 }
 
 .justifyicon {
