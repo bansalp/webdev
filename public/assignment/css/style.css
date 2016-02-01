@@ -40,6 +40,10 @@
     background-color: #cccccc;
 }
 
+.th-action {
+    width: 70px;
+}
+
 /* Table Bordered - admin.html, forms.html */
 
 .table-bordered>tbody>tr>td {
