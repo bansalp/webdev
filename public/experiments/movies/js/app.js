@@ -6,6 +6,7 @@
     var $searchMovieBtn;
     var $tbody;
     var searchUrl = "http://www.omdbapi.com/?s=TITLE&page=PAGE";
+    var detailsUrl = "http://www.myapifilms.com/imdb/idIMDB?token=5b32d235-4c1e-4639-af25-544d6bff4d0c&format=json&language=en-us&actors=1&awards=1&idIMDB=IMDBID";
 
     function init() {
         $movieTitleTxt = $("#movieTitleTxt");
@@ -45,7 +46,9 @@
 
             var $img = $("<img>")
                 .attr("src", poster)
-                .addClass("poster thumbnail");
+                .attr("id", imdbId)
+                .addClass("poster thumbnail")
+                .click(searchMovieDetails);
 
             var $td = $("<td>");
             $td.append($img);
@@ -61,6 +64,32 @@
 
             $tbody.append($tr);
         }
+    }
+
+    function searchMovieDetails (event) {
+        var img = $(event.currentTarget);
+        var imdbId = img.attr("id");
+
+        var url = detailsUrl
+            .replace("IMDBID", imdbId);
+
+        $.ajax({
+            url: url,
+            dataType: "jsonp",
+            success: renderMovieDetailsList
+        });
+    }
+
+    function renderMovieDetailsList(response) {
+        var movie = response.data.movies[0];
+
+        var actors = movie.actors;
+        var directors = movie.directors;
+        var plot = movie.plot;
+        var title = movie.title;
+        var poster = movie.urlPoster;
+
+        console.log(movie);
     }
 
 })();
