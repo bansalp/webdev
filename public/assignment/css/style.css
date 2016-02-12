@@ -1,6 +1,6 @@
 /**********************************************************************************************************************/
 
-/* Glyphicons - admin.html, forms.html, form-fields.html */
+/* Glyphicons - admin.view.html, forms.view.html, fields.view.html */
 
 .plusicon {
     font-size: 16px;
@@ -34,7 +34,7 @@
 /**********************************************************************************************************************/
 
 /* Table*/
-/* Table Header - admin.html, forms.html */
+/* Table Header - admin.view.html, forms.view.html */
 
 .theadrow {
     background-color: #cccccc;
@@ -44,7 +44,7 @@
     width: 70px;
 }
 
-/* Table Bordered - admin.html, forms.html */
+/* Table Bordered - admin.view.html, forms.view.html */
 
 .table-bordered>tbody>tr>td {
     vertical-align: middle;
@@ -52,7 +52,7 @@
 
 /**********************************************************************************************************************/
 
-/* Row - form-fields.html */
+/* Row - fields.view.html */
 
 .fieldrow {
     margin-top: 10px;
@@ -60,7 +60,7 @@
 
 /**********************************************************************************************************************/
 
-/* Div - forms.html, form-fields.html */
+/* Div - forms.view.html, fields.view.html */
 
 .form-div {
     border: 1px solid #ddd;
