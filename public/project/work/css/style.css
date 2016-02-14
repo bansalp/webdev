@@ -55,3 +55,16 @@ body {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.popular-movie-template {
+    padding-top: 45px;
+}
+
+.movie-template-outer {
+    padding: 10px;
+}
+
+.movie-template-inner {
+    background-color: white;
+    border: 1px solid #eee;
+}
