@@ -24,7 +24,6 @@
 
 .outer {
     position: relative;
-    margin-bottom: 20px;
 }
 
 .inner {
@@ -32,6 +31,7 @@
     left: 0;
     right: 0;
     margin: auto;
+    padding-bottom: 30px;
 }
 
 .form-control-feedback {
