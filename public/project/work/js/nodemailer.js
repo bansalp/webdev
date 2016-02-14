@@ -1,3 +1,12 @@
+/* Need to update package.json with the below code
+
+"dependencies": {
+    "express": "~3.4.4",
+    "nodemailer": "*"
+}
+
+*/
+
 var nodemailer = require('nodemailer');
 
 var smtpConfig = {
