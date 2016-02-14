@@ -34,10 +34,19 @@
     padding-bottom: 30px;
 }
 
+.inner-top-padding {
+    padding-top: 30px;
+}
+
 .form-control-feedback {
     color: #777;
 }
 
 .instructions {
     color: #777;
+}
+
+.no-padding {
+    padding-left: 0px;
+    padding-right: 0px;
 }
