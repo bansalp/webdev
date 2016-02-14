@@ -22,6 +22,10 @@
     }
 }
 
+body {
+    background-color: #FDFDFD;
+}
+
 .outer {
     position: relative;
 }
@@ -32,10 +36,6 @@
     right: 0;
     margin: auto;
     padding-bottom: 30px;
-}
-
-.inner-top-padding {
-    padding-top: 30px;
 }
 
 .form-control-feedback {
@@ -49,4 +49,9 @@
 .no-padding {
     padding-left: 0px;
     padding-right: 0px;
+}
+
+.jumbotron {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
