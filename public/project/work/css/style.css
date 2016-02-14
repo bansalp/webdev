@@ -35,3 +35,7 @@
     height: 30%;
     margin: auto;
 }
+
+.form-control-feedback {
+    color: #777;
+}
