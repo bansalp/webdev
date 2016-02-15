@@ -56,10 +56,6 @@ body {
     margin-bottom: 20px;
 }
 
-.popular-movie-template {
-    padding-top: 45px;
-}
-
 .movie-template-outer {
     padding: 10px;
 }
@@ -67,4 +63,17 @@ body {
 .movie-template-inner {
     background-color: white;
     border: 1px solid #eee;
+}
+
+.div-movie-title {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.page-header-popular-movies {
+    margin: 0;
+}
+
+.row-popular-movies {
+    padding-top: 70px;
 }
