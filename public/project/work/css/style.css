@@ -26,11 +26,11 @@ body {
     background-color: #FDFDFD;
 }
 
-.div-login, .div-register {
+.div-login, .div-register, .div-forgot-password {
     margin-top: 60px;
 }
 
-.div-login-main, .div-register-main {
+.div-login-main, .div-register-main, .div-forgot-password-main {
     background-color: white;
     border: 1px solid #eee;
     padding: 25px;
