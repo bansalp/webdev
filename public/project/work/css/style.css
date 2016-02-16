@@ -26,14 +26,17 @@ body {
     background-color: #FDFDFD;
 }
 
-.div-login-main {
-    transform: translateY(30%);
+.div-login, .div-register {
+    margin-top: 60px;
+}
+
+.div-login-main, .div-register-main {
     background-color: white;
     border: 1px solid #eee;
     padding: 25px;
 }
 
-.h3-login-main {
+.h3-login-main, .h3-register-main {
     margin-top: 0px;
     margin-bottom: 20px;
 }
