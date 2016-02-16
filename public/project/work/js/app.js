@@ -45,6 +45,7 @@
                     .html(title);
                 $mto.find(".movie-backdrop")
                     .attr("src", poster)
+                    .attr("id", id)
                     .click(searchMovieDetails);
 
                 $popularMovieTemplate.append($mto);
