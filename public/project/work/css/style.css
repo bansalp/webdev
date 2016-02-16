@@ -1,4 +1,4 @@
-@media (max-width: 767px) {
+/*@media (max-width: 767px) {
     .inner {
         width: 90%;
     }
@@ -20,14 +20,22 @@
     .inner {
         width: 70%;
     }
-}
+}*/
 
 body {
     background-color: #FDFDFD;
 }
 
-.outer {
-    position: relative;
+.div-login-main {
+    transform: translateY(30%);
+    background-color: white;
+    border: 1px solid #eee;
+    padding: 25px;
+}
+
+.h3-login-main {
+    margin-top: 0px;
+    margin-bottom: 20px;
 }
 
 .inner {
