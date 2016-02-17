@@ -33,9 +33,9 @@
 
                 var title = movie.title;
                 var id = movie.id;
-                var poster_path = movie.poster_path;
-                var poster = imageUrl
-                    .replace("IMAGEPATH", poster_path);
+                var image_path = movie.backdrop_path;
+                var image = imageUrl
+                    .replace("IMAGEPATH", image_path);
 
                 var $div1 = $("<div>");
                 $div1.addClass("col-sm-6 col-md-4");
@@ -44,7 +44,7 @@
                 $div2.addClass("thumbnail");
 
                 var $img = $("<img>")
-                    .attr("src", poster)
+                    .attr("src", image)
                     .attr("id", id)
                     .addClass("img-responsive")
                     .click(searchMovieDetails);
