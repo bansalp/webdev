@@ -2,27 +2,24 @@
 
     $(init);
 
-    var $popularMovieTemplate;
-    var $movieTemplateOuter;
-    var searchUrl = "http://api.themoviedb.org/3/discover/movie?api_key=0989313de69b690eda213c2c6387e038&sort_by=popularity.desc&language=en";
-    var posterUrl = "http://image.tmdb.org/t/p/original/POSTERPATH";
-    var detailsUrl = "http://www.myapifilms.com/imdb/idIMDB?token=5b32d235-4c1e-4639-af25-544d6bff4d0c&format=json&language=en-us&actors=1&awards=1&idIMDB=IMDBID";
+    var $results;
+    var popularMovieUrl = "http://api.themoviedb.org/3/discover/movie?api_key=0989313de69b690eda213c2c6387e038&sort_by=popularity.desc&language=en";
+    var imageUrl = "http://image.tmdb.org/t/p/original/IMAGEPATH";
 
     function init() {
-        $popularMovieTemplate = $(".popular-movie-template");
-        $movieTemplateOuter = $(".movie-template-outer").clone();
-        searchMovie();
+        $results = $(".results");
+        popularMovies();
     }
 
-    function searchMovie() {
+    function popularMovies() {
         $.ajax({
-            url: searchUrl,
-            success: renderMovieList
+            url: popularMovieUrl,
+            success: renderPopularMovieList
         });
     }
 
-    function renderMovieList(response) {
-        $popularMovieTemplate.empty();
+    function renderPopularMovieList(response) {
+        $results.empty();
 
         var movies = response.results;
 
@@ -37,18 +34,33 @@
                 var title = movie.title;
                 var id = movie.id;
                 var poster_path = movie.poster_path;
-                var poster = posterUrl
-                    .replace("POSTERPATH", poster_path);
+                var poster = imageUrl
+                    .replace("IMAGEPATH", poster_path);
 
-                var $mto = $movieTemplateOuter.clone();
-                $mto.find(".movie-title")
-                    .html(title);
-                $mto.find(".movie-backdrop")
+                var $div1 = $("<div>");
+                $div1.addClass("col-sm-6 col-md-4");
+
+                var $div2 = $("<div>");
+                $div2.addClass("thumbnail");
+
+                var $img = $("<img>")
                     .attr("src", poster)
                     .attr("id", id)
+                    .addClass("img-responsive")
                     .click(searchMovieDetails);
 
-                $popularMovieTemplate.append($mto);
+                var $div3 = $("<div>");
+                $div3.addClass("caption");
+
+                var $h3 = $("<h3>");
+                $h3.append(title);
+
+                $div3.append($h3);
+                $div2.append($img).append($div3);
+                $div1.append($div2);
+                $div1.append($div1);
+
+                $results.append($div1);
             }
             else {
                 break;
