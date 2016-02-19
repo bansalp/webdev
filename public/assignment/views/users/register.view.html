@@ -5,30 +5,30 @@
         <div class="form-group">
             <label for="username" class="col-sm-2 control-label">Username:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="username" placeholder="Username">
+                <input type="text" class="form-control" id="username" placeholder="Username" ng-model="user.username">
             </div>
         </div>
         <div class="form-group">
             <label for="password" class="col-sm-2 control-label">Password:</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" id="password" placeholder="Password">
+                <input type="password" class="form-control" id="password" placeholder="Password" ng-model="user.password">
             </div>
         </div>
         <div class="form-group">
             <label for="verifypassword" class="col-sm-2 control-label">Verify Password:</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" id="verifypassword" placeholder="Verify Password">
+                <input type="password" class="form-control" id="verifypassword" placeholder="Verify Password" ng-model="user.verifypassword">
             </div>
         </div>
         <div class="form-group">
             <label for="email" class="col-sm-2 control-label">Email:</label>
             <div class="col-sm-10">
-                <input type="email" class="form-control" id="email" placeholder="Email">
+                <input type="email" class="form-control" id="email" placeholder="Email" ng-model="user.email">
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <a href="profile.view.html" class="btn btn-success btn-block">Register</a>
+                <a href="javascript:void(0);" class="btn btn-success btn-block" ng-click="register(user)">Register</a>
             </div>
         </div>
     </form>
