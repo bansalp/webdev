@@ -24,32 +24,74 @@
         return api;
 
         function findUserByUsernameAndPassword(username, password, callback) {
+            var i;
+            for (i in users)
+            {
+                var usr = users[i];
+                if (usr.username == username && usr.password == password)
+                {
+                    callback(usr);
+                    return;
+                }
+            }
 
+            callback(null);
         }
 
         function findAllUsers(callback) {
-
+            callback(users);
         }
 
         function createUser(user, callback) {
-            var user = {
+            var usr = {
                 "_id": (new Date).getTime(),
                 "firstName": "",
                 "lastName": "",
                 "username": user.username,
-                "password": user.password
+                "password": user.password,
+                "email": user.email
             };
 
-            users.push(user);
-            callback(user);
+            users.push(usr);
+            callback(usr);
         }
 
         function deleteUserById(userId, callback) {
+            var i;
+            for (i in users)
+            {
+                var usr = users[i];
+                if (usr._id == userId)
+                {
+                    users.splice(i, 1);
+                    callback(users);
+                    return;
+                }
+            }
 
+            callback(users);
         }
 
         function updateUser(userId, user, callback) {
+            var i;
+            for (i in users)
+            {
+                var usr = users[i];
+                if (usr._id == userId)
+                {
+                    usr._id = user._id;
+                    usr.firstName = user.firstName;
+                    usr.lastName = user.lastName;
+                    usr.username = user.username;
+                    usr.password = user.password;
+                    usr.email = user.email;
 
+                    callback(usr);
+                    return;
+                }
+            }
+
+            callback(null);
         }
     }
 
