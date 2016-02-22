@@ -6,7 +6,7 @@
         <li><a href="fields.view.html">Fields</a></li>
     </ul>
 
-    <div class="form-div">
+    <div class="form-div" ng-controller="FormController">
         <div class="form-div-inner">
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
@@ -19,32 +19,18 @@
                     <tbody>
                     <tr>
                         <td>
-                            <input type="text" class="form-control" id="formname" placeholder="name">
+                            <input type="text" class="form-control" id="formname" placeholder="name" ng-model="form.title">
                         </td>
                         <td>
-                            <a href="#"><span class="glyphicon glyphicon-plus plusicon pull-left" aria-hidden="true"></span></a>
-                            <a href="#"><span class="glyphicon glyphicon-ok okicon pull-right" aria-hidden="true"></span></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a href="fields.view.html">Registration Form</a></td>
-                        <td>
-                            <a href="#"><span class="glyphicon glyphicon-remove removeicon pull-left" aria-hidden="true"></span></a>
-                            <a href="#"><span class="glyphicon glyphicon-pencil pencilicon pull-right" aria-hidden="true"></span></a>
+                            <a ng-click="addForm(form)"><span class="glyphicon glyphicon-plus plusicon pull-left" aria-hidden="true"></span></a>
+                            <a ng-click="updateForm(form)"><span class="glyphicon glyphicon-ok okicon pull-right" aria-hidden="true"></span></a>
                         </td>
                     </tr>
-                    <tr>
-                        <td><a href="fields.view.html">Contact List</a></td>
+                    <tr ng-repeat="form in forms" ng-class="{'selected-form': $index == selected}">
+                        <td><a href="fields.view.html">{{form.title}}</a></td>
                         <td>
-                            <a href="#"><span class="glyphicon glyphicon-remove removeicon pull-left" aria-hidden="true"></span></a>
-                            <a href="#"><span class="glyphicon glyphicon-pencil pencilicon pull-right" aria-hidden="true"></span></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a href="fields.view.html">To Do List</a></td>
-                        <td>
-                            <a href="#"><span class="glyphicon glyphicon-remove removeicon pull-left" aria-hidden="true"></span></a>
-                            <a href="#"><span class="glyphicon glyphicon-pencil pencilicon pull-right" aria-hidden="true"></span></a>
+                            <a ng-click="deleteForm(form._id)"><span class="glyphicon glyphicon-remove removeicon pull-left" aria-hidden="true"></span></a>
+                            <a ng-click="selectForm($index)"><span class="glyphicon glyphicon-pencil pencilicon pull-right" aria-hidden="true"></span></a>
                         </td>
                     </tr>
                     </tbody>
