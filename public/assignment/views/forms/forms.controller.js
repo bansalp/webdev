@@ -1,15 +1,19 @@
+"use strict";
 (function() {
 
     angular
         .module("FormBuilderApp")
         .controller("FormController", FormController);
 
-    function FormController($scope, $rootScope, FormService){
+    function FormController($scope, $rootScope, $location, FormService) {
 
         var loggedInUser = $rootScope.user;
         var userId = -1;
 
-        if(loggedInUser != undefined) {
+        if(loggedInUser === undefined) {
+            $location.url("/home");
+            return;
+        } else {
             userId = loggedInUser._id;
             updateFormsForCurrentUser();
         }
@@ -22,31 +26,39 @@
 
 
         function addForm(form) {
+            if(form == undefined || !form.hasOwnProperty("title") || form.title.trim() === "") {
+                return;
+            }
+
             FormService.createFormForUser(userId, form, function(newForm) {
-                console.log("Form added:");
-                console.log(form);
                 $scope.selected = -1;
                 $scope.form = {};
-                updateFormsForCurrentUser()
+                updateFormsForCurrentUser();
             });
         }
 
         function updateForm(form) {
-            FormService.updateFormById(form._id, form, function(newForm) {
-                console.log("Form Updated:");
-                console.log(form);
+            if(form == undefined || !form.hasOwnProperty("title") || form.title.trim() === "") {
                 $scope.selected = -1;
                 $scope.form = {};
-                updateFormsForCurrentUser();
+                return;
+            }
+
+            FormService.updateFormById(form._id, form, function(newForm) {
+                $scope.forms[$scope.selected] = newForm;
+                $scope.selected = -1;
+                $scope.form = {};
             });
         }
 
-        function deleteForm(formId) {
-            FormService.deleteFormById(formId, function(udpatedForms) {
-                console.log("Form Deleted:");
-                console.log(formId);
-                updateFormsForCurrentUser();
-            });
+        function deleteForm(index) {
+            FormService.deleteFormById(
+                $scope.forms[index]._id,
+                function(udpatedForms) {
+                    $scope.selected = -1;
+                    $scope.form = {};
+                    updateFormsForCurrentUser();
+                });
         }
 
         function selectForm(index) {
@@ -64,7 +76,6 @@
                 $scope.forms = formsByUserId;
             });
         }
-
     }
 
 })();

@@ -1,3 +1,4 @@
+"use strict";
 (function() {
 
     angular
@@ -6,36 +7,31 @@
 
     function UserService() {
         var users = [
-            {"_id":123, "firstName":"Alice",  "lastName":"Wonderland","username":"alice",  "password":"alice"},
-            {"_id":234, "firstName":"Bob",    "lastName":"Hope",      "username":"bob",    "password":"bob"},
-            {"_id":345, "firstName":"Charlie","lastName":"Brown",     "username":"charlie","password":"charlie"},
-            {"_id":456, "firstName":"Dan",    "lastName":"Craig",     "username":"dan",    "password":"dan"},
-            {"_id":567, "firstName":"Edward", "lastName":"Norton",    "username":"ed",     "password":"ed"}
+            {        "_id":123, "firstName":"Alice",            "lastName":"Wonderland",
+                "username":"alice",  "password":"alice",   "roles": ["student"]                },
+            {        "_id":234, "firstName":"Bob",              "lastName":"Hope",
+                "username":"bob",    "password":"bob",     "roles": ["admin"]                },
+            {        "_id":345, "firstName":"Charlie",          "lastName":"Brown",
+                "username":"charlie","password":"charlie", "roles": ["faculty"]                },
+            {        "_id":456, "firstName":"Dan",              "lastName":"Craig",
+                "username":"dan",    "password":"dan",     "roles": ["faculty", "admin"]},
+            {        "_id":567, "firstName":"Edward",           "lastName":"Norton",
+                "username":"ed",     "password":"ed",      "roles": ["student"]                }
         ];
 
         var api = {
-            findUserByUsernameAndPassword: findUserByUsernameAndPassword,
-            findAllUsers: findAllUsers,
-            createUser: createUser,
-            deleteUserById: deleteUserById,
-            updateUser: updateUser
+            findUserByCredentials : findUserByCredentials,
+            findAllUsers : findAllUsers,
+            createUser : createUser,
+            deleteUserById : deleteUserById,
+            updateUser : updateUser
         };
 
         return api;
 
-        function findUserByUsernameAndPassword(username, password, callback) {
-            var i;
-            for (i in users)
-            {
-                var usr = users[i];
-                if (usr.username == username && usr.password == password)
-                {
-                    callback(usr);
-                    return;
-                }
-            }
-
-            callback(null);
+        function findUserByCredentials(username, password, callback) {
+            var user = getValidUser(username, password);
+            callback(user);
         }
 
         function findAllUsers(callback) {
@@ -43,55 +39,66 @@
         }
 
         function createUser(user, callback) {
-            var usr = {
-                "_id": (new Date).getTime(),
-                "firstName": "",
-                "lastName": "",
-                "username": user.username,
-                "password": user.password,
-                "email": user.email
-            };
+            var id = (new Date).getTime();
 
-            users.push(usr);
-            callback(usr);
+            var newUser = {
+                "_id" : id,
+                "firstName" : "",
+                "lastName" : "",
+                "username" : user.username,
+                "password" : user.password,
+                "email" : user.email,
+                "roles" : []
+            }
+
+            users.push(newUser);
+            callback(newUser);
         }
 
         function deleteUserById(userId, callback) {
-            var i;
-            for (i in users)
-            {
-                var usr = users[i];
-                if (usr._id == userId)
-                {
-                    users.splice(i, 1);
-                    callback(users);
-                    return;
-                }
-            }
-
+            var userIndex = getUserIndexById(userId);
+            users.splice(userIndex, 1);
             callback(users);
         }
 
         function updateUser(userId, user, callback) {
-            var i;
-            for (i in users)
-            {
-                var usr = users[i];
-                if (usr._id == userId)
-                {
-                    usr._id = user._id;
-                    usr.firstName = user.firstName;
-                    usr.lastName = user.lastName;
-                    usr.username = user.username;
-                    usr.password = user.password;
-                    usr.email = user.email;
+            var userIndex = getUserIndexById(userId);
 
-                    callback(usr);
-                    return;
+            users[userIndex] = {
+                "_id" : user._id,
+                "firstName" : user.firstName,
+                "lastName" : user.lastName,
+                "username" : user.username,
+                "password" : user.password,
+                "roles" : user.roles,
+                "email" : user.email
+            };
+
+            callback(users[userIndex]);
+        }
+
+        function getUserIndexById(userId) {
+            var index = 0;
+
+            for (var i = 0; i < users.length; i++) {
+                if(users[i]._id === userId) {
+                    return index;
+                }
+
+                index++;
+            }
+        }
+
+        function getValidUser(username, password) {
+            var user = null;
+
+            for (var i = 0; i < users.length; i++) {
+                if(users[i].username === username && users[i].password === password){
+                    user = users[i];
                 }
             }
 
-            callback(null);
+            return user;
         }
     }
 

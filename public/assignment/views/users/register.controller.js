@@ -1,18 +1,22 @@
+"use strict";
 (function() {
 
     angular
         .module("FormBuilderApp")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($scope, $location, $rootScope, UserService) {
+    function RegisterController($scope, $rootScope, $location, UserService) {
         $scope.register = register;
 
         function register(user) {
-            UserService.createUser(user, function(user) {
+            UserService.createUser(user, redirectUserToProfileIfValid);
+        }
+
+        function redirectUserToProfileIfValid(user) {
+            if(user != null){
                 $rootScope.user = user;
-                console.log(user);
-                $location.url("/profile");
-            });
+                $location.url("/profile")
+            }
         }
     }
 
