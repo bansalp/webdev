@@ -6,6 +6,7 @@
 
     function configuration($stateProvider, $urlRouterProvider) {
         $urlRouterProvider
+            .when("/details/", "/home")
             .otherwise("/home");
 
         $stateProvider
