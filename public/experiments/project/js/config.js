@@ -7,11 +7,11 @@
     function configuration($stateProvider, $urlRouterProvider) {
         $urlRouterProvider
             .when("/details/", "/home")
-            .otherwise("/home");
+            .otherwise("/home/");
 
         $stateProvider
             .state("home", {
-                url: "/home",
+                url: "/home/:movieTitle",
                 templateUrl: "views/home/home.view.html",
                 controller: "HomeController"
             })

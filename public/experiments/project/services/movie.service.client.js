@@ -28,9 +28,9 @@
             callback(imageUrl);
         }
 
-        function getMoviesByTitle(movie, callback) {
+        function getMoviesByTitle(movieTitle, callback) {
             var url = searchUrl
-                .replace("TITLE", movie.title)
+                .replace("TITLE", movieTitle)
                 .replace("PAGE", 1);
             $http.get(url)
                 .success(callback);

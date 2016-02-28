@@ -4,23 +4,29 @@
         .module("MovieTimeApp")
         .controller("HomeController", HomeController);
 
-    function HomeController($scope, MovieService) {
-
+    function HomeController($scope, $stateParams, MovieService) {
         $scope.getMoviesByTitle = getMoviesByTitle;
 
-        $scope.pageHeader = "Popular Movies";
-        MovieService.findPopularMovies(function (response) {
-            console.log(response);
-            $scope.movies = response.results;
-        });
-
+        $scope.movieTitle = $stateParams.movieTitle;
         MovieService.getImageURL(function (response) {
             $scope.imageUrl = response;
         });
 
-        function getMoviesByTitle(movie) {
+        if ($scope.movieTitle) {
+            console.log($scope.movieTitle);
+            getMoviesByTitle($scope.movieTitle);
+        }
+        else {
+            $scope.pageHeader = "Popular Movies";
+            MovieService.findPopularMovies(function (response) {
+                console.log(response);
+                $scope.movies = response.results;
+            });
+        }
+
+        function getMoviesByTitle(movieTitle) {
             $scope.pageHeader = "Search Results";
-            MovieService.getMoviesByTitle(movie, function(response){
+            MovieService.getMoviesByTitle(movieTitle, function (response) {
                 console.log(response);
                 $scope.movies = response.results;
             });
