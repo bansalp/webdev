@@ -7,6 +7,10 @@
     function DetailsController($scope, $routeParams, MovieService) {
         $scope.movieId = $routeParams.movieId;
 
+        MovieService.getImageURL(function (response) {
+            $scope.imageUrl = response;
+        });
+
         if($scope.movieId)
         {
             getMovieDetailsById($scope.movieId);
