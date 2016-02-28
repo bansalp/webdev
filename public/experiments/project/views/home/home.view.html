@@ -20,7 +20,7 @@
         <div ng-repeat="movie in movies">
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
-                    <a href="#/details/{{movie.id}}">
+                    <a ui-sref="details({movieId: movie.id})">
                         <img class="img-responsive" ng-src="{{imageUrl + movie.backdrop_path}}"/>
                     </a>
                     <div class="caption">

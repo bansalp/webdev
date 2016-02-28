@@ -4,30 +4,32 @@
         .module("MovieTimeApp")
         .config(configuration);
 
-    function configuration($routeProvider) {
-        $routeProvider
-            .when("/home", {
+    function configuration($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider
+            .otherwise("/home");
+
+        $stateProvider
+            .state("home", {
+                url: "/home",
                 templateUrl: "views/home/home.view.html",
                 controller: "HomeController"
             })
-            .when("/details/:movieId", {
+            .state("details", {
+                url: "/details/:movieId",
                 templateUrl: "views/details/details.view.html",
                 controller: "DetailsController"
             })
-            .when("/header", {
-                templateUrl: "views/header/header.view.html"
-            })
-            .when("/login", {
+            .state("login", {
+                url: "/login",
                 templateUrl: "views/login/login.view.html"
             })
-            .when("/forgot-password", {
+            .state("forgot-password", {
+                url: "/forgot-password",
                 templateUrl: "views/login/forgot-password/forgot-password.view.html"
             })
-            .when("/register", {
+            .state("register", {
+                url: "/register",
                 templateUrl: "views/register/register.view.html"
-            })
-            .otherwise({
-                redirectTo : "/home"
             })
     }
 

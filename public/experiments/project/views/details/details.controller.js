@@ -4,8 +4,8 @@
         .module("MovieTimeApp")
         .controller("DetailsController", DetailsController);
 
-    function DetailsController($scope, $routeParams, MovieService) {
-        $scope.movieId = $routeParams.movieId;
+    function DetailsController($scope, $stateParams, MovieService) {
+        $scope.movieId = $stateParams.movieId;
 
         MovieService.getImageURL(function (response) {
             $scope.imageUrl = response;
