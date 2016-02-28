@@ -21,15 +21,15 @@
             })
             .state("login", {
                 url: "/login",
-                templateUrl: "views/login/login.view.html"
+                templateUrl: "views/users/login/login.view.html"
             })
             .state("forgot-password", {
                 url: "/forgot-password",
-                templateUrl: "views/login/forgot-password/forgot-password.view.html"
+                templateUrl: "views/users/login/forgot-password/forgot-password.view.html"
             })
             .state("register", {
                 url: "/register",
-                templateUrl: "views/register/register.view.html"
+                templateUrl: "views/users/register/register.view.html"
             })
     }
 
