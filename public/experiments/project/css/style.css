@@ -49,3 +49,8 @@ body {
 .h3-page-header {
     margin: 0px 0 20px;
 }
+
+.profile-photo {
+    width: 200px;
+    height: 200px;
+}
