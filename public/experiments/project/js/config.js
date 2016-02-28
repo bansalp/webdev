@@ -10,6 +10,10 @@
                 templateUrl: "views/home/home.view.html",
                 controller: "HomeController"
             })
+            .when("/details/:movieId", {
+                templateUrl: "views/details/details.view.html",
+                controller: "DetailsController"
+            })
             .when("/header", {
                 templateUrl: "views/header/header.view.html"
             })
