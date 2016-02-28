@@ -7,15 +7,11 @@
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
-    .container {
-        width: 800px;
-    }
+
 }
 
 @media (min-width: 1200px) {
-    .container {
-        width: 1008px;
-    }
+
 }
 
 body {
