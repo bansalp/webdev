@@ -66,7 +66,7 @@
 
         function isUserValid(user) {
             return user != undefined && user.username.trim() !== "" && user.password.trim() !== "" &&
-                user.firstName.trim() !== "" && user.lastName.trim() !== "" && user.email.trim() !== "" &&
+                user.firstName.trim() !== "" && user.lastName.trim() !== "" && user.email && user.email.trim() !== "" &&
                 user.role.trim() !== "";
         }
     }
