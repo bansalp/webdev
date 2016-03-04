@@ -1,0 +1,45 @@
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <th>Username</th>
+        <th>Password</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Action</th>
+        </thead>
+        <tbody>
+        <tr>
+            <td><input ng-model="user.username" type="text" class="form-control"/></td>
+            <td><input ng-model="user.password" type="password" class="form-control"/></td>
+            <td><input ng-model="user.firstName" type="text" class="form-control"/></td>
+            <td><input ng-model="user.lastName" type="text" class="form-control"/></td>
+            <td><input ng-model="user.email" type="email" class="form-control"/></td>
+
+            <td>
+                <select ng-model="user.role" class="form-control"
+                        ng-options="role.value as role.name for role in roles">
+                </select>
+            </td>
+
+            <td class="nowrap">
+                <button ng-click="addUser(user)" class="btn btn-sm btn-primary">Add</button>
+                <button ng-click="updateUser(user)" class="btn btn-sm btn-primary btn-success">Update</button>
+            </td>
+        </tr>
+        <tr ng-repeat="user in users">
+            <td>{{user.username}}</td>
+            <td>*****</td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.role}}</td>
+            <td>
+                <button ng-click="deleteUser(user)" class="btn btn-sm btn-danger">Remove</button>
+                <button ng-click="selectUser($index)" class="btn btn-sm btn-info">Select</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

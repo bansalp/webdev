@@ -75,6 +75,11 @@
                 url: "/profile/dislikes",
                 templateUrl: "views/users/profile/dislikes.view.html"
             })
+            .state("admin", {
+                url: "/admin",
+                templateUrl: "views/admin/admin.view.html",
+                controller: "AdminController"
+            })
     }
 
 })();
