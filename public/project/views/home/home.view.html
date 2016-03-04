@@ -1,0 +1,34 @@
+<div>
+
+    <div class="jumbotron text-center">
+        <h1>Movie Time</h1>
+        <p>An Online Movie Store</p>
+        <div class="input-group col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6">
+            <input type="text" class="form-control input-lg" ng-model="movie.title"
+                   placeholder="Search for a movie by title">
+            <a ui-sref="home({movieTitle: movie.title})" class="input-group-addon input-lg btn-primary btn-search">
+                <i class="glyphicon glyphicon-search"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="row container">
+        <h3 class="page-header h3-page-header">{{pageHeader}}</h3>
+    </div>
+
+    <div class="row">
+        <div ng-repeat="movie in movies">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <a ui-sref="details({movieId: movie.id})">
+                        <img class="img-responsive" ng-src="{{imageUrl + movie.backdrop_path}}"/>
+                    </a>
+                    <div class="caption">
+                        <h3>{{movie.title}}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
