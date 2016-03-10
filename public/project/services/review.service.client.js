@@ -5,7 +5,7 @@
         .factory("ReviewService", ReviewService);
 
 
-    function ReviewService(CommentService) {
+    function ReviewService() {
         var reviews = [
             {
                 "_id": 1,
@@ -38,7 +38,6 @@
 
         var api = {
             findAllReviewsByMovieId: findAllReviewsByMovieId,
-            findAllCommentsByMovieId: findAllCommentsByMovieId,
             addReview: addReview
         };
         return api;
@@ -51,29 +50,6 @@
                 }
             }
             callback(result.length === 0 ? null : result);
-        }
-
-        function findAllCommentsByMovieId(movieId, callback) {
-            var reviewIds = [];
-            for (var i = 0; i < reviews.length; i++) {
-                if (reviews[i].movieId === movieId) {
-                    reviewIds.push(reviews[i]._id);
-                }
-            }
-
-            callback(reviewIds.length === 0 ? null : findAllCommentsByReviewIds(reviewIds));
-        }
-
-        function findAllCommentsByReviewIds(reviewIds) {
-            var result = [];
-            for (var i = 0; i < reviewIds.length; i++) {
-                CommentService.findAllCommentsByReviewId(reviewIds[i], function (response) {
-                    if (response) {
-                        result = result.concat(response);
-                    }
-                });
-            }
-            return result;
         }
 
         function addReview(review, movieId, callback) {
