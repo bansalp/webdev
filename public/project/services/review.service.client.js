@@ -65,7 +65,7 @@
                 "userId": 1,
                 "commentIds": []
             };
-            reviews.push(newReview);
+            reviews.unshift(newReview);
             callback(true);
         }
 
