@@ -39,7 +39,8 @@
         var api = {
             findAllReviewsByMovieId: findAllReviewsByMovieId,
             addReview: addReview,
-            updateReview: updateReview
+            updateReview: updateReview,
+            deleteReview: deleteReview
         };
         return api;
 
@@ -81,6 +82,13 @@
                 "commentIds": review.commentIds
             };
             callback(reviews[reviewIndex]);
+        }
+
+        function deleteReview(reviewId, callback)
+        {
+            var reviewIndex = findReviewIndexByReviewId(reviewId);
+            reviews.splice(reviewIndex, 1);
+            callback();
         }
 
         function findReviewIndexByReviewId(reviewId)
