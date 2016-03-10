@@ -38,7 +38,8 @@
 
         var api = {
             findAllReviewsByMovieId: findAllReviewsByMovieId,
-            addReview: addReview
+            addReview: addReview,
+            updateReview: updateReview
         };
         return api;
 
@@ -65,6 +66,32 @@
             };
             reviews.push(newReview);
             callback(true);
+        }
+
+        function updateReview(review, callback)
+        {
+            var reviewIndex = findReviewIndexByReviewId(review._id);
+            reviews[reviewIndex] = {
+                "_id": review._id,
+                "title": review.title,
+                "description": review.description,
+                "timestamp": new Date(),
+                "movieId": review.movieId,
+                "userId": review.userId,
+                "commentIds": review.commentIds
+            };
+            callback(reviews[reviewIndex]);
+        }
+
+        function findReviewIndexByReviewId(reviewId)
+        {
+            var index = 0;
+            for (var i = 0; i < reviews.length; i++) {
+                if(reviews[i]._id === reviewId) {
+                    return index;
+                }
+                index++;
+            }
         }
     }
 
