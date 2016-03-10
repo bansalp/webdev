@@ -6,6 +6,7 @@
 
     function DetailsController($scope, $stateParams, MovieService, ReviewService) {
         $scope.movieId = $stateParams.movieId;
+        $scope.addReview = addReview;
 
         MovieService.getImageURL(function (response) {
             $scope.imageUrl = response;
@@ -25,6 +26,13 @@
         function findAllReviewsByMovieId(movieId) {
             ReviewService.findAllReviewsByMovieId(parseInt(movieId), function (response) {
                 $scope.reviews = response;
+            });
+        }
+
+        function addReview(review)
+        {
+            ReviewService.addReview(review, parseInt($scope.movieId), function (response) {
+                findAllReviewsByMovieId($scope.movieId);
             });
         }
     }
