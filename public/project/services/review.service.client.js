@@ -66,7 +66,7 @@
                 "commentIds": []
             };
             reviews.unshift(newReview);
-            callback(true);
+            callback();
         }
 
         function updateReview(review, callback)

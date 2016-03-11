@@ -10,6 +10,7 @@
         $scope.selectReview = selectReview;
         $scope.updateReview = updateReview;
         $scope.deleteReview = deleteReview;
+        $scope.cancelReview = cancelReview;
 
         MovieService.getImageURL(function (response) {
             $scope.imageUrl = response;
@@ -37,7 +38,7 @@
         }
 
         function addReview(review) {
-            ReviewService.addReview(review, $scope.movieId, function (response) {
+            ReviewService.addReview(review, $scope.movieId, function () {
                 $scope.selectedIndex = -1;
                 $scope.review = {};
                 findAllReviewsByMovieId($scope.movieId);
@@ -45,7 +46,8 @@
         }
 
         function selectReview(index) {
-            var selectedReview = {
+            $scope.selectedIndex = index;
+            var editReview = {
                 "_id": $scope.reviews[index]["_id"],
                 "title": $scope.reviews[index]["title"],
                 "description": $scope.reviews[index]["description"],
@@ -53,10 +55,8 @@
                 "movieId": $scope.reviews[index]["movieId"],
                 "userId": $scope.reviews[index]["userId"],
                 "commentIds": $scope.reviews[index]["commentIds"]
-            };
-
-            $scope.selectedIndex = index;
-            $scope.review = selectedReview;
+            }
+            $scope.editReview = editReview;
         }
 
         function updateReview(review) {
@@ -74,6 +74,10 @@
                 $scope.review = {};
                 findAllReviewsByMovieId($scope.movieId);
             });
+        }
+
+        function cancelReview() {
+            $scope.selectedIndex = -1;
         }
     }
 

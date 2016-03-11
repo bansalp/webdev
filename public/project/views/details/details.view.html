@@ -46,7 +46,6 @@
                               ng-model="review.description"></textarea>
                 </div>
                 <a href="" class="btn btn-success" ng-click="addReview(review)" role="button">Submit</a>
-                <a href="" class="btn btn-primary" ng-click="updateReview(review)" role="button">Update</a>
             </form>
         </div>
     </div>
@@ -64,12 +63,27 @@
                 <i class="fa fa-star-o fa-2x"></i>
             </p>
 
-            <h3 class="media-heading">{{review.title}}
-                <small>{{review.timestamp | date : 'medium'}}</small>
-            </h3>
-            <p>
-                {{review.description}}
-            </p>
+            <form ng-if="selectedIndex === $index">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Please enter title of the review"
+                           ng-model="editReview.title"/>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" rows="3" placeholder="Please enter description of the review"
+                              ng-model="editReview.description"></textarea>
+                </div>
+                <a href="" class="btn btn-success" ng-click="updateReview(editReview)" role="button">Update</a>
+                <a href="" class="btn btn-danger" ng-click="cancelReview()" role="button">Cancel</a>
+            </form>
+
+            <div ng-hide="selectedIndex === $index">
+                <h3 class="media-heading">{{review.title}}
+                    <small>{{review.timestamp | date : 'medium'}}</small>
+                </h3>
+                <p>
+                    {{review.description}}
+                </p>
+            </div>
             <a href="" ng-click="selectReview($index)" class="btn btn-warning" role="button">Select</a>
             <a href="" ng-click="deleteReview($index)" class="btn btn-danger" role="button">Delete</a>
         </div>
