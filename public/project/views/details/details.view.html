@@ -84,8 +84,12 @@
                     {{review.description}}
                 </p>
             </div>
-            <a href="" ng-click="selectReview($index)" class="btn btn-warning" role="button">Select</a>
-            <a href="" ng-click="deleteReview($index)" class="btn btn-danger" role="button">Delete</a>
+
+            <div class="btn-group-md pull-right">
+                <a href="" ng-if="selectedIndex !== $index" ng-click="selectReview($index)" class="btn btn-warning"
+                   role="button">Select</a>
+                <a href="" ng-click="deleteReview($index)" class="btn btn-danger" role="button">Delete</a>
+            </div>
         </div>
     </div>
 
