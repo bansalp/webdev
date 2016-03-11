@@ -26,6 +26,157 @@
     <div class="panel-heading">
         <h3 class="panel-title">Customer Reviews</h3>
     </div>
+
+    <div ng-repeat="review in reviews">
+        <div class="panel-body">
+            <div ng-if="selectedIndex === $index">
+                <p>
+                    <i class="fa fa-star-o fa-2x"></i>
+                    <i class="fa fa-star-o fa-2x"></i>
+                    <i class="fa fa-star-o fa-2x"></i>
+                    <i class="fa fa-star-o fa-2x"></i>
+                    <i class="fa fa-star-o fa-2x"></i>
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Please enter title of the review"
+                               ng-model="editReview.title"/>
+                    </div>
+                    <div class="form-group">
+                    <textarea class="form-control" rows="3" placeholder="Please enter description of the review"
+                              ng-model="editReview.description"></textarea>
+                    </div>
+                    <a href="" class="btn btn-success" ng-click="updateReview(editReview)" role="button">Update</a>
+                    <a href="" class="btn btn-danger" ng-click="cancelReview()" role="button">Cancel</a>
+                </form>
+            </div>
+
+            <div class="media" ng-hide="selectedIndex === $index">
+                <a class="pull-left" href="#">
+                    <img class="media-object" src="http://placehold.it/64x64" alt="">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">{{review.title}}
+                        <small>
+                        <span>
+                            <i class="fa fa-star-o fa-1x"></i>
+                            <i class="fa fa-star-o fa-1x"></i>
+                            <i class="fa fa-star-o fa-1x"></i>
+                            <i class="fa fa-star-o fa-1x"></i>
+                            <i class="fa fa-star-o fa-1x"></i>
+                        </span>
+                        </small>
+                    </h4>
+                    <h4 class="media-heading">
+                        <small>By <a href="">FirstName</a> on {{review.timestamp | date : 'mediumDate'}}</small>
+                    </h4>
+                    <p class="text-justify">
+                        {{review.description}}
+                    </p>
+                </div>
+            </div>
+
+            <div class="btn-group-md pull-right">
+                <a href="" ng-if="selectedIndex !== $index" ng-click="selectReview($index)" class="btn btn-warning"
+                   role="button">Select</a>
+                <a href="" ng-click="deleteReview($index)" class="btn btn-danger" role="button">Delete</a>
+            </div>
+        </div>
+
+        <!--<hr>-->
+        <!--<hr>-->
+
+        <!--<div class="panel-body">-->
+        <!--<p>-->
+        <!--<i class="fa fa-star-o fa-2x"></i>-->
+        <!--<i class="fa fa-star-o fa-2x"></i>-->
+        <!--<i class="fa fa-star-o fa-2x"></i>-->
+        <!--<i class="fa fa-star-o fa-2x"></i>-->
+        <!--<i class="fa fa-star-o fa-2x"></i>-->
+        <!--</p>-->
+
+        <!--<form ng-if="selectedIndex === $index">-->
+        <!--<div class="form-group">-->
+        <!--<input type="text" class="form-control" placeholder="Please enter title of the review"-->
+        <!--ng-model="editReview.title"/>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+        <!--<textarea class="form-control" rows="3" placeholder="Please enter description of the review"-->
+        <!--ng-model="editReview.description"></textarea>-->
+        <!--</div>-->
+        <!--<a href="" class="btn btn-success" ng-click="updateReview(editReview)" role="button">Update</a>-->
+        <!--<a href="" class="btn btn-danger" ng-click="cancelReview()" role="button">Cancel</a>-->
+        <!--</form>-->
+
+        <!--<div ng-hide="selectedIndex === $index">-->
+        <!--<h3 class="media-heading">{{review.title}}-->
+        <!--<small>{{review.timestamp | date : 'mediumDate'}}</small>-->
+        <!--</h3>-->
+        <!--<p>-->
+        <!--{{review.description}}-->
+        <!--</p>-->
+        <!--</div>-->
+
+        <!--<div class="btn-group-md pull-right">-->
+        <!--<a href="" ng-if="selectedIndex !== $index" ng-click="selectReview($index)" class="btn btn-warning"-->
+        <!--role="button">Select</a>-->
+        <!--<a href="" ng-click="deleteReview($index)" class="btn btn-danger" role="button">Delete</a>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--<hr>-->
+        <!--<hr>-->
+
+        <!--<div class="panel-body">-->
+        <!--<div class="media">-->
+        <!--<a class="pull-left" href="#">-->
+        <!--<img class="media-object" src="http://placehold.it/64x64" alt="">-->
+        <!--</a>-->
+        <!--<div class="media-body">-->
+        <!--<h4 class="media-heading">Lorem Ipsum-->
+        <!--<small>-->
+        <!--<span>-->
+        <!--<i class="fa fa-star-o fa-1x"></i>-->
+        <!--<i class="fa fa-star-o fa-1x"></i>-->
+        <!--<i class="fa fa-star-o fa-1x"></i>-->
+        <!--<i class="fa fa-star-o fa-1x"></i>-->
+        <!--<i class="fa fa-star-o fa-1x"></i>-->
+        <!--</span>-->
+        <!--</small>-->
+        <!--</h4>-->
+        <!--<h4 class="media-heading">-->
+        <!--<small>By <a href="">FirstName</a> on Mar 10, 2016</small>-->
+        <!--</h4>-->
+        <!--<p>-->
+        <!--Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo.-->
+        <!--Cras-->
+        <!--purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi-->
+        <!--vulputate-->
+        <!--fringilla. Donec lacinia congue felis in faucibus.-->
+        <!--</p>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="media">-->
+        <!--<a class="pull-left" href="#">-->
+        <!--<img class="media-object" src="http://placehold.it/64x64" alt="">-->
+        <!--</a>-->
+        <!--<div class="media-body">-->
+        <!--<h4 class="media-heading">Leave a comment:-->
+        <!--</h4>-->
+        <!--<form role="form">-->
+        <!--<div class="form-group">-->
+        <!--<textarea class="form-control" rows="1"></textarea>-->
+        <!--</div>-->
+        <!--<button type="submit" class="btn btn-primary">Submit</button>-->
+        <!--</form>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <hr class="nomargin">
+    </div>
+
     <div class="panel-body">
         <div class="well">
             <h4>Write a Review:</h4>
@@ -49,118 +200,4 @@
             </form>
         </div>
     </div>
-
-    <div ng-repeat="review in reviews">
-        <hr>
-        <hr>
-
-        <div class="panel-body">
-            <p>
-                <i class="fa fa-star-o fa-2x"></i>
-                <i class="fa fa-star-o fa-2x"></i>
-                <i class="fa fa-star-o fa-2x"></i>
-                <i class="fa fa-star-o fa-2x"></i>
-                <i class="fa fa-star-o fa-2x"></i>
-            </p>
-
-            <form ng-if="selectedIndex === $index">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Please enter title of the review"
-                           ng-model="editReview.title"/>
-                </div>
-                <div class="form-group">
-                    <textarea class="form-control" rows="3" placeholder="Please enter description of the review"
-                              ng-model="editReview.description"></textarea>
-                </div>
-                <a href="" class="btn btn-success" ng-click="updateReview(editReview)" role="button">Update</a>
-                <a href="" class="btn btn-danger" ng-click="cancelReview()" role="button">Cancel</a>
-            </form>
-
-            <div ng-hide="selectedIndex === $index">
-                <h3 class="media-heading">{{review.title}}
-                    <small>{{review.timestamp | date : 'medium'}}</small>
-                </h3>
-                <p>
-                    {{review.description}}
-                </p>
-            </div>
-
-            <div class="btn-group-md pull-right">
-                <a href="" ng-if="selectedIndex !== $index" ng-click="selectReview($index)" class="btn btn-warning"
-                   role="button">Select</a>
-                <a href="" ng-click="deleteReview($index)" class="btn btn-danger" role="button">Delete</a>
-            </div>
-        </div>
-    </div>
-
-    <!--<hr>-->
-    <!--<hr>-->
-
-    <!--<div class="panel-body">-->
-    <!--<p>-->
-    <!--<i class="fa fa-star-o fa-2x"></i>-->
-    <!--<i class="fa fa-star-o fa-2x"></i>-->
-    <!--<i class="fa fa-star-o fa-2x"></i>-->
-    <!--<i class="fa fa-star-o fa-2x"></i>-->
-    <!--<i class="fa fa-star-o fa-2x"></i>-->
-    <!--</p>-->
-
-    <!--<h3 class="media-heading">Lorem Ipsum-->
-    <!--<small>August 25, 2014 at 9:30 PM</small>-->
-    <!--</h3>-->
-    <!--<p>-->
-    <!--Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the-->
-    <!--industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and-->
-    <!--scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into-->
-    <!--electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of-->
-    <!--Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like-->
-    <!--Aldus PageMaker including versions of Lorem Ipsum.-->
-    <!--</p>-->
-
-    <!--<hr>-->
-
-    <!--<div class="media">-->
-    <!--<a class="pull-left" href="#">-->
-    <!--<img class="media-object" src="http://placehold.it/64x64" alt="">-->
-    <!--</a>-->
-    <!--<div class="media-body">-->
-    <!--<h4 class="media-heading">Start Bootstrap-->
-    <!--<small>August 25, 2014 at 9:30 PM</small>-->
-    <!--</h4>-->
-    <!--Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras-->
-    <!--purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate-->
-    <!--fringilla. Donec lacinia congue felis in faucibus.-->
-    <!--</div>-->
-    <!--</div>-->
-
-    <!--<div class="media">-->
-    <!--<a class="pull-left" href="#">-->
-    <!--<img class="media-object" src="http://placehold.it/64x64" alt="">-->
-    <!--</a>-->
-    <!--<div class="media-body">-->
-    <!--<h4 class="media-heading">Start Bootstrap-->
-    <!--<small>August 25, 2014 at 9:30 PM</small>-->
-    <!--</h4>-->
-    <!--Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras-->
-    <!--purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate-->
-    <!--fringilla. Donec lacinia congue felis in faucibus.-->
-    <!--</div>-->
-    <!--</div>-->
-
-    <!--<div class="media">-->
-    <!--<a class="pull-left" href="#">-->
-    <!--<img class="media-object" src="http://placehold.it/64x64" alt="">-->
-    <!--</a>-->
-    <!--<div class="media-body">-->
-    <!--<h4 class="media-heading">Leave a comment:-->
-    <!--</h4>-->
-    <!--<form role="form">-->
-    <!--<div class="form-group">-->
-    <!--<textarea class="form-control" rows="1"></textarea>-->
-    <!--</div>-->
-    <!--<button type="submit" class="btn btn-primary">Submit</button>-->
-    <!--</form>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
 </div>

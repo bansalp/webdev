@@ -58,3 +58,7 @@ body {
 .nowrap {
     white-space: nowrap;
 }
+
+.nomargin {
+    margin: 0px;
+}
