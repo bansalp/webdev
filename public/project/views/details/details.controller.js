@@ -4,13 +4,14 @@
         .module("MovieTimeApp")
         .controller("DetailsController", DetailsController);
 
-    function DetailsController($scope, $stateParams, MovieService, ReviewService) {
+    function DetailsController($scope, $stateParams, MovieService, ReviewService, UserService) {
         $scope.movieId = parseInt($stateParams.movieId);
         $scope.addReview = addReview;
         $scope.selectReview = selectReview;
         $scope.updateReview = updateReview;
         $scope.deleteReview = deleteReview;
         $scope.cancelReview = cancelReview;
+        $scope.findUserFirstNameByUserId = findUserFirstNameByUserId;
 
         MovieService.getImageURL(function (response) {
             $scope.imageUrl = response;
@@ -78,6 +79,16 @@
 
         function cancelReview() {
             $scope.selectedIndex = -1;
+        }
+
+        function findUserFirstNameByUserId(userId)
+        {
+            var userFirstName;
+            UserService.findUserFirstNameByUserId(userId, function(response){
+                userFirstName = response;
+            });
+
+            return userFirstName;
         }
     }
 

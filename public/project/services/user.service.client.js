@@ -32,6 +32,7 @@
             findUserByCredentials: findUserByCredentials,
             findAllUsers: findAllUsers,
             findUserByIndex: findUserByIndex,
+            findUserFirstNameByUserId: findUserFirstNameByUserId,
             createUser: createUser,
             deleteUserById: deleteUserById,
             updateUserById: updateUserById
@@ -121,6 +122,15 @@
             }
 
             return user;
+        }
+
+        function findUserFirstNameByUserId(userId, callback)
+        {
+            for (var i = 0; i < users.length; i++) {
+                if (users[i]._id === userId) {
+                    callback(users[i].firstName);
+                }
+            }
         }
     }
 

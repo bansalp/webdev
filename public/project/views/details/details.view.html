@@ -66,7 +66,7 @@
                         </small>
                     </h4>
                     <h4 class="media-heading">
-                        <small>By <a href="">FirstName</a> on {{review.timestamp | date : 'mediumDate'}}</small>
+                        <small>By <a href="">{{findUserFirstNameByUserId(review.userId)}}</a> on {{review.timestamp | date : 'mediumDate'}}</small>
                     </h4>
                     <p class="text-justify">
                         {{review.description}}
