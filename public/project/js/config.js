@@ -30,7 +30,8 @@
             })
             .state("register", {
                 url: "/register",
-                templateUrl: "views/users/register/register.view.html"
+                templateUrl: "views/users/register/register.view.html",
+                controller: "RegisterController"
             })
             .state("profile", {
                 views: {

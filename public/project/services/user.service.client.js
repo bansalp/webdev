@@ -4,7 +4,7 @@
         .module("MovieTimeApp")
         .factory("UserService", UserService);
 
-    function UserService() {
+    function UserService($rootScope) {
         var users = [
             {
                 "_id": 123, "firstName": "Alice", "lastName": "Wonderland",
@@ -33,9 +33,12 @@
             findAllUsers: findAllUsers,
             findUserByIndex: findUserByIndex,
             findUserFirstNameByUserId: findUserFirstNameByUserId,
+            findUserByUsername: findUserByUsername,
             createUser: createUser,
             deleteUserById: deleteUserById,
-            updateUserById: updateUserById
+            updateUserById: updateUserById,
+            setCurrentUser: setCurrentUser,
+            getCurrentUser: getCurrentUser
         };
 
         return api;
@@ -63,6 +66,21 @@
             callback(user);
         }
 
+        function findUserByUsername(user, callback) {
+            var currUser = null;
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].username === user.username) {
+                    currUser = users[i];
+                }
+            }
+
+            if (currUser != null) {
+                callback(null);
+            } else {
+                callback(user);
+            }
+        }
+
         function createUser(user, callback) {
             var id = (new Date).getTime();
 
@@ -73,10 +91,11 @@
                 "lastName": user.lastName,
                 "password": user.password,
                 "email": user.email,
-                "role": user.role
+                "role": "user"
             }
 
             users.push(newUser);
+            console.log(users);
             callback(newUser);
         }
 
@@ -124,13 +143,22 @@
             return user;
         }
 
-        function findUserFirstNameByUserId(userId, callback)
-        {
+        function findUserFirstNameByUserId(userId, callback) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i]._id === userId) {
                     callback(users[i].firstName);
                 }
             }
+        }
+
+        function setCurrentUser(user)
+        {
+            $rootScope.user = user;
+        }
+
+        function getCurrentUser()
+        {
+            return $rootScope.user;
         }
     }
 

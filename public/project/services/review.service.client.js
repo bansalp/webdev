@@ -5,7 +5,7 @@
         .factory("ReviewService", ReviewService);
 
 
-    function ReviewService() {
+    function ReviewService(UserService) {
         var reviews = [
             {
                 "_id": 1,
@@ -62,7 +62,7 @@
                 "description": review.description,
                 "timestamp": new Date(),
                 "movieId": movieId,
-                "userId": 123,
+                "userId": UserService.getCurrentUser()._id,
                 "commentIds": []
             };
             reviews.push(newReview);
