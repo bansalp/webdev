@@ -43,8 +43,8 @@
 
         return api;
 
-        function findUserByCredentials(username, password, callback) {
-            var user = getValidUser(username, password);
+        function findUserByCredentials(user, callback) {
+            var user = getValidUser(user.username, user.password);
             callback(user);
         }
 

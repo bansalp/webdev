@@ -1,21 +1,29 @@
 "use strict";
-(function() {
+(function () {
 
     angular
         .module("FormBuilderApp")
         .controller("LoginController", LoginController);
 
-    function LoginController($scope, $rootScope, $location, UserService) {
-        $scope.login = login;
+    function LoginController($location, UserService) {
+        var vm = this;
 
-        function login(username, password) {
-            UserService.findUserByCredentials(username, password, redirectUserToProfileIfValid);
+        vm.login = login;
+
+        function init() {
+
+        }
+
+        init();
+
+        function login(user) {
+            UserService.findUserByCredentials(user, redirectUserToProfileIfValid);
         }
 
         function redirectUserToProfileIfValid(user) {
-            if(user != null){
-                $rootScope.user = user;
-                $location.url("/profile")
+            if (user != null) {
+                UserService.setCurrentUser(user);
+                $location.url("/profile");
             }
         }
     }
