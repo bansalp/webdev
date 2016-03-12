@@ -1,31 +1,43 @@
 "use strict";
-(function() {
+(function () {
 
     angular
         .module("FormBuilderApp")
         .factory("UserService", UserService);
 
-    function UserService() {
+    function UserService($rootScope) {
         var users = [
-            {        "_id":123, "firstName":"Alice",            "lastName":"Wonderland",
-                "username":"alice",  "password":"alice",   "roles": ["student"]                },
-            {        "_id":234, "firstName":"Bob",              "lastName":"Hope",
-                "username":"bob",    "password":"bob",     "roles": ["admin"]                },
-            {        "_id":345, "firstName":"Charlie",          "lastName":"Brown",
-                "username":"charlie","password":"charlie", "roles": ["faculty"]                },
-            {        "_id":456, "firstName":"Dan",              "lastName":"Craig",
-                "username":"dan",    "password":"dan",     "roles": ["faculty", "admin"]},
-            {        "_id":567, "firstName":"Edward",           "lastName":"Norton",
-                "username":"ed",     "password":"ed",      "roles": ["student"]                }
+            {
+                "_id": 123, "firstName": "Alice", "lastName": "Wonderland",
+                "username": "alice", "password": "alice", "roles": ["student"]
+            },
+            {
+                "_id": 234, "firstName": "Bob", "lastName": "Hope",
+                "username": "bob", "password": "bob", "roles": ["admin"]
+            },
+            {
+                "_id": 345, "firstName": "Charlie", "lastName": "Brown",
+                "username": "charlie", "password": "charlie", "roles": ["faculty"]
+            },
+            {
+                "_id": 456, "firstName": "Dan", "lastName": "Craig",
+                "username": "dan", "password": "dan", "roles": ["faculty", "admin"]
+            },
+            {
+                "_id": 567, "firstName": "Edward", "lastName": "Norton",
+                "username": "ed", "password": "ed", "roles": ["student"]
+            }
         ];
 
         var api = {
-            findUserByCredentials : findUserByCredentials,
+            findUserByCredentials: findUserByCredentials,
             findUserByUsername: findUserByUsername,
-            findAllUsers : findAllUsers,
-            createUser : createUser,
-            deleteUserById : deleteUserById,
-            updateUser : updateUser
+            findAllUsers: findAllUsers,
+            createUser: createUser,
+            deleteUserById: deleteUserById,
+            updateUser: updateUser,
+            setCurrentUser: setCurrentUser,
+            getCurrentUser: getCurrentUser
         };
 
         return api;
@@ -36,17 +48,14 @@
         }
 
         function findUserByUsername(user, callback) {
-            console.log(user.username);
             var currUser = null;
             for (var i = 0; i < users.length; i++) {
-                if(users[i].username === user.username){
-                    currUser =  users[i];
-                    console.log(user.username + "user found");
+                if (users[i].username === user.username) {
+                    currUser = users[i];
                 }
             }
 
-            if(currUser != null) {
-                console.log("Sending Null");
+            if (currUser != null) {
                 callback(null);
             } else {
                 callback(user);
@@ -61,13 +70,13 @@
             var id = (new Date).getTime();
 
             var newUser = {
-                "_id" : id,
-                "firstName" : "",
-                "lastName" : "",
-                "username" : user.username,
-                "password" : user.password,
-                "email" : user.email,
-                "roles" : []
+                "_id": id,
+                "firstName": "",
+                "lastName": "",
+                "username": user.username,
+                "password": user.password,
+                "email": user.email,
+                "roles": []
             }
 
             users.push(newUser);
@@ -84,13 +93,13 @@
             var userIndex = getUserIndexById(userId);
 
             users[userIndex] = {
-                "_id" : user._id,
-                "firstName" : user.firstName,
-                "lastName" : user.lastName,
-                "username" : user.username,
-                "password" : user.password,
-                "roles" : user.roles,
-                "email" : user.email
+                "_id": user._id,
+                "firstName": user.firstName,
+                "lastName": user.lastName,
+                "username": user.username,
+                "password": user.password,
+                "roles": user.roles,
+                "email": user.email
             };
 
             callback(users[userIndex]);
@@ -100,7 +109,7 @@
             var index = 0;
 
             for (var i = 0; i < users.length; i++) {
-                if(users[i]._id === userId) {
+                if (users[i]._id === userId) {
                     return index;
                 }
 
@@ -112,12 +121,20 @@
             var user = null;
 
             for (var i = 0; i < users.length; i++) {
-                if(users[i].username === username && users[i].password === password){
+                if (users[i].username === username && users[i].password === password) {
                     user = users[i];
                 }
             }
 
             return user;
+        }
+
+        function setCurrentUser(user) {
+            $rootScope.user = user;
+        }
+
+        function getCurrentUser() {
+            return $rootScope.user;
         }
     }
 

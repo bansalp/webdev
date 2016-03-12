@@ -1,32 +1,37 @@
 "use strict";
-(function() {
+(function () {
 
     angular
         .module("FormBuilderApp")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($scope, $rootScope, $location, UserService) {
-        $scope.register = register;
+    function RegisterController($location, UserService) {
+        var vm = this;
+
+        vm.register = register;
+
+        function init() {
+
+        }
+
+        init();
 
         function register(user) {
-            console.log(user);
             UserService.findUserByUsername(user, doRegister);
         }
 
         function doRegister(user) {
             if (user != null) {
-                console.log(user);
                 UserService.createUser(user, redirectUserToProfileIfValid);
             } else {
-                console.log("User Already Exists");
                 alert("User Already Exists");
             }
         }
 
         function redirectUserToProfileIfValid(user) {
-            if(user != null){
-                $rootScope.user = user;
-                $location.url("/profile")
+            if (user != null) {
+                UserService.setCurrentUser(user);
+                $location.url("/profile");
             }
         }
     }

@@ -7,6 +7,7 @@
 
     function MainController($location) {
         var vm = this;
+
         vm.$location = $location;
 
         function init() {
