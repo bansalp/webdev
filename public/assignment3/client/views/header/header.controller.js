@@ -5,7 +5,7 @@
         .module("FormBuilderApp")
         .controller("HeaderController", HeaderController);
 
-    function HeaderController($rootScope, $location) {
+    function HeaderController($location, UserService) {
         var vm = this;
 
         vm.logOut = logOut;
@@ -17,7 +17,7 @@
         init();
 
         function logOut() {
-            delete $rootScope.user;
+            delete UserService.deleteCurrentUser();
             $location.url("/home");
         }
     }

@@ -24,7 +24,7 @@
                 <li ng-class="{'active': mainControllerModel.$location.url() == '/register'}" ng-show="user === undefined"><a href="#/register">Register</a></li>
                 <li ng-class="{'active': mainControllerModel.$location.url() == '/login'}" ng-show="user === undefined"><a href="#/login">Login</a></li>
                 <li ng-show="user"><a href="#/profile">{{user.username}}</a></li>
-                <li ng-show="user" ng-click="headerControllerModel.logOut()"><a href="#/home">Logout</a></li>
+                <li ng-show="user" ng-click="headerControllerModel.logOut()"><a href="">Logout</a></li>
             </ul>
         </div>
     </div>

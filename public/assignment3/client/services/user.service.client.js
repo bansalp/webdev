@@ -37,7 +37,8 @@
             deleteUserById: deleteUserById,
             updateUser: updateUser,
             setCurrentUser: setCurrentUser,
-            getCurrentUser: getCurrentUser
+            getCurrentUser: getCurrentUser,
+            deleteCurrentUser: deleteCurrentUser
         };
 
         return api;
@@ -135,6 +136,11 @@
 
         function getCurrentUser() {
             return $rootScope.user;
+        }
+
+        function deleteCurrentUser()
+        {
+            delete $rootScope.user;
         }
     }
 
