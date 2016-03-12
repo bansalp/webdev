@@ -1,12 +1,18 @@
 "use strict";
-(function() {
+(function () {
 
     angular
         .module("FormBuilderApp")
         .controller("SidebarController", SidebarController);
 
-    function SidebarController($scope, $location) {
+    function SidebarController() {
+        var vm = this;
 
+        function init() {
+
+        }
+
+        init();
     }
 
 })();

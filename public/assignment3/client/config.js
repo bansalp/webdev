@@ -26,14 +26,6 @@
                 templateUrl: "views/forms/forms.view.html",
                 controller: "FormController"
             })
-            .when("/header", {
-                templateUrl: "views/header/header.view.html",
-                controller: "HeaderController"
-            })
-            .when("/sidebar", {
-                templateUrl: "views/sidebar/sidebar.view.html",
-                controller: "SidebarController"
-            })
             .when("/admin", {
                 templateUrl: "views/admin/admin.view.html",
                 controller: "AdminController"

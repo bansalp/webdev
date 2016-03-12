@@ -1,12 +1,21 @@
 "use strict";
-(function() {
+(function () {
 
     angular
         .module("FormBuilderApp")
         .controller("HeaderController", HeaderController);
 
-    function HeaderController($scope, $rootScope, $location) {
-        $scope.logOut = logOut;
+    function HeaderController($rootScope, $location) {
+        var vm = this;
+
+        vm.logOut = logOut;
+
+        function init() {
+
+        }
+
+        init();
+
         function logOut() {
             delete $rootScope.user;
             $location.url("/home");
