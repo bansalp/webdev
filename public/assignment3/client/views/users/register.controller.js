@@ -17,19 +17,30 @@
         init();
 
         function register(user) {
-            UserService.findUserByUsername(user, doRegister);
+            UserService
+                .findUserByUsername(user.username)
+                .then(function (response) {
+                    var resUser = response.data;
+                    if (!resUser) {
+                        UserService
+                            .createUser(user)
+                            .then(function (res) {
+                                if (res.data) {
+                                    UserService
+                                        .findUserByUsername(user.username)
+                                        .then(redirectToProfile);
+                                }
+                            });
+                    }
+                    else {
+                        alert("User already exists");
+                    }
+                });
         }
 
-        function doRegister(user) {
-            if (user != null) {
-                UserService.createUser(user, redirectUserToProfileIfValid);
-            } else {
-                alert("User Already Exists");
-            }
-        }
-
-        function redirectUserToProfileIfValid(user) {
-            if (user != null) {
+        function redirectToProfile(response) {
+            var user = response.data;
+            if (user) {
                 UserService.setCurrentUser(user);
                 $location.url("/profile");
             }

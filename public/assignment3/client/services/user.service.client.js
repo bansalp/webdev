@@ -6,29 +6,6 @@
         .factory("UserService", UserService);
 
     function UserService($rootScope, $http) {
-        var users = [
-            {
-                "_id": 123, "firstName": "Alice", "lastName": "Wonderland",
-                "username": "alice", "password": "alice", "roles": ["student"]
-            },
-            {
-                "_id": 234, "firstName": "Bob", "lastName": "Hope",
-                "username": "bob", "password": "bob", "roles": ["admin"]
-            },
-            {
-                "_id": 345, "firstName": "Charlie", "lastName": "Brown",
-                "username": "charlie", "password": "charlie", "roles": ["faculty"]
-            },
-            {
-                "_id": 456, "firstName": "Dan", "lastName": "Craig",
-                "username": "dan", "password": "dan", "roles": ["faculty", "admin"]
-            },
-            {
-                "_id": 567, "firstName": "Edward", "lastName": "Norton",
-                "username": "ed", "password": "ed", "roles": ["student"]
-            }
-        ];
-
         var api = {
             findUserByCredentials: findUserByCredentials,
             findUserByUsername: findUserByUsername,
@@ -40,47 +17,22 @@
             getCurrentUser: getCurrentUser,
             deleteCurrentUser: deleteCurrentUser
         };
-
         return api;
 
         function findUserByCredentials(user) {
             return $http.post("/api/assignment/user", user);
         }
 
-        function findUserByUsername(user, callback) {
-            var currUser = null;
-            for (var i = 0; i < users.length; i++) {
-                if (users[i].username === user.username) {
-                    currUser = users[i];
-                }
-            }
-
-            if (currUser != null) {
-                callback(null);
-            } else {
-                callback(user);
-            }
+        function findUserByUsername(username) {
+            return $http.get("/api/assignment/user?username=" + username);
         }
 
         function findAllUsers(callback) {
             callback(users);
         }
 
-        function createUser(user, callback) {
-            var id = (new Date).getTime();
-
-            var newUser = {
-                "_id": id,
-                "firstName": "",
-                "lastName": "",
-                "username": user.username,
-                "password": user.password,
-                "email": user.email,
-                "roles": []
-            }
-
-            users.push(newUser);
-            callback(newUser);
+        function createUser(user) {
+            return $http.post("/api/assignment/user", user);
         }
 
         function deleteUserById(userId, callback) {
@@ -137,8 +89,7 @@
             return $rootScope.user;
         }
 
-        function deleteCurrentUser()
-        {
+        function deleteCurrentUser() {
             delete $rootScope.user;
         }
     }

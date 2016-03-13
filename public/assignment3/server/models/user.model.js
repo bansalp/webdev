@@ -46,14 +46,14 @@ module.exports = function () {
     function createUser(user) {
         user._id = "ID_" + (new Date()).getTime();
         mock.push(user);
-        return user;
+        return mock;
     }
 
     function updateUser(userId, newUser) {
         for (var u in mock) {
             if (mock[u]._id === userId) {
                 mock[u] = newUser;
-                return newUser;
+                return mock;
             }
         }
         return null;
