@@ -49,8 +49,8 @@
             callback(forms);
         }
 
-        function updateFormById(formId, newForm, callback) {
-            var index = getFormIndexById(formId);
+        function updateFormById(newForm, callback) {
+            var index = getFormIndexById(newForm._id);
             forms[index] = {
                 "_id" : newForm._id,
                 "title" : newForm.title,

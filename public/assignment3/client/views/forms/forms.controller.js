@@ -1,79 +1,82 @@
 "use strict";
-(function() {
+(function () {
 
     angular
         .module("FormBuilderApp")
         .controller("FormController", FormController);
 
-    function FormController($scope, $rootScope, $location, FormService) {
+    function FormController($scope, $rootScope, $location, FormService, UserService) {
+        var vm = this;
 
-        var loggedInUser = $rootScope.user;
-        var userId = -1;
+        vm.addForm = addForm;
+        vm.selectForm = selectForm;
+        vm.updateForm = updateForm;
+        vm.deleteForm = deleteForm;
 
-        if(loggedInUser === undefined) {
-            $location.url("/home");
-            return;
-        } else {
-            userId = loggedInUser._id;
-            updateFormsForCurrentUser();
+        function init() {
+            var loggedInUser = UserService.getCurrentUser();
+
+            if (loggedInUser === undefined) {
+                $location.url("/home");
+                return;
+            } else {
+                vm.user = loggedInUser;
+                vm.selected = -1;
+                updateFormsForCurrentUser();
+            }
         }
 
-        $scope.addForm = addForm;
-        $scope.updateForm = updateForm;
-        $scope.deleteForm = deleteForm;
-        $scope.selectForm = selectForm;
-        $scope.selected = -1;
-
+        init();
 
         function addForm(form) {
-            if(form == undefined || !form.hasOwnProperty("title") || form.title.trim() === "") {
+            if (form == undefined || !form.hasOwnProperty("title") || form.title.trim() === "") {
                 return;
             }
 
-            FormService.createFormForUser(userId, form, function(newForm) {
-                $scope.selected = -1;
-                $scope.form = {};
+            FormService.createFormForUser(vm.user._id, form, function (newForm) {
+                vm.selected = -1;
+                vm.form = {};
                 updateFormsForCurrentUser();
             });
         }
 
         function updateForm(form) {
-            if(form == undefined || !form.hasOwnProperty("title") || form.title.trim() === "") {
-                $scope.selected = -1;
-                $scope.form = {};
+            if (form == undefined || !form.hasOwnProperty("title") || form.title.trim() === "") {
+                vm.selected = -1;
+                vm.form = {};
                 return;
             }
 
-            FormService.updateFormById(form._id, form, function(newForm) {
-                $scope.forms[$scope.selected] = newForm;
-                $scope.selected = -1;
-                $scope.form = {};
+            FormService.updateFormById(form, function (newForm) {
+                vm.forms[vm.selected] = newForm;
+                vm.selected = -1;
+                vm.form = {};
             });
         }
 
         function deleteForm(index) {
             FormService.deleteFormById(
-                $scope.forms[index]._id,
-                function(udpatedForms) {
-                    $scope.selected = -1;
-                    $scope.form = {};
+                vm.forms[index]._id,
+                function (udpatedForms) {
+                    vm.selected = -1;
+                    vm.form = {};
                     updateFormsForCurrentUser();
                 });
         }
 
         function selectForm(index) {
             var editForm = {
-                "_id" : $scope.forms[index]["_id"],
-                "userId" : $scope.forms[index]["userId"],
-                "title" : $scope.forms[index]["title"]
+                "_id": vm.forms[index]["_id"],
+                "userId": vm.forms[index]["userId"],
+                "title": vm.forms[index]["title"]
             };
-            $scope.form = editForm;
-            $scope.selected = index;
+            vm.form = editForm;
+            vm.selected = index;
         }
 
         function updateFormsForCurrentUser() {
-            FormService.findAllFormsForUser(userId, function (formsByUserId) {
-                $scope.forms = formsByUserId;
+            FormService.findAllFormsForUser(vm.user._id, function (formsByUserId) {
+                vm.forms = formsByUserId;
             });
         }
     }

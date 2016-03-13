@@ -6,7 +6,7 @@
         <li><a href="#/home">Fields</a></li>
     </ul>
 
-    <div class="form-div" ng-controller="FormController">
+    <div class="form-div">
         <div class="form-div-inner">
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
@@ -19,18 +19,18 @@
                     <tbody>
                     <tr>
                         <td>
-                            <input type="text" class="form-control" id="formname" placeholder="name" ng-model="form.title">
+                            <input type="text" class="form-control" id="formname" placeholder="name" ng-model="formControllerModel.form.title">
                         </td>
                         <td>
-                            <a ng-click="addForm(form)"><span class="glyphicon glyphicon-plus plusicon pull-left" aria-hidden="true"></span></a>
-                            <a ng-click="updateForm(form)"><span class="glyphicon glyphicon-ok okicon pull-right" aria-hidden="true"></span></a>
+                            <a ng-click="formControllerModel.addForm(formControllerModel.form)"><span class="glyphicon glyphicon-plus plusicon pull-left" aria-hidden="true"></span></a>
+                            <a ng-click="formControllerModel.updateForm(formControllerModel.form)"><span class="glyphicon glyphicon-ok okicon pull-right" aria-hidden="true"></span></a>
                         </td>
                     </tr>
-                    <tr ng-repeat="form in forms" ng-class="{'selected-form': $index == selected}">
+                    <tr ng-repeat="form in formControllerModel.forms" ng-class="{'selected-form': $index == formControllerModel.selected}">
                         <td><a href="">{{form.title}}</a></td>
                         <td>
-                            <a ng-click="deleteForm($index)"><span class="glyphicon glyphicon-remove removeicon pull-left" aria-hidden="true"></span></a>
-                            <a ng-click="selectForm($index)"><span class="glyphicon glyphicon-pencil pencilicon pull-right" aria-hidden="true"></span></a>
+                            <a ng-click="formControllerModel.deleteForm($index)"><span class="glyphicon glyphicon-remove removeicon pull-left" aria-hidden="true"></span></a>
+                            <a ng-click="formControllerModel.selectForm($index)"><span class="glyphicon glyphicon-pencil pencilicon pull-right" aria-hidden="true"></span></a>
                         </td>
                     </tr>
                     </tbody>
