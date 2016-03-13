@@ -1,17 +1,22 @@
 "use strict";
-(function() {
+(function () {
 
     angular
         .module("FormBuilderApp")
         .controller("AdminController", AdminController);
 
-    function AdminController($scope, $rootScope, $location) {
-        var loggedInUser = $rootScope.user;
+    function AdminController($location, UserService) {
+        var vm = this;
 
-        if(loggedInUser === undefined) {
-            $location.url("/home");
-            return;
+        function init() {
+            var loggedInUser = UserService.getCurrentUser();
+            if (loggedInUser === undefined) {
+                $location.url("/home");
+                return;
+            }
         }
+
+        init();
     }
 
 })();
