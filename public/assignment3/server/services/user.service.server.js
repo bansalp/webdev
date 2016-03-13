@@ -3,7 +3,6 @@ module.exports = function (app, model) {
     //app.get("/api/assignment/user", findAllUsers);
     //app.get("/api/assignment/user/:id", findUserById);
     app.get("/api/assignment/user", findUser);
-    //app.get("/api/assignment/user?username=username&password=password", findUserByCredentials);
     //app.put("/api/assignment/user/:id", updateUser);
     //app.delete("/api/assignment/user/:id", deleteUser);
 
@@ -16,8 +15,20 @@ module.exports = function (app, model) {
 
     function findUser(req, res) {
         var reqUsername = req.query.username;
+        var reqPassword = req.query.password;
 
-        if (reqUsername) {
+        if (reqUsername != null && reqPassword != null) {
+            var credentials = {
+                "username": reqUsername,
+                "password": reqPassword
+            };
+            var user = model.findUserByCredentials(credentials);
+            if (user) {
+                req.session.currentUser = user;
+            }
+            res.json(user);
+        }
+        else if (reqUsername) {
             var user = model.findUserByUsername(reqUsername);
             res.json(user);
         }
@@ -31,17 +42,6 @@ module.exports = function (app, model) {
     function findUserById(req, res) {
         var reqUserId = req.params.id;
         var user = model.findUserById(reqUserId);
-        res.json(user);
-    }
-
-    function findUserByCredentials(req, res) {
-        var reqUsername = req.query.username;
-        var reqPassword = req.query.password;
-        var credentials = {
-            "username": reqUsername,
-            "password": reqPassword
-        };
-        var user = model.findUserByCredentials(credentials);
         res.json(user);
     }
 

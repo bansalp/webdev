@@ -19,15 +19,16 @@
         function login(user) {
             UserService
                 .findUserByCredentials(user)
-                .then(redirectUserToProfileIfValid);
-        }
-
-        function redirectUserToProfileIfValid(response) {
-            var user = response.data;
-            if (user != null) {
-                UserService.setCurrentUser(user);
-                $location.url("/profile");
-            }
+                .then(function (response) {
+                    var resUser = response.data;
+                    if (resUser) {
+                        UserService.setCurrentUser(resUser);
+                        $location.url("/profile");
+                    }
+                    else {
+                        alert("Wrong username or password!")
+                    }
+                });
         }
     }
 
