@@ -41,20 +41,8 @@
             callback(users);
         }
 
-        function updateUser(user, callback) {
-            var userIndex = getUserIndexById(user._id);
-
-            users[userIndex] = {
-                "_id": user._id,
-                "firstName": user.firstName,
-                "lastName": user.lastName,
-                "username": user.username,
-                "password": user.password,
-                "roles": user.roles,
-                "email": user.email
-            };
-
-            callback(users[userIndex]);
+        function updateUser(user) {
+            return $http.put("/api/assignment/user/" + user._id, user);
         }
 
         function getUserIndexById(userId) {

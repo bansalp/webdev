@@ -3,7 +3,7 @@ module.exports = function (app, model) {
     //app.get("/api/assignment/user", findAllUsers);
     //app.get("/api/assignment/user/:id", findUserById);
     app.get("/api/assignment/user", findUser);
-    //app.put("/api/assignment/user/:id", updateUser);
+    app.put("/api/assignment/user/:id", updateUser);
     //app.delete("/api/assignment/user/:id", deleteUser);
 
     function createUser(req, res) {
@@ -49,6 +49,8 @@ module.exports = function (app, model) {
         var reqUserId = req.params.id;
         var reqUser = req.body;
         var users = model.updateUser(reqUserId, reqUser);
+        console.log(users);
+        req.session.currentUser = reqUser;
         res.json(users);
     }
 

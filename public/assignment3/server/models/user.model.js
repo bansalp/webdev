@@ -51,7 +51,7 @@ module.exports = function () {
 
     function updateUser(userId, newUser) {
         for (var u in mock) {
-            if (mock[u]._id === userId) {
+            if (mock[u]._id == userId) {
                 mock[u] = newUser;
                 return mock;
             }
