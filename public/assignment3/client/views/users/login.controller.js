@@ -17,10 +17,13 @@
         init();
 
         function login(user) {
-            UserService.findUserByCredentials(user, redirectUserToProfileIfValid);
+            UserService
+                .findUserByCredentials(user)
+                .then(redirectUserToProfileIfValid);
         }
 
-        function redirectUserToProfileIfValid(user) {
+        function redirectUserToProfileIfValid(response) {
+            var user = response.data;
             if (user != null) {
                 UserService.setCurrentUser(user);
                 $location.url("/profile");

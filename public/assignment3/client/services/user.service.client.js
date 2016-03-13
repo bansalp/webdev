@@ -5,7 +5,7 @@
         .module("FormBuilderApp")
         .factory("UserService", UserService);
 
-    function UserService($rootScope) {
+    function UserService($rootScope, $http) {
         var users = [
             {
                 "_id": 123, "firstName": "Alice", "lastName": "Wonderland",
@@ -43,9 +43,8 @@
 
         return api;
 
-        function findUserByCredentials(user, callback) {
-            var user = getValidUser(user.username, user.password);
-            callback(user);
+        function findUserByCredentials(user) {
+            return $http.post("/api/assignment/user", user);
         }
 
         function findUserByUsername(user, callback) {
