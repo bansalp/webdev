@@ -8,17 +8,21 @@
     function HeaderController($location, UserService) {
         var vm = this;
 
-        vm.logOut = logOut;
+        vm.logout = logout;
 
         function init() {
-
+            
         }
 
         init();
 
-        function logOut() {
-            delete UserService.deleteCurrentUser();
-            $location.url("/home");
+        function logout() {
+            UserService
+                .logout()
+                .then(function () {
+                    UserService.setCurrentUser(null);
+                    $location.url("/home");
+                });
         }
     }
 

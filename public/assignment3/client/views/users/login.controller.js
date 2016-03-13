@@ -22,7 +22,7 @@
                 .then(function (response) {
                     var resUser = response.data;
                     if (resUser) {
-                        UserService.setCurrentUser(resUser);
+                        UserService.setCurrentUser(resUser.username);
                         $location.url("/profile");
                     }
                     else {

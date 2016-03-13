@@ -5,20 +5,27 @@
         .module("FormBuilderApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($location, UserService) {
+    function ProfileController(UserService) {
         var vm = this;
 
         vm.update = update;
 
         function init() {
-            var loggedInUser = UserService.getCurrentUser();
-            if (loggedInUser === undefined) {
-                $location.url("/home");
-                return;
-            }
-            else {
-                vm.user = loggedInUser;
-            }
+            UserService
+                .getCurrentUser()
+                .then(function (response) {
+                    var username = response.data;
+                    if (username) {
+                        UserService
+                            .findUserByUsername(username)
+                            .then(function (res) {
+                                var user = res.data;
+                                if (user) {
+                                    vm.user = user;
+                                }
+                            });
+                    }
+                });
         }
 
         init();
@@ -34,7 +41,6 @@
                             .then(function (res) {
                                 var resUser = res.data;
                                 if (resUser) {
-                                    UserService.setCurrentUser(resUser);
                                     vm.user = resUser;
                                 }
                             })
