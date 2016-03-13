@@ -1,24 +1,31 @@
 "use strict";
-(function() {
+(function () {
 
     angular
         .module("FormBuilderApp")
         .controller("ProfileController", ProfileController);
 
     function ProfileController($scope, $rootScope, $location, UserService) {
-        var loggedInUser = $rootScope.user;
+        var vm = this;
 
-        if(loggedInUser === undefined) {
-            $location.url("/home");
-            return;
+        vm.update = update;
+
+        function init() {
+            var loggedInUser = UserService.getCurrentUser();
+            if (loggedInUser === undefined) {
+                $location.url("/home");
+                return;
+            }
+            else {
+                vm.user = loggedInUser;
+            }
         }
 
-        $scope.user = loggedInUser;
-        $scope.update = update;
+        init();
 
         function update(user) {
-            UserService.updateUser(user._id, user, function(updatedUser) {
-                $rootScope.user = updatedUser;
+            UserService.updateUser(user, function (updatedUser) {
+                UserService.setCurrentUser(updatedUser);
             });
         }
     }

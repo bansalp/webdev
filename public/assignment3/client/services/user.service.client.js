@@ -90,8 +90,8 @@
             callback(users);
         }
 
-        function updateUser(userId, user, callback) {
-            var userIndex = getUserIndexById(userId);
+        function updateUser(user, callback) {
+            var userIndex = getUserIndexById(user._id);
 
             users[userIndex] = {
                 "_id": user._id,
