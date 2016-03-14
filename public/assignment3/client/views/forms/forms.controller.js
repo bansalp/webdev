@@ -5,7 +5,7 @@
         .module("FormBuilderApp")
         .controller("FormController", FormController);
 
-    function FormController($scope, $rootScope, $location, FormService, UserService) {
+    function FormController($location, FormService, UserService) {
         var vm = this;
 
         vm.addForm = addForm;
@@ -14,16 +14,28 @@
         vm.deleteForm = deleteForm;
 
         function init() {
-            var loggedInUser = UserService.getCurrentUser();
-
-            if (loggedInUser === undefined) {
-                $location.url("/home");
-                return;
-            } else {
-                vm.user = loggedInUser;
-                vm.selected = -1;
-                updateFormsForCurrentUser();
-            }
+            UserService
+                .getCurrentUser()
+                .then(function (response) {
+                    var username = response.data;
+                    if (username) {
+                        UserService
+                            .findUserByUsername(username)
+                            .then(function (res) {
+                                var user = res.data;
+                                if (user) {
+                                    vm.user = user;
+                                    vm.selected = -1;
+                                    FormService
+                                        .findFormByUserId(user._id)
+                                        .then(function (resp) {
+                                            var forms = resp.data;
+                                            vm.forms = forms;
+                                        });
+                                }
+                            });
+                    }
+                });
         }
 
         init();
@@ -32,12 +44,23 @@
             if (form == undefined || !form.hasOwnProperty("title") || form.title.trim() === "") {
                 return;
             }
-
-            FormService.createFormForUser(vm.user._id, form, function (newForm) {
-                vm.selected = -1;
-                vm.form = {};
-                updateFormsForCurrentUser();
-            });
+            FormService
+                .createForm(vm.user._id, form)
+                .then(function (response) {
+                    var forms = response.data;
+                    if (forms) {
+                        vm.selected = -1;
+                        vm.form = {};
+                        FormService
+                            .findFormByUserId(vm.user._id)
+                            .then(function (resp) {
+                                var resForms = resp.data;
+                                if (resForms) {
+                                    vm.forms = resForms;
+                                }
+                            });
+                    }
+                });
         }
 
         function updateForm(form) {

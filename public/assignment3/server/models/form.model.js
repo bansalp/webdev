@@ -5,6 +5,7 @@ module.exports = function () {
         findAllForms: findAllForms,
         findFormById: findFormById,
         findFormByTitle: findFormByTitle,
+        findFormByUserId: findFormByUserId,
         createForm: createForm,
         updateForm: updateForm,
         deleteForm: deleteForm
@@ -33,17 +34,25 @@ module.exports = function () {
         return null;
     }
 
-    function createForm(form) {
+    function findFormByUserId(userId) {
+        var forms = mock.filter(function (form, index, arr) {
+            return (form.userId == userId);
+        });
+        return forms;
+    }
+
+    function createForm(userId, form) {
         form._id = "ID_" + (new Date()).getTime();
+        form.userId = userId;
         mock.push(form);
-        return form;
+        return mock;
     }
 
     function updateForm(formId, newForm) {
         for (var f in mock) {
             if (mock[f]._id === formId) {
                 mock[f] = newForm;
-                return newForm;
+                return mock;
             }
         }
         return null;
