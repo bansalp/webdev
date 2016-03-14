@@ -36,27 +36,10 @@ module.exports = function (app, model) {
         res.json(user);
     }
 
-    function findAllUsers(req, res) {
-        var users = model.findAllUsers();
-        res.json(users);
-    }
-
-    function findUserById(req, res) {
-        var reqUserId = req.params.id;
-        var user = model.findUserById(reqUserId);
-        res.json(user);
-    }
-
     function updateUser(req, res) {
         var reqUserId = req.params.id;
         var reqUser = req.body;
         var users = model.updateUser(reqUserId, reqUser);
-        res.json(users);
-    }
-
-    function deleteUser(req, res) {
-        var reqUserId = req.params.id;
-        var users = model.deleteUser(reqUserId);
         res.json(users);
     }
 

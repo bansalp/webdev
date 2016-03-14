@@ -44,20 +44,36 @@
             if (form == undefined || !form.hasOwnProperty("title") || form.title.trim() === "") {
                 return;
             }
+
             FormService
-                .createForm(vm.user._id, form)
-                .then(function (response) {
-                    var forms = response.data;
-                    if (forms) {
-                        vm.selected = -1;
-                        vm.form = {};
-                        vm.forms = forms;
+                .findUserFormByTitle(vm.user._id, form.title)
+                .then(function (res) {
+                    var resForm = res.data;
+                    if (!resForm) {
+                        FormService
+                            .createForm(vm.user._id, form)
+                            .then(function (response) {
+                                var forms = response.data;
+                                if (forms) {
+                                    vm.selected = -1;
+                                    vm.form = {};
+                                    vm.forms = forms;
+                                }
+                            });
+                    } else {
+                        alert("Form with the same title already exists!");
                     }
                 });
         }
 
         function updateForm(form) {
             if (form == undefined || !form.hasOwnProperty("title") || form.title.trim() === "") {
+                vm.selected = -1;
+                vm.form = {};
+                return;
+            }
+            var selectedForm = vm.forms[vm.selected];
+            if (selectedForm.title == form.title) {
                 vm.selected = -1;
                 vm.form = {};
                 return;
@@ -70,14 +86,7 @@
                     if (forms) {
                         vm.selected = -1;
                         vm.form = {};
-                        FormService
-                            .findFormByUserId(vm.user._id)
-                            .then(function (resp) {
-                                var resForms = resp.data;
-                                if (resForms) {
-                                    vm.forms = resForms;
-                                }
-                            });
+                        vm.forms = forms;
                     }
                 });
         }

@@ -5,6 +5,7 @@ module.exports = function () {
         findAllForms: findAllForms,
         findFormById: findFormById,
         findFormByTitle: findFormByTitle,
+        findUserFormByTitle: findUserFormByTitle,
         findFormByUserId: findFormByUserId,
         createForm: createForm,
         updateForm: updateForm,
@@ -28,6 +29,15 @@ module.exports = function () {
     function findFormByTitle(title) {
         for (var f in mock) {
             if (mock[f].title === title) {
+                return mock[f];
+            }
+        }
+        return null;
+    }
+
+    function findUserFormByTitle(userId, title) {
+        for (var f in mock) {
+            if (mock[f].title === title && mock[f].userId == userId) {
                 return mock[f];
             }
         }
