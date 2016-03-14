@@ -80,13 +80,22 @@
             }
 
             FormService
-                .updateForm(form._id, form)
-                .then(function (response) {
-                    var forms = response.data;
-                    if (forms) {
-                        vm.selected = -1;
-                        vm.form = {};
-                        vm.forms = forms;
+                .findUserFormByTitle(vm.user._id, form.title)
+                .then(function (res) {
+                    var resForm = res.data;
+                    if (!resForm) {
+                        FormService
+                            .updateForm(form._id, form)
+                            .then(function (response) {
+                                var forms = response.data;
+                                if (forms) {
+                                    vm.selected = -1;
+                                    vm.form = {};
+                                    vm.forms = forms;
+                                }
+                            });
+                    } else {
+                        alert("Form with the same title already exists!");
                     }
                 });
         }
