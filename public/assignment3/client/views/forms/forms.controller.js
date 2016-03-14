@@ -78,12 +78,22 @@
         }
 
         function deleteForm(index) {
-            FormService.deleteFormById(
-                vm.forms[index]._id,
-                function (udpatedForms) {
-                    vm.selected = -1;
-                    vm.form = {};
-                    updateFormsForCurrentUser();
+            FormService
+                .deleteForm(vm.forms[index]._id)
+                .then(function (response) {
+                    var forms = response.data;
+                    if (forms) {
+                        vm.selected = -1;
+                        vm.form = {};
+                        FormService
+                            .findFormByUserId(vm.user._id)
+                            .then(function (res) {
+                                var resForms = res.data;
+                                if (resForms) {
+                                    vm.forms = resForms;
+                                }
+                            });
+                    }
                 });
         }
 

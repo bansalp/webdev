@@ -8,7 +8,8 @@
     function FormService($http) {
         var api = {
             findFormByUserId: findFormByUserId,
-            createForm: createForm
+            createForm: createForm,
+            deleteForm: deleteForm
         };
         return api;
 
@@ -18,6 +19,10 @@
 
         function createForm(userId, form) {
             return $http.post("/api/assignment/user/" + userId + "/form", form);
+        }
+
+        function deleteForm(formId) {
+            return $http.delete("/api/assignment/form/" + formId);
         }
     }
 
