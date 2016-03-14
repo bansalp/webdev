@@ -9,7 +9,8 @@
         var api = {
             findFormByUserId: findFormByUserId,
             createForm: createForm,
-            deleteForm: deleteForm
+            deleteForm: deleteForm,
+            updateForm: updateForm
         };
         return api;
 
@@ -23,6 +24,10 @@
 
         function deleteForm(formId) {
             return $http.delete("/api/assignment/form/" + formId);
+        }
+
+        function updateForm(formId, form) {
+            return $http.put("/api/assignment/form/" + formId, form);
         }
     }
 

@@ -70,11 +70,23 @@
                 return;
             }
 
-            FormService.updateFormById(form, function (newForm) {
-                vm.forms[vm.selected] = newForm;
-                vm.selected = -1;
-                vm.form = {};
-            });
+            FormService
+                .updateForm(form._id, form)
+                .then(function (response) {
+                    var forms = response.data;
+                    if (forms) {
+                        vm.selected = -1;
+                        vm.form = {};
+                        FormService
+                            .findFormByUserId(vm.user._id)
+                            .then(function (resp) {
+                                var resForms = resp.data;
+                                if (resForms) {
+                                    vm.forms = resForms;
+                                }
+                            });
+                    }
+                });
         }
 
         function deleteForm(index) {
@@ -105,12 +117,6 @@
             };
             vm.form = editForm;
             vm.selected = index;
-        }
-
-        function updateFormsForCurrentUser() {
-            FormService.findAllFormsForUser(vm.user._id, function (formsByUserId) {
-                vm.forms = formsByUserId;
-            });
         }
     }
 
