@@ -51,14 +51,7 @@
                     if (forms) {
                         vm.selected = -1;
                         vm.form = {};
-                        FormService
-                            .findFormByUserId(vm.user._id)
-                            .then(function (resp) {
-                                var resForms = resp.data;
-                                if (resForms) {
-                                    vm.forms = resForms;
-                                }
-                            });
+                        vm.forms = forms;
                     }
                 });
         }
@@ -97,14 +90,7 @@
                     if (forms) {
                         vm.selected = -1;
                         vm.form = {};
-                        FormService
-                            .findFormByUserId(vm.user._id)
-                            .then(function (res) {
-                                var resForms = res.data;
-                                if (resForms) {
-                                    vm.forms = resForms;
-                                }
-                            });
+                        vm.forms = forms;
                     }
                 });
         }

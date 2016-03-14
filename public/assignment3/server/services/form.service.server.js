@@ -19,21 +19,28 @@ module.exports = function (app, model) {
 
     function deleteForm(req, res) {
         var formId = req.params.formId;
-        var forms = model.deleteForm(formId);
+        var form = model.findFormById(formId);
+        var userId = form.userId;
+        model.deleteForm(formId);
+        findFormsByUserId(userId, res);
+    }
+
+    function findFormsByUserId(userId, res) {
+        var forms = model.findFormByUserId(userId);
         res.json(forms);
     }
 
     function createForm(req, res) {
         var userId = req.params.userId;
         var form = req.body;
-        var forms = model.createForm(userId, form);
-        res.json(forms);
+        model.createForm(userId, form);
+        findFormByUserId(req, res);
     }
 
     function updateForm(req, res) {
         var reqFormId = req.params.formId;
         var reqForm = req.body;
-        var forms = model.updateForm(reqFormId, reqForm);
-        res.json(forms);
+        model.updateForm(reqFormId, reqForm);
+        findFormsByUserId(reqForm.userId, res);
     }
 }
