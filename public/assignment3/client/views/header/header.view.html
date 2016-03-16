@@ -23,7 +23,7 @@
                 </li>
                 <li ng-class="{'active': mainControllerModel.$location.url() == '/register'}" ng-show="!user"><a href="#/register">Register</a></li>
                 <li ng-class="{'active': mainControllerModel.$location.url() == '/login'}" ng-show="!user"><a href="#/login">Login</a></li>
-                <li ng-show="user"><a href="#/profile">{{user}}</a></li>
+                <li ng-show="user"><a href="#/profile">{{user.username}}</a></li>
                 <li ng-show="user" ng-click="headerControllerModel.logout()"><a href="">Logout</a></li>
             </ul>
         </div>

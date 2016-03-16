@@ -14,16 +14,9 @@
             UserService
                 .getCurrentUser()
                 .then(function (response) {
-                    var username = response.data;
-                    if (username) {
-                        UserService
-                            .findUserByUsername(username)
-                            .then(function (res) {
-                                var user = res.data;
-                                if (user) {
-                                    vm.user = user;
-                                }
-                            });
+                    var user = response.data;
+                    if (user) {
+                        vm.user = user;
                     }
                 });
         }
@@ -43,7 +36,7 @@
                                 if (resUser) {
                                     vm.user = resUser;
                                 }
-                            })
+                            });
                     }
                     else {
                         alert("Error updating user information!")

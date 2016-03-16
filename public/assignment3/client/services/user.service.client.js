@@ -33,8 +33,8 @@
             return $http.put("/api/assignment/user/" + user._id, user);
         }
 
-        function setCurrentUser(username) {
-            $rootScope.user = username;
+        function setCurrentUser(user) {
+            $rootScope.user = user;
         }
 
         function getCurrentUser() {

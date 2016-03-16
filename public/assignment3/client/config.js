@@ -57,8 +57,8 @@
         UserService
             .getCurrentUser()
             .then(function (response) {
-                var username = response.data;
-                UserService.setCurrentUser(username);
+                var user = response.data;
+                UserService.setCurrentUser(user);
                 deferred.resolve();
             });
         return deferred.promise;
@@ -69,9 +69,9 @@
         UserService
             .getCurrentUser()
             .then(function (response) {
-                var username = response.data;
-                if (username) {
-                    UserService.setCurrentUser(username);
+                var user = response.data;
+                if (user) {
+                    UserService.setCurrentUser(user);
                     deferred.resolve();
                 } else {
                     deferred.reject();

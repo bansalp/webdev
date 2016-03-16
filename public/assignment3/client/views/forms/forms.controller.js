@@ -17,22 +17,15 @@
             UserService
                 .getCurrentUser()
                 .then(function (response) {
-                    var username = response.data;
-                    if (username) {
-                        UserService
-                            .findUserByUsername(username)
-                            .then(function (res) {
-                                var user = res.data;
-                                if (user) {
-                                    vm.user = user;
-                                    vm.selected = -1;
-                                    FormService
-                                        .findFormByUserId(user._id)
-                                        .then(function (resp) {
-                                            var forms = resp.data;
-                                            vm.forms = forms;
-                                        });
-                                }
+                    var user = response.data;
+                    if (user) {
+                        vm.user = user;
+                        vm.selected = -1;
+                        FormService
+                            .findFormByUserId(user._id)
+                            .then(function (resp) {
+                                var forms = resp.data;
+                                vm.forms = forms;
                             });
                     }
                 });

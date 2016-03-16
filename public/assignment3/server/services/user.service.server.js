@@ -12,7 +12,8 @@ module.exports = function (app, model) {
     function createUser(req, res) {
         var reqUser = req.body;
         var users = model.createUser(reqUser);
-        req.session.currentUser = reqUser.username;
+        var user = model.findUserByUsername(reqUser.username);
+        req.session.currentUser = user;
         res.json(users);
     }
 
@@ -25,7 +26,7 @@ module.exports = function (app, model) {
         };
         var user = model.findUserByCredentials(credentials);
         if (user) {
-            req.session.currentUser = user.username;
+            req.session.currentUser = user;
         }
         res.json(user);
     }
@@ -40,6 +41,8 @@ module.exports = function (app, model) {
         var reqUserId = req.params.id;
         var reqUser = req.body;
         var users = model.updateUser(reqUserId, reqUser);
+        var user = model.findUserByUsername(reqUser.username);
+        req.session.currentUser = user;
         res.json(users);
     }
 

@@ -41,7 +41,7 @@
         function redirectToProfile(response) {
             var user = response.data;
             if (user) {
-                UserService.setCurrentUser(user.username);
+                UserService.setCurrentUser(user);
                 $location.url("/profile");
             }
         }
