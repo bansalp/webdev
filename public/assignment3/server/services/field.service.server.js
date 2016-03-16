@@ -18,7 +18,7 @@ module.exports = function (app, model) {
         res.json(fields);
     }
 
-    function getFieldsForForm(req, res) {
+    function getFieldForForm(req, res) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
         var field = model.getFieldForForm(formId, fieldId);
