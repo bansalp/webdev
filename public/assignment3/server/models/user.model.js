@@ -8,7 +8,7 @@ module.exports = function (uuid) {
         findUserByCredentials: findUserByCredentials,
         createUser: createUser,
         updateUser: updateUser,
-        deleteUser: deleteUser
+        deleteUserById: deleteUserById
     };
     return api;
 
@@ -59,7 +59,7 @@ module.exports = function (uuid) {
         return null;
     }
 
-    function deleteUser(userId) {
+    function deleteUserById(userId) {
         var index = findIndexByUserId(userId);
         mock.splice(index, 1);
         return mock;

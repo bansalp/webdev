@@ -9,8 +9,10 @@
         var api = {
             findUserByCredentials: findUserByCredentials,
             findUserByUsername: findUserByUsername,
+            findAllUsers: findAllUsers,
             createUser: createUser,
             updateUser: updateUser,
+            deleteUserById: deleteUserById,
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
             logout: logout
@@ -25,12 +27,20 @@
             return $http.get("/api/assignment/userby?username=" + username);
         }
 
+        function findAllUsers() {
+            return $http.get("/api/assignment/user");
+        }
+
         function createUser(user) {
             return $http.post("/api/assignment/user", user);
         }
 
         function updateUser(user) {
             return $http.put("/api/assignment/user/" + user._id, user);
+        }
+
+        function deleteUserById(userId) {
+            return $http.delete("/api/assignment/user/" + userId);
         }
 
         function setCurrentUser(user) {
