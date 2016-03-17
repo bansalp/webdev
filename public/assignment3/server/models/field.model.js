@@ -3,6 +3,7 @@ var mock = require("./form.mock.json");
 module.exports = function (uuid) {
     var api = {
         createFieldForForm: createFieldForForm,
+        cloneFieldForForm: cloneFieldForForm,
         getFieldsForForm: getFieldsForForm,
         getFieldForForm: getFieldForForm,
         deleteFieldFromForm: deleteFieldFromForm,
@@ -19,6 +20,18 @@ module.exports = function (uuid) {
             form.fields = fields;
         }
         fields.push(field);
+        return fields;
+    }
+
+    function cloneFieldForForm(formId, field) {
+        var existingField = getFieldForForm(formId, field._id);
+        var jsonString = JSON.stringify(existingField);
+        var jsonStringNew = jsonString;
+        var newField = JSON.parse(jsonStringNew);
+        var fields = getFieldsForForm(formId);
+        var index = findIndexByFieldId(fields, existingField._id);
+        newField._id = uuid.v4();
+        fields.splice(index + 1, 0, newField);
         return fields;
     }
 
@@ -41,9 +54,9 @@ module.exports = function (uuid) {
     function getFieldForForm(formId, fieldId) {
         var fields = getFieldsForForm(formId);
         var field = fields.filter(function (fld, index, arr) {
-            return (fld._id == fieldId);
+            return (fld._id === fieldId);
         });
-        return field;
+        return field[0];
     }
 
     function deleteFieldFromForm(formId, fieldId) {

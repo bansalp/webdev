@@ -10,6 +10,7 @@
 
         vm.addField = addField;
         vm.removeField = removeField;
+        vm.cloneField = cloneField;
 
         var fieldTypesDefault = [
             {"_id": null, "label": "New Text Field", "type": "TEXT", "placeholder": "New Field"},
@@ -90,6 +91,25 @@
                     if (fields) {
                         vm.fields = fields;
                         vm.fieldType = -1;
+                    }
+                });
+        }
+
+        function cloneField(fieldId) {
+            FieldService
+                .getFieldForForm(vm.formId, fieldId)
+                .then(function (response) {
+                    var field = response.data;
+                    if (field) {
+                        FieldService
+                            .cloneFieldForForm(vm.formId, field)
+                            .then(function (res) {
+                                var fields = res.data;
+                                if (fields) {
+                                    vm.fields = fields;
+                                    vm.fieldType = -1;
+                                }
+                            });
                     }
                 });
         }

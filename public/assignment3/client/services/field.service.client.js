@@ -8,6 +8,7 @@
     function FieldService($http) {
         var api = {
             createFieldForForm: createFieldForForm,
+            cloneFieldForForm: cloneFieldForForm,
             getFieldsForForm: getFieldsForForm,
             getFieldForForm: getFieldForForm,
             deleteFieldFromForm: deleteFieldFromForm,
@@ -17,6 +18,10 @@
 
         function createFieldForForm(formId, field) {
             return $http.post("/api/assignment/form/" + formId + "/field", field);
+        }
+
+        function cloneFieldForForm(formId, field) {
+            return $http.post("/api/assignment/form/" + formId + "/field/clone", field);
         }
 
         function getFieldsForForm(formId) {
