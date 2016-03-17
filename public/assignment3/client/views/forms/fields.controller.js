@@ -9,7 +9,7 @@
         var vm = this;
 
         vm.addField = addField;
-        
+
         var fieldTypesDefault = [
             {"_id": null, "label": "New Text Field", "type": "TEXT", "placeholder": "New Field"},
             {"_id": null, "label": "New Text Field", "type": "TEXTAREA", "placeholder": "New Field"},
@@ -59,7 +59,16 @@
                 return;
             }
 
-            vm.fieldType = fieldType;
+            var newField = fieldTypesDefault[fieldType];
+            FieldService
+                .createFieldForForm(vm.formId, newField)
+                .then(function (response) {
+                    var fields = response.data;
+                    if (fields) {
+                        vm.fields = fields;
+                        vm.fieldType = -1;
+                    }
+                });
         }
     }
 

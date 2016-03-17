@@ -13,8 +13,22 @@ module.exports = function (uuid) {
     function createFieldForForm(formId, field) {
         var fields = getFieldsForForm(formId);
         field._id = uuid.v4();
+        if (!fields) {
+            fields = [];
+            var form = findFormById(formId);
+            form.fields = fields;
+        }
         fields.push(field);
         return fields;
+    }
+
+    function findFormById(formId) {
+        for (var f in mock) {
+            if (mock[f]._id === formId) {
+                return mock[f];
+            }
+        }
+        return null;
     }
 
     function getFieldsForForm(formId) {
