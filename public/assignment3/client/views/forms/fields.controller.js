@@ -9,6 +9,7 @@
         var vm = this;
 
         vm.addField = addField;
+        vm.removeField = removeField;
 
         var fieldTypesDefault = [
             {"_id": null, "label": "New Text Field", "type": "TEXT", "placeholder": "New Field"},
@@ -62,6 +63,18 @@
             var newField = fieldTypesDefault[fieldType];
             FieldService
                 .createFieldForForm(vm.formId, newField)
+                .then(function (response) {
+                    var fields = response.data;
+                    if (fields) {
+                        vm.fields = fields;
+                        vm.fieldType = -1;
+                    }
+                });
+        }
+
+        function removeField(fieldId) {
+            FieldService
+                .deleteFieldFromForm(vm.formId, fieldId)
                 .then(function (response) {
                     var fields = response.data;
                     if (fields) {
