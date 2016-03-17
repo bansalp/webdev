@@ -1,14 +1,14 @@
 module.exports = function (app, model) {
-    app.get("/api/assignment/user/:userId/form", findFormByUserId);
+    app.get("/api/assignment/user/:userId/form", findAllFormsForUser);
     app.get("/api/assignment/form/:formId", findFormById);
     app.get("/api/assignment/user/:userId/form/:formTitle", findUserFormByTitle);
-    app.delete("/api/assignment/form/:formId", deleteForm);
-    app.post("/api/assignment/user/:userId/form", createForm);
-    app.put("/api/assignment/form/:formId", updateForm);
+    app.delete("/api/assignment/form/:formId", deleteFormById);
+    app.post("/api/assignment/user/:userId/form", createFormForUser);
+    app.put("/api/assignment/form/:formId", updateFormById);
 
-    function findFormByUserId(req, res) {
+    function findAllFormsForUser(req, res) {
         var userId = req.params.userId;
-        var forms = model.findFormByUserId(userId);
+        var forms = model.findAllFormsForUser(userId);
         res.json(forms);
     }
 
@@ -25,30 +25,30 @@ module.exports = function (app, model) {
         res.json(form);
     }
 
-    function deleteForm(req, res) {
+    function deleteFormById(req, res) {
         var formId = req.params.formId;
         var form = model.findFormById(formId);
         var userId = form.userId;
-        model.deleteForm(formId);
+        model.deleteFormById(formId);
         findFormsByUserId(userId, res);
     }
 
-    function createForm(req, res) {
+    function createFormForUser(req, res) {
         var userId = req.params.userId;
         var form = req.body;
-        model.createForm(userId, form);
-        findFormByUserId(req, res);
+        model.createFormForUser(userId, form);
+        findAllFormsForUser(req, res);
     }
 
-    function updateForm(req, res) {
+    function updateFormById(req, res) {
         var reqFormId = req.params.formId;
         var reqForm = req.body;
-        model.updateForm(reqFormId, reqForm);
+        model.updateFormById(reqFormId, reqForm);
         findFormsByUserId(reqForm.userId, res);
     }
 
     function findFormsByUserId(userId, res) {
-        var forms = model.findFormByUserId(userId);
+        var forms = model.findAllFormsForUser(userId);
         res.json(forms);
     }
 }

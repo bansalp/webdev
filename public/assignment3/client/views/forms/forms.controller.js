@@ -5,13 +5,13 @@
         .module("FormBuilderApp")
         .controller("FormController", FormController);
 
-    function FormController($location, FormService, UserService) {
+    function FormController(FormService, UserService) {
         var vm = this;
 
-        vm.addForm = addForm;
+        vm.createFormForUser = createFormForUser;
         vm.selectForm = selectForm;
-        vm.updateForm = updateForm;
-        vm.deleteForm = deleteForm;
+        vm.updateFormById = updateFormById;
+        vm.deleteFormById = deleteFormById;
 
         function init() {
             UserService
@@ -22,7 +22,7 @@
                         vm.user = user;
                         vm.selected = -1;
                         FormService
-                            .findFormByUserId(user._id)
+                            .findAllFormsForUser(user._id)
                             .then(function (resp) {
                                 var forms = resp.data;
                                 vm.forms = forms;
@@ -33,7 +33,7 @@
 
         init();
 
-        function addForm(form) {
+        function createFormForUser(form) {
             if (form == undefined || !form.hasOwnProperty("title") || form.title.trim() === "") {
                 return;
             }
@@ -44,7 +44,7 @@
                     var resForm = res.data;
                     if (!resForm) {
                         FormService
-                            .createForm(vm.user._id, form)
+                            .createFormForUser(vm.user._id, form)
                             .then(function (response) {
                                 var forms = response.data;
                                 if (forms) {
@@ -59,7 +59,7 @@
                 });
         }
 
-        function updateForm(form) {
+        function updateFormById(form) {
             if (form == undefined || !form.hasOwnProperty("title") || form.title.trim() === "") {
                 vm.selected = -1;
                 vm.form = {};
@@ -78,7 +78,7 @@
                     var resForm = res.data;
                     if (!resForm) {
                         FormService
-                            .updateForm(form._id, form)
+                            .updateFormById(form._id, form)
                             .then(function (response) {
                                 var forms = response.data;
                                 if (forms) {
@@ -93,9 +93,9 @@
                 });
         }
 
-        function deleteForm(index) {
+        function deleteFormById(index) {
             FormService
-                .deleteForm(vm.forms[index]._id)
+                .deleteFormById(vm.forms[index]._id)
                 .then(function (response) {
                     var forms = response.data;
                     if (forms) {

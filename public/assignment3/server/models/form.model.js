@@ -6,10 +6,10 @@ module.exports = function (uuid) {
         findFormById: findFormById,
         findFormByTitle: findFormByTitle,
         findUserFormByTitle: findUserFormByTitle,
-        findFormByUserId: findFormByUserId,
-        createForm: createForm,
-        updateForm: updateForm,
-        deleteForm: deleteForm
+        findAllFormsForUser: findAllFormsForUser,
+        createFormForUser: createFormForUser,
+        updateFormById: updateFormById,
+        deleteFormById: deleteFormById
     };
     return api;
 
@@ -44,21 +44,21 @@ module.exports = function (uuid) {
         return null;
     }
 
-    function findFormByUserId(userId) {
+    function findAllFormsForUser(userId) {
         var forms = mock.filter(function (form, index, arr) {
             return (form.userId == userId);
         });
         return forms;
     }
 
-    function createForm(userId, form) {
+    function createFormForUser(userId, form) {
         form._id = uuid.v4();
         form.userId = userId;
         mock.push(form);
         return mock;
     }
 
-    function updateForm(formId, newForm) {
+    function updateFormById(formId, newForm) {
         for (var f in mock) {
             if (mock[f]._id === formId) {
                 mock[f] = newForm;
@@ -68,7 +68,7 @@ module.exports = function (uuid) {
         return null;
     }
 
-    function deleteForm(formId) {
+    function deleteFormById(formId) {
         var index = findIndexByFormId(formId);
         mock.splice(index, 1);
         return mock;
