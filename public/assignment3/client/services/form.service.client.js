@@ -9,6 +9,7 @@
         var api = {
             findAllFormsForUser: findAllFormsForUser,
             findUserFormByTitle: findUserFormByTitle,
+            findFormById: findFormById,
             createFormForUser: createFormForUser,
             deleteFormById: deleteFormById,
             updateFormById: updateFormById
@@ -21,6 +22,10 @@
 
         function findUserFormByTitle(userId, title) {
             return $http.get("/api/assignment/user/" + userId + "/form/" + title);
+        }
+
+        function findFormById(formId) {
+            return $http.get("/api/assignment/form/" + formId);
         }
 
         function createFormForUser(userId, form) {

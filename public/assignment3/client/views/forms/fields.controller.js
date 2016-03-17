@@ -5,7 +5,7 @@
         .module("FormBuilderApp")
         .controller("FieldController", FieldController);
 
-    function FieldController($routeParams, FieldService) {
+    function FieldController($routeParams, FormService, FieldService) {
         var vm = this;
 
         vm.addField = addField;
@@ -42,6 +42,16 @@
             vm.fieldTypes = ["Single Line Text Field", "Multi Line Text Field", "Date Field", "Dropdown Field", "Checkboxes Field", "Radio Buttons Field"];
             vm.fieldType = -1;
             vm.formId = $routeParams.formId;
+
+            FormService
+                .findFormById(vm.formId)
+                .then(function (response) {
+                    var form = response.data;
+                    if (form) {
+                        vm.formTitle = form.title;
+                    }
+                });
+
             FieldService
                 .getFieldsForForm(vm.formId)
                 .then(function (response) {
