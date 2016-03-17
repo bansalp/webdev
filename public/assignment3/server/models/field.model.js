@@ -21,7 +21,7 @@ module.exports = function (uuid) {
         var form = mock.filter(function (frm, index, arr) {
             return (frm._id == formId);
         });
-        return form.fields;
+        return form[0].fields;
     }
 
     function getFieldForForm(formId, fieldId) {
