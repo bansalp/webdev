@@ -3,7 +3,7 @@
 
     <ul class="nav nav-tabs">
         <li class="active"><a href="#/forms">Forms</a></li>
-        <li><a href="#/home">Fields</a></li>
+        <li><a href="">Fields</a></li>
     </ul>
 
     <div class="form-div">
@@ -27,7 +27,7 @@
                         </td>
                     </tr>
                     <tr ng-repeat="form in formControllerModel.forms" ng-class="{'selected-form': $index == formControllerModel.selected}">
-                        <td><a href="">{{form.title}}</a></td>
+                        <td><a href="#/form/{{form._id}}/fields">{{form.title}}</a></td>
                         <td>
                             <a ng-click="formControllerModel.deleteFormById($index)"><span class="glyphicon glyphicon-remove removeicon pull-left" aria-hidden="true"></span></a>
                             <a ng-click="formControllerModel.selectForm($index)"><span class="glyphicon glyphicon-pencil pencilicon pull-right" aria-hidden="true"></span></a>

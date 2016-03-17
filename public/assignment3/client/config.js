@@ -39,6 +39,14 @@
                     checkLoggedIn: checkLoggedIn
                 }
             })
+            .when("/form/:formId/fields", {
+                templateUrl: "views/forms/fields.view.html",
+                controller: "FieldController",
+                controllerAs: "fieldControllerModel",
+                resolve: {
+                    checkLoggedIn: checkLoggedIn
+                }
+            })
             .when("/admin", {
                 templateUrl: "views/admin/admin.view.html",
                 controller: "AdminController",
@@ -57,8 +65,8 @@
         UserService
             .getCurrentUser()
             .then(function (response) {
-                var user = response.data;
-                UserService.setCurrentUser(user);
+                var username = response.data;
+                UserService.setCurrentUser(username);
                 deferred.resolve();
             });
         return deferred.promise;
@@ -69,9 +77,10 @@
         UserService
             .getCurrentUser()
             .then(function (response) {
-                var user = response.data;
-                if (user) {
-                    UserService.setCurrentUser(user);
+                var username = response.data;
+
+                if (username) {
+                    UserService.setCurrentUser(username);
                     deferred.resolve();
                 } else {
                     deferred.reject();
