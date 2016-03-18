@@ -1,3 +1,4 @@
+"use strict";
 module.exports = function (app, model) {
     app.post("/api/assignment/form/:formId/field", createFieldForForm);
     app.post("/api/assignment/form/:formId/field/clone", cloneFieldForForm);
