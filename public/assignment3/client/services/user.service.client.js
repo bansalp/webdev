@@ -24,7 +24,7 @@
         }
 
         function findUserByUsername(username) {
-            return $http.get("/api/assignment/userby?username=" + username);
+            return $http.get("/api/assignment/user?username=" + username);
         }
 
         function findAllUsers() {

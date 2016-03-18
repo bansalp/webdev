@@ -13,7 +13,6 @@
         vm.updateField = updateField;
         vm.cloneField = cloneField;
         vm.editField = editField;
-        vm.reset = reset;
 
         var fieldTypesDefault = [
             {"_id": null, "label": "New Text Field", "type": "TEXT", "placeholder": "New Field"},
@@ -179,11 +178,6 @@
                 }
                 index++;
             }
-        }
-
-        function reset() {
-            vm.newField = null;
-            vm.newFieldType = null;
         }
     }
 
