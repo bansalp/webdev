@@ -98,7 +98,7 @@
         }
 
         function updateField(field) {
-            if (field.label != "") {
+            if (field.label.trim() != "") {
                 var flag = true;
                 if (vm.options) {
                     var optionsJson = getJSON(vm.options);
@@ -127,7 +127,7 @@
             var options = [];
             for (var u in optionsArr) {
                 var pairs = optionsArr[u].split(':');
-                if (pairs[0] != "" && pairs[1] != "") {
+                if (pairs[0].trim() != "" && pairs[1].trim() != "") {
                     var opt = {
                         "label": pairs[0],
                         "value": pairs[1]
@@ -135,7 +135,7 @@
                     options.push(opt);
                 }
                 else {
-                    return;
+                    return [];
                 }
             }
             return options;
