@@ -10,7 +10,10 @@
 
         vm.addField = addField;
         vm.removeField = removeField;
+        vm.updateField = updateField;
         vm.cloneField = cloneField;
+        vm.editField = editField;
+        vm.reset = reset;
 
         var fieldTypesDefault = [
             {"_id": null, "label": "New Text Field", "type": "TEXT", "placeholder": "New Field"},
@@ -95,6 +98,10 @@
                 });
         }
 
+        function updateField(field) {
+            console.log(field);
+        }
+
         function cloneField(fieldId) {
             FieldService
                 .getFieldForForm(vm.formId, fieldId)
@@ -112,6 +119,46 @@
                             });
                     }
                 });
+        }
+
+        function editField(field) {
+            var jsonString = JSON.stringify(field);
+            var jsonStringNew = jsonString;
+            var newField = JSON.parse(jsonStringNew);
+            var index = getFieldIndexInFieldTypesDefault(newField.type);
+            var newFieldType = vm.fieldTypes[index];
+            if (newField.options) {
+                var options = getArray(newField.options);
+                vm.options = options;
+                vm.rows = options.length;
+            }
+            vm.newFieldType = newFieldType;
+            vm.newField = newField;
+        }
+
+        function getArray(options) {
+            var optionsArr = [];
+            var opt = "";
+            for (var u in options) {
+                opt = options[u].label + ":" + options[u].value;
+                optionsArr.push(opt);
+            }
+            return optionsArr;
+        }
+
+        function getFieldIndexInFieldTypesDefault(fieldType) {
+            var index = 0;
+            for (var i = 0; i < fieldTypesDefault.length; i++) {
+                if (fieldTypesDefault[i].type === fieldType) {
+                    return index;
+                }
+                index++;
+            }
+        }
+
+        function reset() {
+            vm.newField = null;
+            vm.newFieldType = null;
         }
     }
 

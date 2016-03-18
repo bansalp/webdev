@@ -46,8 +46,10 @@
                         <div class="col-xs-6">
                             <div class="row">
                                 <div class="col-xs-1">
-                                    <a href="#"><span class="glyphicon glyphicon-pencil pencilicon pull-left"
-                                                      aria-hidden="true"></span></a>
+                                    <a href="" ng-click="fieldControllerModel.editField(field)" data-toggle="modal"
+                                       data-target="#myModal"><span
+                                            class="glyphicon glyphicon-pencil pencilicon pull-left"
+                                            aria-hidden="true"></span></a>
                                 </div>
                                 <div class="col-xs-1">
                                     <a href="" ng-click="fieldControllerModel.cloneField(field._id)"><span
@@ -101,6 +103,74 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="" ng-click="fieldControllerModel.reset()" class="close" data-dismiss="modal"
+                   aria-label="Close"><span
+                        aria-hidden="true">&times;</span></a>
+                <h4 class="modal-title" id="myModalLabel">{{fieldControllerModel.newFieldType}}</h4>
+            </div>
+            <div class="modal-body">
+                <form ng-switch="fieldControllerModel.newField.type">
+                    <div class="form-group">
+                        <label for="label">Label:</label>
+                        <input type="text" class="form-control" id="label"
+                               value="{{fieldControllerModel.newField.label}}"
+                               ng-model="fieldControllerModel.newField.label">
+                    </div>
+                    <div class="form-group" ng-switch-when="TEXT">
+                        <label for="placeholder">Placeholder:</label>
+                        <input type="text" class="form-control" id="placeholder"
+                               value="{{fieldControllerModel.newField.placeholder}}"
+                               ng-model="fieldControllerModel.newField.placeholder">
+                    </div>
+                    <div class="form-group" ng-switch-when="TEXTAREA">
+                        <label for="placeholder">Placeholder:</label>
+                        <input type="text" class="form-control" id="placeholder"
+                               value="{{fieldControllerModel.newField.placeholder}}"
+                               ng-model="fieldControllerModel.newField.placeholder">
+                    </div>
+                    <div class="form-group" ng-switch-when="OPTIONS">
+                        <label for="options">Options:</label>
+                        <textarea class="form-control" id="options"
+                                  ng-model="fieldControllerModel.options"
+                                  rows="{{fieldControllerModel.rows}}"
+                                  ng-list="&#10;"
+                                  ng-trim="false"></textarea>
+                    </div>
+                    <div class="form-group" ng-switch-when="CHECKBOXES">
+                        <label for="options">Options:</label>
+                        <textarea class="form-control" id="options"
+                                  ng-model="fieldControllerModel.options"
+                                  rows="{{fieldControllerModel.rows}}"
+                                  ng-list="&#10;"
+                                  ng-trim="false"></textarea>
+                    </div>
+                    <div class="form-group" ng-switch-when="RADIOS">
+                        <label for="options">Options:</label>
+                        <textarea class="form-control" id="options"
+                                  ng-model="fieldControllerModel.options"
+                                  rows="{{fieldControllerModel.rows}}"
+                                  ng-list="&#10;"
+                                  ng-trim="false"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="" ng-click="fieldControllerModel.reset()" class="btn btn-default"
+                   data-dismiss="modal">Close
+                </a>
+                <a href="" ng-click="fieldControllerModel.updateField(fieldControllerModel.newField)"
+                   class="btn btn-primary">Save changes
+                </a>
             </div>
         </div>
     </div>
