@@ -7,7 +7,7 @@
     </ul>
 
     <div class="form-div">
-        <div class="form-div-inner">
+        <div class="form-div-inner" field-sortable field-axis="y">
             <div ng-repeat="field in fieldControllerModel.fields">
                 <div class="row fieldrow">
                     <div class="row col-xs-12">
@@ -50,23 +50,27 @@
                                                       aria-hidden="true"></span></a>
                                 </div>
                                 <div class="col-xs-1">
-                                    <a href="" ng-click="fieldControllerModel.cloneField(field._id)"><span class="glyphicon glyphicon-plus plusicon pull-left"
-                                                      aria-hidden="true"></span></a>
+                                    <a href="" ng-click="fieldControllerModel.cloneField(field._id)"><span
+                                            class="glyphicon glyphicon-plus plusicon pull-left"
+                                            aria-hidden="true"></span></a>
                                 </div>
                                 <div class="col-xs-1">
-                                    <a href="" ng-click="fieldControllerModel.removeField(field._id)"><span class="glyphicon glyphicon-remove removeicon pull-left"
-                                                      aria-hidden="true"></span></a>
+                                    <a href="" ng-click="fieldControllerModel.removeField(field._id)"><span
+                                            class="glyphicon glyphicon-remove removeicon pull-left"
+                                            aria-hidden="true"></span></a>
                                 </div>
                                 <div class="col-xs-1">
-                                    <a href="#"><span class="glyphicon glyphicon-align-justify justifyicon pull-left"
-                                                      aria-hidden="true"></span></a>
+                                    <a href="#" class="sortHandle"><span
+                                            class="glyphicon glyphicon-align-justify justifyicon pull-left"
+                                            aria-hidden="true"></span></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
+        </div>
+        <div class="form-div-inner">
             <hr>
             <div class="row fieldrow">
                 <div class="row col-xs-12">

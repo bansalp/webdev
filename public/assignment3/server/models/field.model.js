@@ -7,7 +7,8 @@ module.exports = function (uuid) {
         getFieldsForForm: getFieldsForForm,
         getFieldForForm: getFieldForForm,
         deleteFieldFromForm: deleteFieldFromForm,
-        updateField: updateField
+        updateField: updateField,
+        reorderFields: reorderFields
     };
     return api;
 
@@ -81,5 +82,12 @@ module.exports = function (uuid) {
             }
             index++;
         }
+    }
+
+    function reorderFields(formId, start, end) {
+        var form = findFormById(formId);
+        var fields = form.fields;
+        fields.splice(end, 0, fields.splice(start, 1)[0]);
+        return fields;
     }
 }
