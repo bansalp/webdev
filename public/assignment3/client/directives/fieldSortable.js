@@ -27,7 +27,6 @@
                                 scope.fieldControllerModel.fields = fields;
                             }
                         });
-
                 }
             });
         }
