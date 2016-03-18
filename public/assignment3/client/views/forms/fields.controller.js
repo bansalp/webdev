@@ -98,30 +98,45 @@
         }
 
         function updateField(field) {
-            if (vm.options) {
-                var optionsJson = getJSON(vm.options);
-                field.options = optionsJson;
-
-            }
-
-            FieldService
-                .updateField(vm.formId, field._id, field)
-                .then(function (response) {
-                    if (response.data) {
-                        vm.fields = response.data;
+            if (field.label != "") {
+                var flag = true;
+                if (vm.options) {
+                    var optionsJson = getJSON(vm.options);
+                    if (optionsJson.length === 0) {
+                        flag = false;
+                        return;
                     }
-                });
+                    else {
+                        field.options = optionsJson;
+                    }
+                }
+
+                if (flag) {
+                    FieldService
+                        .updateField(vm.formId, field._id, field)
+                        .then(function (response) {
+                            if (response.data) {
+                                vm.fields = response.data;
+                            }
+                        });
+                }
+            }
         }
 
         function getJSON(optionsArr) {
             var options = [];
             for (var u in optionsArr) {
                 var pairs = optionsArr[u].split(':');
-                var opt = {
-                    "label": pairs[0],
-                    "value": pairs[1]
+                if (pairs[0] != "" && pairs[1] != "") {
+                    var opt = {
+                        "label": pairs[0],
+                        "value": pairs[1]
+                    }
+                    options.push(opt);
                 }
-                options.push(opt);
+                else {
+                    return;
+                }
             }
             return options;
         }

@@ -22,15 +22,15 @@
                             <input type="text" class="form-control" id="formname" placeholder="name" ng-model="formControllerModel.form.title">
                         </td>
                         <td>
-                            <a ng-click="formControllerModel.createFormForUser(formControllerModel.form)"><span class="glyphicon glyphicon-plus plusicon pull-left" aria-hidden="true"></span></a>
-                            <a ng-click="formControllerModel.updateFormById(formControllerModel.form)"><span class="glyphicon glyphicon-ok okicon pull-right" aria-hidden="true"></span></a>
+                            <a href="" ng-click="formControllerModel.createFormForUser(formControllerModel.form)"><span class="glyphicon glyphicon-plus plusicon pull-left" aria-hidden="true"></span></a>
+                            <a href="" ng-click="formControllerModel.updateFormById(formControllerModel.form)"><span class="glyphicon glyphicon-ok okicon pull-right" aria-hidden="true"></span></a>
                         </td>
                     </tr>
                     <tr ng-repeat="form in formControllerModel.forms" ng-class="{'selected-form': $index == formControllerModel.selected}">
                         <td><a href="#/form/{{form._id}}/fields">{{form.title}}</a></td>
                         <td>
-                            <a ng-click="formControllerModel.deleteFormById($index)"><span class="glyphicon glyphicon-remove removeicon pull-left" aria-hidden="true"></span></a>
-                            <a ng-click="formControllerModel.selectForm($index)"><span class="glyphicon glyphicon-pencil pencilicon pull-right" aria-hidden="true"></span></a>
+                            <a href="" ng-click="formControllerModel.deleteFormById($index)"><span class="glyphicon glyphicon-remove removeicon pull-left" aria-hidden="true"></span></a>
+                            <a href="" ng-click="formControllerModel.selectForm($index)"><span class="glyphicon glyphicon-pencil pencilicon pull-right" aria-hidden="true"></span></a>
                         </td>
                     </tr>
                     </tbody>
