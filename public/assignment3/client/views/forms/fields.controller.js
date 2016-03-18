@@ -99,7 +99,32 @@
         }
 
         function updateField(field) {
-            console.log(field);
+            if (vm.options) {
+                var optionsJson = getJSON(vm.options);
+                field.options = optionsJson;
+
+            }
+
+            FieldService
+                .updateField(vm.formId, field._id, field)
+                .then(function (response) {
+                    if (response.data) {
+                        vm.fields = response.data;
+                    }
+                });
+        }
+
+        function getJSON(optionsArr) {
+            var options = [];
+            for (var u in optionsArr) {
+                var pairs = optionsArr[u].split(':');
+                var opt = {
+                    "label": pairs[0],
+                    "value": pairs[1]
+                }
+                options.push(opt);
+            }
+            return options;
         }
 
         function cloneField(fieldId) {
