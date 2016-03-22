@@ -1,6 +1,6 @@
 (function () {
 
     angular
-        .module("MovieTimeApp", ["ngRoute", "ui.router"]);
+        .module("MovieTimeApp", ["ngRoute", "ui.router", "ngRating"]);
 
 })();

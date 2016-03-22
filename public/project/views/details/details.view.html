@@ -31,11 +31,9 @@
         <div class="panel-body">
             <div ng-if="selectedIndex === $index">
                 <p>
-                    <i class="fa fa-star-o fa-2x"></i>
-                    <i class="fa fa-star-o fa-2x"></i>
-                    <i class="fa fa-star-o fa-2x"></i>
-                    <i class="fa fa-star-o fa-2x"></i>
-                    <i class="fa fa-star-o fa-2x"></i>
+                    <ng-rating ng-model="editReview.rating"
+                               editable="true">
+                    </ng-rating>
                 </p>
                 <form>
                     <div class="form-group">
@@ -57,16 +55,17 @@
                     <h4 class="media-heading">{{review.title}}
                         <small>
                         <span>
-                            <i class="fa fa-star-o fa-1x"></i>
-                            <i class="fa fa-star-o fa-1x"></i>
-                            <i class="fa fa-star-o fa-1x"></i>
-                            <i class="fa fa-star-o fa-1x"></i>
-                            <i class="fa fa-star-o fa-1x"></i>
+                            <ng-rating ng-model="review.rating"
+                                       editable="false"
+                                       show-grade="true">
+                            </ng-rating>
                         </span>
                         </small>
                     </h4>
                     <h4 class="media-heading">
-                        <small>By <a href="">{{findUserFirstNameByUserId(review.userId)}}</a> on {{review.timestamp | date : 'mediumDate'}}</small>
+                        <small>By <a href="">{{findUserFirstNameByUserId(review.userId)}}</a> on {{review.timestamp |
+                            date : 'mediumDate'}}
+                        </small>
                     </h4>
                     <p class="text-justify">
                         {{review.description}}
@@ -75,13 +74,17 @@
             </div>
 
             <div class="btn-group-md pull-right">
-                <a href="" class="btn btn-success" role="button" ng-if="selectedIndex === $index" ng-click="updateReview(editReview)">Update</a>
-                <a href="" class="btn btn-danger" role="button" ng-if="selectedIndex === $index" ng-click="cancelReview()">Cancel</a>
+                <a href="" class="btn btn-success" role="button" ng-if="selectedIndex === $index"
+                   ng-click="updateReview(editReview)">Update</a>
+                <a href="" class="btn btn-danger" role="button" ng-if="selectedIndex === $index"
+                   ng-click="cancelReview()">Cancel</a>
             </div>
 
             <div class="btn-group-md pull-right">
-                <a href="" class="btn btn-warning" role="button" ng-if="selectedIndex !== $index" ng-click="selectReview($index)">Edit</a>
-                <a href="" class="btn btn-danger" role="button" ng-if="selectedIndex !== $index" ng-click="deleteReview($index)">Delete</a>
+                <a href="" class="btn btn-warning" role="button" ng-if="selectedIndex !== $index"
+                   ng-click="selectReview($index)">Edit</a>
+                <a href="" class="btn btn-danger" role="button" ng-if="selectedIndex !== $index"
+                   ng-click="deleteReview($index)">Delete</a>
             </div>
         </div>
 
@@ -183,11 +186,9 @@
         <div class="well">
             <h4>Write a Review:</h4>
             <p>
-                <i class="fa fa-star-o fa-2x"></i>
-                <i class="fa fa-star-o fa-2x"></i>
-                <i class="fa fa-star-o fa-2x"></i>
-                <i class="fa fa-star-o fa-2x"></i>
-                <i class="fa fa-star-o fa-2x"></i>
+                <ng-rating ng-model="review.rating"
+                           editable="true">
+                </ng-rating>
             </p>
             <form>
                 <div class="form-group">

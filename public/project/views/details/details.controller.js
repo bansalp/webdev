@@ -13,6 +13,12 @@
         $scope.cancelReview = cancelReview;
         $scope.findUserFirstNameByUserId = findUserFirstNameByUserId;
 
+        $scope.review = {
+            "rating": 0,
+            "title": "",
+            "description": ""
+        };
+
         MovieService.getImageURL(function (response) {
             $scope.imageUrl = response;
         });
@@ -55,6 +61,7 @@
                 "timestamp": $scope.reviews[index]["timestamp"],
                 "movieId": $scope.reviews[index]["movieId"],
                 "userId": $scope.reviews[index]["userId"],
+                "rating": $scope.reviews[index]["rating"],
                 "commentIds": $scope.reviews[index]["commentIds"]
             }
             $scope.editReview = editReview;
@@ -81,10 +88,9 @@
             $scope.selectedIndex = -1;
         }
 
-        function findUserFirstNameByUserId(userId)
-        {
+        function findUserFirstNameByUserId(userId) {
             var userFirstName;
-            UserService.findUserFirstNameByUserId(userId, function(response){
+            UserService.findUserFirstNameByUserId(userId, function (response) {
                 userFirstName = response;
             });
 

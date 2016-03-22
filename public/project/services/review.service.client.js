@@ -14,6 +14,7 @@
                 "timestamp": "Mar 10, 2016",
                 "movieId": 293660,
                 "userId": 123,
+                "rating": 2.5,
                 "commentIds": [1, 2, 3]
             },
             {
@@ -23,6 +24,7 @@
                 "timestamp": "Mar 10, 2016",
                 "movieId": 293660,
                 "userId": 234,
+                "rating": 4,
                 "commentIds": [4, 5]
             },
             {
@@ -32,6 +34,7 @@
                 "timestamp": "Mar 10, 2016",
                 "movieId": 76341,
                 "userId": 345,
+                "rating": 1,
                 "commentIds": []
             }
         ];
@@ -63,14 +66,14 @@
                 "timestamp": new Date(),
                 "movieId": movieId,
                 "userId": UserService.getCurrentUser()._id,
+                "rating": review.rating,
                 "commentIds": []
             };
             reviews.push(newReview);
             callback();
         }
 
-        function updateReview(review, callback)
-        {
+        function updateReview(review, callback) {
             var reviewIndex = findReviewIndexByReviewId(review._id);
             reviews[reviewIndex] = {
                 "_id": review._id,
@@ -79,23 +82,22 @@
                 "timestamp": new Date(),
                 "movieId": review.movieId,
                 "userId": review.userId,
+                "rating": review.rating,
                 "commentIds": review.commentIds
             };
             callback(reviews[reviewIndex]);
         }
 
-        function deleteReview(reviewId, callback)
-        {
+        function deleteReview(reviewId, callback) {
             var reviewIndex = findReviewIndexByReviewId(reviewId);
             reviews.splice(reviewIndex, 1);
             callback();
         }
 
-        function findReviewIndexByReviewId(reviewId)
-        {
+        function findReviewIndexByReviewId(reviewId) {
             var index = 0;
             for (var i = 0; i < reviews.length; i++) {
-                if(reviews[i]._id === reviewId) {
+                if (reviews[i]._id === reviewId) {
                     return index;
                 }
                 index++;
