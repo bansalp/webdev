@@ -28,7 +28,14 @@
         }
 
         function init() {
+            getMovieAvgRatingById($scope.movieId);
             getMovieDetailsById($scope.movieId);
+        }
+
+        function getMovieAvgRatingById(movieId) {
+            ReviewService.getMovieAvgRatingById(movieId, function (response) {
+                $scope.avgRating = response;
+            });
         }
 
         function getMovieDetailsById(movieId) {
@@ -48,6 +55,7 @@
             ReviewService.addReview(review, $scope.movieId, function () {
                 $scope.selectedIndex = -1;
                 $scope.review = {};
+                getMovieAvgRatingById($scope.movieId);
                 findAllReviewsByMovieId($scope.movieId);
             });
         }
@@ -72,6 +80,7 @@
                 $scope.reviews[$scope.selectedIndex] = newReview;
                 $scope.selectedIndex = -1;
                 $scope.review = {};
+                getMovieAvgRatingById($scope.movieId);
             });
         }
 
@@ -80,6 +89,7 @@
             ReviewService.deleteReview(reviewId, function () {
                 $scope.selectedIndex = -1;
                 $scope.review = {};
+                getMovieAvgRatingById($scope.movieId);
                 findAllReviewsByMovieId($scope.movieId);
             });
         }

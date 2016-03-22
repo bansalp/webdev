@@ -41,6 +41,7 @@
 
         var api = {
             findAllReviewsByMovieId: findAllReviewsByMovieId,
+            getMovieAvgRatingById: getMovieAvgRatingById,
             addReview: addReview,
             updateReview: updateReview,
             deleteReview: deleteReview
@@ -55,6 +56,22 @@
                 }
             }
             callback(result.length === 0 ? null : result);
+        }
+
+        function getMovieAvgRatingById(movieId, callback) {
+            var result = [];
+            for (var i = 0; i < reviews.length; i++) {
+                if (reviews[i].movieId === movieId) {
+                    result.push(reviews[i]);
+                }
+            }
+
+            var avgRating = 0;
+            for (var i = 0; i < result.length; i++) {
+                avgRating += result[i].rating;
+            }
+
+            callback(avgRating / result.length);
         }
 
         function addReview(review, movieId, callback) {

@@ -3,7 +3,13 @@
     <img class="img-responsive" ng-src="{{imageUrl + movie.backdrop_path}}"/>
 
     <div class="panel-body">
-        <h2>{{movie.title}}</h2>
+        <h2>
+            {{movie.title}}
+            <ng-rating ng-model="avgRating"
+                       editable="false"
+                       show-grade="true">
+            </ng-rating>
+        </h2>
         <hr>
         <h5>Plot</h5>
         <p>{{movie.overview}}</p>
