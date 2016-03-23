@@ -4,7 +4,7 @@
         .module("MovieTimeApp")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($location, UserService) {
+    function RegisterController($state, UserService) {
         var vm = this;
 
         vm.register = register;
@@ -41,7 +41,7 @@
             var user = response.data;
             if (user) {
                 UserService.setCurrentUser(user);
-                $location.url("/profile/edit-profile");
+                $state.go("profile.edit-profile");
             }
         }
     }

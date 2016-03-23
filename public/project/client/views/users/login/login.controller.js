@@ -4,22 +4,30 @@
         .module("MovieTimeApp")
         .controller("LoginController", LoginController);
 
-    function LoginController($scope, $location, UserService) {
-        $scope.login = login;
+    function LoginController($state, UserService) {
+        var vm = this;
 
-        function login(user) {
-            $scope.errorMessage = "";
-            UserService.findUserByCredentials(user, redirectUserToProfileIfValid);
+        vm.login = login;
+
+        function init() {
+
         }
 
-        function redirectUserToProfileIfValid(user) {
-            if (user != null) {
-                UserService.setCurrentUser(user);
-                $location.url("/profile/edit-profile");
-            }
-            else {
-                $scope.errorMessage = "Username or password is incorrect!";
-            }
+        init();
+
+        function login(user) {
+            UserService
+                .findUserByCredentials(user)
+                .then(function (response) {
+                    var resUser = response.data;
+                    if (resUser) {
+                        UserService.setCurrentUser(resUser);
+                        $state.go("profile.edit-profile");
+                    }
+                    else {
+                        alert("Wrong username or password!")
+                    }
+                });
         }
     }
 

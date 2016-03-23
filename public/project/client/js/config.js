@@ -26,7 +26,8 @@
             .state("login", {
                 url: "/login",
                 templateUrl: "views/users/login/login.view.html",
-                controller: "LoginController"
+                controller: "LoginController",
+                controllerAs: "loginControllerModel"
             })
             .state("forgot-password", {
                 url: "/forgot-password",
