@@ -13,7 +13,10 @@
             .state("home", {
                 url: "/home/:movieTitle",
                 templateUrl: "views/home/home.view.html",
-                controller: "HomeController"
+                controller: "HomeController",
+                resolve: {
+                    getLoggedIn: getLoggedIn
+                }
             })
             .state("details", {
                 url: "/details/:movieId",
@@ -32,7 +35,8 @@
             .state("register", {
                 url: "/register",
                 templateUrl: "views/users/register/register.view.html",
-                controller: "RegisterController"
+                controller: "RegisterController",
+                controllerAs: "registerControllerModel"
             })
             .state("profile", {
                 views: {
@@ -82,6 +86,36 @@
                 templateUrl: "views/admin/admin.view.html",
                 controller: "AdminController"
             })
+    }
+
+    function getLoggedIn(UserService, $q) {
+        var deferred = $q.defer();
+        UserService
+            .getCurrentUser()
+            .then(function (response) {
+                var user = response.data;
+                UserService.setCurrentUser(user);
+                deferred.resolve();
+            });
+        return deferred.promise;
+    }
+
+    function checkLoggedIn(UserService, $q, $location) {
+        var deferred = $q.defer();
+        UserService
+            .getCurrentUser()
+            .then(function (response) {
+                var user = response.data;
+
+                if (user) {
+                    UserService.setCurrentUser(user);
+                    deferred.resolve();
+                } else {
+                    deferred.reject();
+                    $location.url("/home");
+                }
+            });
+        return deferred.promise;
     }
 
 })();

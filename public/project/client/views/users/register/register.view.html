@@ -12,7 +12,7 @@
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-option-horizontal"></i>
                     </span>
-                <input type="text" class="form-control" placeholder="First Name" ng-model="user.firstName">
+                <input type="text" class="form-control" placeholder="First Name" ng-model="registerControllerModel.user.firstName" autofocus>
             </div>
         </div>
         <div class="form-group">
@@ -20,7 +20,7 @@
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-option-horizontal"></i>
                     </span>
-                <input type="text" class="form-control" placeholder="Last Name" ng-model="user.lastName">
+                <input type="text" class="form-control" placeholder="Last Name" ng-model="registerControllerModel.user.lastName">
             </div>
         </div>
         <div class="form-group">
@@ -28,7 +28,7 @@
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-user"></i>
                     </span>
-                <input type="text" class="form-control" placeholder="Username" ng-model="user.username">
+                <input type="text" class="form-control" placeholder="Username" ng-model="registerControllerModel.user.username">
             </div>
         </div>
         <div class="form-group">
@@ -36,7 +36,7 @@
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-lock"></i>
                     </span>
-                <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
+                <input type="password" class="form-control" placeholder="Password" ng-model="registerControllerModel.user.password">
             </div>
         </div>
         <div class="form-group">
@@ -52,11 +52,11 @@
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-envelope"></i>
                     </span>
-                <input type="email" class="form-control" placeholder="Email" ng-model="user.email">
+                <input type="email" class="form-control" placeholder="Email" ng-model="registerControllerModel.user.email">
             </div>
         </div>
         <div class="form-group">
-            <a href="" class="btn btn-success btn-block" ng-click="register(user)">Sign Up</a>
+            <a href="" class="btn btn-success btn-block" ng-click="registerControllerModel.register(registerControllerModel.user)">Sign Up</a>
         </div>
         <div class="row text-right">
             <a ui-sref="login">Already a member?</a>
