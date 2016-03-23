@@ -4,7 +4,7 @@
     <div class="form-group">
         <div class="input-group">
             <a href="" class="thumbnail profile-photo">
-                <img src="/experiments/project/images/profile-image.png" />
+                <img src="/experiments/project/images/profile-image.png"/>
             </a>
             <input type="file">
             <p class="help-block"></p>
@@ -15,7 +15,8 @@
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-user"></i>
                     </span>
-            <input type="text" class="form-control" placeholder="Username" readonly>
+            <input type="text" class="form-control" placeholder="Username"
+                   ng-model="editProfileControllerModel.user.username" readonly autofocus>
         </div>
     </div>
     <div class="form-group">
@@ -23,7 +24,8 @@
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-option-horizontal"></i>
                     </span>
-            <input type="text" class="form-control" placeholder="First Name">
+            <input type="text" class="form-control" placeholder="First Name"
+                   ng-model="editProfileControllerModel.user.firstName">
         </div>
     </div>
     <div class="form-group">
@@ -31,7 +33,8 @@
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-option-horizontal"></i>
                     </span>
-            <input type="text" class="form-control" placeholder="Last Name">
+            <input type="text" class="form-control" placeholder="Last Name"
+                   ng-model="editProfileControllerModel.user.lastName">
         </div>
     </div>
     <div class="form-group">
@@ -51,6 +54,6 @@
         </div>
     </div>
     <div class="form-group">
-        <a href="" class="btn btn-success btn-block">Update</a>
+        <a href="" class="btn btn-success btn-block" ng-click="editProfileControllerModel.update(editProfileControllerModel.user)">Update</a>
     </div>
 </form>

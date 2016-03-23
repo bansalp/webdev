@@ -55,7 +55,12 @@
             })
             .state("profile.edit-profile", {
                 url: "/profile/edit-profile",
-                templateUrl: "views/users/profile/edit-profile.view.html"
+                templateUrl: "views/users/profile/edit-profile.view.html",
+                controller: "EditProfileController",
+                controllerAs: "editProfileControllerModel",
+                resolve: {
+                    checkLoggedIn: checkLoggedIn
+                }
             })
             .state("profile.change-password", {
                 url: "/profile/change-password",
@@ -100,7 +105,7 @@
         return deferred.promise;
     }
 
-    function checkLoggedIn(UserService, $q, $location) {
+    function checkLoggedIn(UserService, $q, $state) {
         var deferred = $q.defer();
         UserService
             .getCurrentUser()
@@ -112,7 +117,7 @@
                     deferred.resolve();
                 } else {
                     deferred.reject();
-                    $location.url("/home");
+                    $state.go("home");
                 }
             });
         return deferred.promise;
