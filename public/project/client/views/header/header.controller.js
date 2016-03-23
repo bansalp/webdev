@@ -1,17 +1,28 @@
-(function(){
+"use strict";
+(function () {
 
     angular
         .module("MovieTimeApp")
         .controller("HeaderController", HeaderController);
 
-    function HeaderController($scope, $location, UserService)
-    {
-        $scope.logout = logout;
+    function HeaderController($state, UserService) {
+        var vm = this;
 
-        function logout()
-        {
-            UserService.setCurrentUser(null);
-            $location.url("/home");
+        vm.logout = logout;
+
+        function init() {
+
+        }
+
+        init();
+
+        function logout() {
+            UserService
+                .logout()
+                .then(function () {
+                    UserService.setCurrentUser(null);
+                    $state.go("home");
+                });
         }
     }
 
