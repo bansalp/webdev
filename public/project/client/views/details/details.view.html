@@ -88,9 +88,11 @@
             </div>
 
             <div class="btn-group-md pull-right">
-                <a href="" class="btn btn-warning" role="button" ng-if="detailsControllerModel.selectedIndex !== $index"
+                <a href="" class="btn btn-warning" role="button"
+                   ng-if="detailsControllerModel.selectedIndex !== $index && detailsControllerModel.user._id == review.userId"
                    ng-click="detailsControllerModel.selectReview($index)">Edit</a>
-                <a href="" class="btn btn-danger" role="button" ng-if="detailsControllerModel.selectedIndex !== $index"
+                <a href="" class="btn btn-danger" role="button"
+                   ng-if="detailsControllerModel.selectedIndex !== $index && detailsControllerModel.user._id == review.userId"
                    ng-click="detailsControllerModel.deleteReview($index)">Delete</a>
             </div>
         </div>
@@ -206,7 +208,8 @@
                     <textarea class="form-control" rows="3" placeholder="Please enter description of the review"
                               ng-model="detailsControllerModel.review.description"></textarea>
                 </div>
-                <a href="" class="btn btn-success" ng-click="detailsControllerModel.addReview(detailsControllerModel.review)" role="button">Submit</a>
+                <a href="" class="btn btn-success"
+                   ng-click="detailsControllerModel.addReview(detailsControllerModel.review)" role="button">Submit</a>
             </form>
         </div>
     </div>
