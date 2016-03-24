@@ -21,7 +21,11 @@
             .state("details", {
                 url: "/details/:movieId",
                 templateUrl: "views/details/details.view.html",
-                controller: "DetailsController"
+                controller: "DetailsController",
+                controllerAs: "detailsControllerModel",
+                resolve: {
+                    getLoggedIn: getLoggedIn
+                }
             })
             .state("login", {
                 url: "/login",

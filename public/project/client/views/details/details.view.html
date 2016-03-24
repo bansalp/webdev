@@ -1,28 +1,29 @@
 <div class="panel panel-default">
 
-    <img class="img-responsive" ng-src="{{imageUrl + movie.backdrop_path}}"/>
+    <img class="img-responsive"
+         ng-src="{{detailsControllerModel.imageUrl + detailsControllerModel.movie.backdrop_path}}"/>
 
     <div class="panel-body">
         <h2>
-            {{movie.title}}
-            <ng-rating ng-model="avgRating"
+            {{detailsControllerModel.movie.title}}
+            <ng-rating ng-model="detailsControllerModel.avgRating"
                        editable="false"
                        show-grade="true">
             </ng-rating>
         </h2>
         <hr>
         <h5>Plot</h5>
-        <p>{{movie.overview}}</p>
+        <p>{{detailsControllerModel.movie.overview}}</p>
         <h5>Release Date</h5>
-        <p>{{movie.release_date}}</p>
+        <p>{{detailsControllerModel.movie.release_date}}</p>
         <h5>Popularity</h5>
-        <p>{{movie.popularity}}</p>
+        <p>{{detailsControllerModel.movie.popularity}}</p>
         <h5>Genres</h5>
-        <ul ng-repeat="movieGenre in movie.genres">
+        <ul ng-repeat="movieGenre in detailsControllerModel.movie.genres">
             <li>{{movieGenre.name}}</li>
         </ul>
         <h5>Production Companies</h5>
-        <ul ng-repeat="movieProductionCompany in movie.production_companies">
+        <ul ng-repeat="movieProductionCompany in detailsControllerModel.movie.production_companies">
             <li>{{movieProductionCompany.name}}</li>
         </ul>
     </div>
@@ -33,27 +34,27 @@
         <h3 class="panel-title">Customer Reviews</h3>
     </div>
 
-    <div ng-repeat="review in reviews">
+    <div ng-repeat="review in detailsControllerModel.reviews">
         <div class="panel-body">
-            <div ng-if="selectedIndex === $index">
+            <div ng-if="detailsControllerModel.selectedIndex === $index">
                 <p>
-                    <ng-rating ng-model="editReview.rating"
+                    <ng-rating ng-model="detailsControllerModel.editReview.rating"
                                editable="true">
                     </ng-rating>
                 </p>
                 <form>
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Please enter title of the review"
-                               ng-model="editReview.title"/>
+                               ng-model="detailsControllerModel.editReview.title"/>
                     </div>
                     <div class="form-group">
                     <textarea class="form-control" rows="3" placeholder="Please enter description of the review"
-                              ng-model="editReview.description"></textarea>
+                              ng-model="detailsControllerModel.editReview.description"></textarea>
                     </div>
                 </form>
             </div>
 
-            <div class="media" ng-hide="selectedIndex === $index">
+            <div class="media" ng-hide="detailsControllerModel.selectedIndex === $index">
                 <a class="pull-left" href="#">
                     <img class="media-object" src="http://placehold.it/64x64" alt="">
                 </a>
@@ -80,17 +81,17 @@
             </div>
 
             <div class="btn-group-md pull-right">
-                <a href="" class="btn btn-success" role="button" ng-if="selectedIndex === $index"
-                   ng-click="updateReview(editReview)">Update</a>
-                <a href="" class="btn btn-danger" role="button" ng-if="selectedIndex === $index"
-                   ng-click="cancelReview()">Cancel</a>
+                <a href="" class="btn btn-success" role="button" ng-if="detailsControllerModel.selectedIndex === $index"
+                   ng-click="detailsControllerModel.updateReview(detailsControllerModel.editReview)">Update</a>
+                <a href="" class="btn btn-danger" role="button" ng-if="detailsControllerModel.selectedIndex === $index"
+                   ng-click="detailsControllerModel.cancelReview()">Cancel</a>
             </div>
 
             <div class="btn-group-md pull-right">
-                <a href="" class="btn btn-warning" role="button" ng-if="selectedIndex !== $index"
-                   ng-click="selectReview($index)">Edit</a>
-                <a href="" class="btn btn-danger" role="button" ng-if="selectedIndex !== $index"
-                   ng-click="deleteReview($index)">Delete</a>
+                <a href="" class="btn btn-warning" role="button" ng-if="detailsControllerModel.selectedIndex !== $index"
+                   ng-click="detailsControllerModel.selectReview($index)">Edit</a>
+                <a href="" class="btn btn-danger" role="button" ng-if="detailsControllerModel.selectedIndex !== $index"
+                   ng-click="detailsControllerModel.deleteReview($index)">Delete</a>
             </div>
         </div>
 
@@ -192,20 +193,20 @@
         <div class="well">
             <h4>Write a Review:</h4>
             <p>
-                <ng-rating ng-model="review.rating"
+                <ng-rating ng-model="detailsControllerModel.review.rating"
                            editable="true">
                 </ng-rating>
             </p>
             <form>
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Please enter title of the review"
-                           ng-model="review.title"/>
+                           ng-model="detailsControllerModel.review.title"/>
                 </div>
                 <div class="form-group">
                     <textarea class="form-control" rows="3" placeholder="Please enter description of the review"
-                              ng-model="review.description"></textarea>
+                              ng-model="detailsControllerModel.review.description"></textarea>
                 </div>
-                <a href="" class="btn btn-success" ng-click="addReview(review)" role="button">Submit</a>
+                <a href="" class="btn btn-success" ng-click="detailsControllerModel.addReview(detailsControllerModel.review)" role="button">Submit</a>
             </form>
         </div>
     </div>

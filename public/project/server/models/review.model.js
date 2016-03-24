@@ -37,6 +37,7 @@ module.exports = function (uuid) {
     }
 
     function updateReview(movieId, reviewId, review) {
+        review.timestamp = new Date();
         for (var r in mock) {
             if (mock[r]._id == reviewId) {
                 mock[r] = review;

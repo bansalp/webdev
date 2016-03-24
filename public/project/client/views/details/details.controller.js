@@ -4,107 +4,129 @@
         .module("MovieTimeApp")
         .controller("DetailsController", DetailsController);
 
-    function DetailsController($scope, $stateParams, MovieService, ReviewService, UserService) {
-        $scope.movieId = parseInt($stateParams.movieId);
-        $scope.addReview = addReview;
-        $scope.selectReview = selectReview;
-        $scope.updateReview = updateReview;
-        $scope.deleteReview = deleteReview;
-        $scope.cancelReview = cancelReview;
-        $scope.findUserFirstNameByUserId = findUserFirstNameByUserId;
+    function DetailsController($stateParams, MovieService, ReviewService, UserService) {
+        var vm = this;
 
-        $scope.review = {
+        vm.movieId = parseInt($stateParams.movieId);
+        vm.addReview = addReview;
+        vm.selectReview = selectReview;
+        vm.updateReview = updateReview;
+        vm.deleteReview = deleteReview;
+        vm.cancelReview = cancelReview;
+        //vm.findUserFirstNameByUserId = findUserFirstNameByUserId;
+
+        vm.review = {
             "rating": 0,
             "title": "",
             "description": ""
         };
 
         MovieService.getImageURL(function (response) {
-            $scope.imageUrl = response;
+            vm.imageUrl = response;
         });
 
-        if ($scope.movieId) {
+        function init() {
+            UserService
+                .getCurrentUser()
+                .then(function (response) {
+                    var user = response.data;
+                    if (user) {
+                        vm.user = user;
+                    }
+                });
+
+            movieAvgRatingByMovieId(vm.movieId);
+            movieDetailsByMovieId(vm.movieId);
+        }
+
+        if (vm.movieId) {
             init();
         }
 
-        function init() {
-            getMovieAvgRatingById($scope.movieId);
-            getMovieDetailsById($scope.movieId);
+        function movieAvgRatingByMovieId(movieId) {
+            ReviewService
+                .movieAvgRatingByMovieId(movieId)
+                .then(function (response) {
+                    if (response.data) {
+                        vm.avgRating = response.data;
+                    }
+                });
         }
 
-        function getMovieAvgRatingById(movieId) {
-            ReviewService.getMovieAvgRatingById(movieId, function (response) {
-                $scope.avgRating = response;
-            });
-        }
-
-        function getMovieDetailsById(movieId) {
+        function movieDetailsByMovieId(movieId) {
             MovieService.getMovieDetailsById(movieId, function (response) {
-                $scope.movie = response;
+                vm.movie = response;
                 findAllReviewsByMovieId(movieId);
             });
         }
 
         function findAllReviewsByMovieId(movieId) {
-            ReviewService.findAllReviewsByMovieId(movieId, function (response) {
-                $scope.reviews = response;
-            });
+            ReviewService
+                .findAllReviewsByMovieId(movieId)
+                .then(function (response) {
+                    if (response.data) {
+                        console.log(response.data);
+                        vm.reviews = response.data;
+                    }
+                });
         }
 
         function addReview(review) {
-            ReviewService.addReview(review, $scope.movieId, function () {
-                $scope.selectedIndex = -1;
-                $scope.review = {};
-                getMovieAvgRatingById($scope.movieId);
-                findAllReviewsByMovieId($scope.movieId);
-            });
+            ReviewService
+                .addReview(vm.user._id, vm.movieId, review)
+                .then(function (response) {
+                    if (response.data) {
+                        vm.selectedIndex = -1;
+                        vm.review = {};
+                        findAllReviewsByMovieId(vm.movieId);
+                        movieAvgRatingByMovieId(vm.movieId);
+                    }
+                });
         }
 
         function selectReview(index) {
-            $scope.selectedIndex = index;
+            vm.selectedIndex = index;
             var editReview = {
-                "_id": $scope.reviews[index]["_id"],
-                "title": $scope.reviews[index]["title"],
-                "description": $scope.reviews[index]["description"],
-                "timestamp": $scope.reviews[index]["timestamp"],
-                "movieId": $scope.reviews[index]["movieId"],
-                "userId": $scope.reviews[index]["userId"],
-                "rating": $scope.reviews[index]["rating"],
-                "commentIds": $scope.reviews[index]["commentIds"]
+                "_id": vm.reviews[index]["_id"],
+                "title": vm.reviews[index]["title"],
+                "description": vm.reviews[index]["description"],
+                "timestamp": vm.reviews[index]["timestamp"],
+                "movieId": vm.reviews[index]["movieId"],
+                "userId": vm.reviews[index]["userId"],
+                "rating": vm.reviews[index]["rating"]
             }
-            $scope.editReview = editReview;
+            vm.editReview = editReview;
         }
 
         function updateReview(review) {
-            ReviewService.updateReview(review, function (newReview) {
-                $scope.reviews[$scope.selectedIndex] = newReview;
-                $scope.selectedIndex = -1;
-                $scope.review = {};
-                getMovieAvgRatingById($scope.movieId);
-            });
+            ReviewService
+                .updateReview(vm.movieId, review._id, review)
+                .then(function (response) {
+                    if (response.data) {
+                        vm.selectedIndex = -1;
+                        vm.review = {};
+                        findAllReviewsByMovieId(vm.movieId);
+                        movieAvgRatingByMovieId(vm.movieId);
+                    }
+                });
         }
 
         function deleteReview(index) {
-            var reviewId = $scope.reviews[index]._id;
-            ReviewService.deleteReview(reviewId, function () {
-                $scope.selectedIndex = -1;
-                $scope.review = {};
-                getMovieAvgRatingById($scope.movieId);
-                findAllReviewsByMovieId($scope.movieId);
-            });
+            var reviewId = vm.reviews[index]._id;
+            ReviewService
+                .deleteReview(vm.movieId, reviewId)
+                .then(function (response) {
+                    if (response.data) {
+                        vm.selectedIndex = -1;
+                        vm.review = {};
+                        findAllReviewsByMovieId(vm.movieId);
+                        movieAvgRatingByMovieId(vm.movieId);
+                    }
+                });
         }
 
         function cancelReview() {
-            $scope.selectedIndex = -1;
-        }
-
-        function findUserFirstNameByUserId(userId) {
-            var userFirstName;
-            UserService.findUserFirstNameByUserId(userId, function (response) {
-                userFirstName = response;
-            });
-
-            return userFirstName;
+            vm.selectedIndex = -1;
         }
     }
 
