@@ -4,7 +4,7 @@
         .module("MovieTimeApp")
         .controller("DetailsController", DetailsController);
 
-    function DetailsController($stateParams, MovieService, ReviewService, UserService) {
+    function DetailsController($stateParams, $q, MovieService, ReviewService, UserService) {
         var vm = this;
 
         vm.movieId = parseInt($stateParams.movieId);
@@ -65,8 +65,8 @@
                 .findAllReviewsByMovieId(movieId)
                 .then(function (response) {
                     if (response.data) {
-                        console.log(response.data);
                         vm.reviews = response.data;
+                        findUserByReviewUserId(vm.reviews);
                     }
                 });
         }
@@ -127,6 +127,28 @@
 
         function cancelReview() {
             vm.selectedIndex = -1;
+        }
+
+        function findUserByReviewUserId(reviews) {
+            var promiseArray = [];
+            var result = [];
+            for (var i = 0; i < reviews.length; i++) {
+                promiseArray
+                    .push(
+                        UserService.findUserById(reviews[i].userId)
+                            .then(function (response) {
+                                if (response.data) {
+                                    result.push(response.data);
+                                }
+                            }));
+            }
+
+            $q.all(promiseArray)
+                .then(function () {
+                    for (var i = 0; i < result.length; i++) {
+                        reviews[i].userFirstName = result[i].firstName;
+                    }
+                });
         }
     }
 
