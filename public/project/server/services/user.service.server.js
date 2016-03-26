@@ -53,7 +53,9 @@ module.exports = function (app, model) {
         var reqUser = req.body;
         var users = model.updateUser(reqUserId, reqUser);
         var user = model.findUserByUsername(reqUser.username);
-        req.session.currentUser = user;
+        if (req.session.currentUser._id == user._id) {
+            req.session.currentUser = user;
+        }
         res.json(users);
     }
 
