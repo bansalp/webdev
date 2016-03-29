@@ -81,10 +81,27 @@ module.exports = function (app, userModel) {
     function updateUser(req, res) {
         var reqUserId = req.params.id;
         var reqUser = req.body;
-        var users = model.updateUser(reqUserId, reqUser);
-        var user = model.findUserByUsername(reqUser.username);
-        req.session.currentUser = user;
-        res.json(users);
+        userModel
+            .updateUser(reqUserId, reqUser)
+            .then(
+                function (user) {
+                    return userModel.findUserByUsername(reqUser.username);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (user) {
+                    if (user) {
+                        req.session.currentUser = user;
+                    }
+                    res.json(user);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function deleteUserById(req, res) {
