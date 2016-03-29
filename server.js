@@ -5,7 +5,16 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var uuid = require('node-uuid');
 var mongoose = require("mongoose");
-var db = mongoose.connect('mongodb://localhost/webdevelopment');
+var connection_string = "mongodb://localhost/webdevelopment";
+if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
+    connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+        process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+        process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
+        process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
+        process.env.OPENSHIFT_APP_NAME;
+}
+
+var db = mongoose.connect(connection_string);
 
 var app = express();
 
