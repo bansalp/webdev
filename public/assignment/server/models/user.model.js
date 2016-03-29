@@ -40,6 +40,7 @@ module.exports = function (db) {
     }
 
     function updateUser(userId, user) {
+        delete user._id;
         return UserModel.update({_id: userId}, {$set: user});
     }
 
