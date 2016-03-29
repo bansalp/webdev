@@ -1,5 +1,5 @@
 "use strict";
-module.exports = function (app, model) {
+module.exports = function (app, userModel) {
     app.post("/api/assignment/user", createUser);
     app.get("/api/assignment/user", findUser);
     app.get("/api/assignment/user/:id", findUserById);
@@ -8,13 +8,48 @@ module.exports = function (app, model) {
     app.get("/api/assignment/loggedin", loggedin);
     app.get("/api/assignment/logout", logout);
 
-
     function createUser(req, res) {
         var reqUser = req.body;
-        var users = model.createUser(reqUser);
-        var user = model.findUserByUsername(reqUser.username);
-        req.session.currentUser = user;
-        res.json(users);
+        userModel
+            .createUser(reqUser)
+            .then(
+                function (user) {
+                    req.session.currentUser = user;
+                    res.json(user);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function findUserByUsername(res, reqUsername) {
+        userModel
+            .findUserByUsername(reqUsername)
+            .then(
+                function (user) {
+                    res.json(user);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function findUserByCredentials(req, res, credentials) {
+        userModel
+            .findUserByCredentials(credentials)
+            .then(
+                function (user) {
+                    if (user) {
+                        req.session.currentUser = user;
+                    }
+                    res.json(user);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function findUser(req, res) {
@@ -26,15 +61,10 @@ module.exports = function (app, model) {
                 "username": reqUsername,
                 "password": reqPassword
             };
-            var user = model.findUserByCredentials(credentials);
-            if (user) {
-                req.session.currentUser = user;
-            }
-            res.json(user);
+            findUserByCredentials(req, res, credentials);
         }
         else if (reqUsername) {
-            var user = model.findUserByUsername(reqUsername);
-            res.json(user);
+            findUserByUsername(res, reqUsername);
         }
         else {
             var users = model.findAllUsers();
