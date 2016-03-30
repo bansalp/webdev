@@ -46,11 +46,11 @@
                         FormService
                             .createFormForUser(vm.user._id, form)
                             .then(function (response) {
-                                var forms = response.data;
-                                if (forms) {
+                                var createdForm = response.data;
+                                if (createdForm) {
                                     vm.selected = -1;
                                     vm.form = {};
-                                    vm.forms = forms;
+                                    vm.forms.push(createdForm);
                                 }
                             });
                     } else {
@@ -80,11 +80,11 @@
                         FormService
                             .updateFormById(form._id, form)
                             .then(function (response) {
-                                var forms = response.data;
-                                if (forms) {
+                                var status = response.data;
+                                if (status.n == 1 && status.nModified == 1 && status.ok == 1) {
+                                    vm.forms[vm.selected] = form;
                                     vm.selected = -1;
                                     vm.form = {};
-                                    vm.forms = forms;
                                 }
                             });
                     } else {
@@ -97,11 +97,11 @@
             FormService
                 .deleteFormById(vm.forms[index]._id)
                 .then(function (response) {
-                    var forms = response.data;
-                    if (forms) {
+                    var status = response.data;
+                    if (status.n == 1 && status.ok == 1) {
+                        vm.forms.splice(vm.selected, 1);
                         vm.selected = -1;
                         vm.form = {};
-                        vm.forms = forms;
                     }
                 });
         }

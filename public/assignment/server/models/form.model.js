@@ -1,7 +1,8 @@
 "use strict";
-var mock = require("./form.mock.json");
+module.exports = function (db) {
+    var FormSchema = require("./form.schema.server.js")(db);
+    var FormModel = db.model('FormModel', FormSchema);
 
-module.exports = function (uuid) {
     var api = {
         findAllForms: findAllForms,
         findFormById: findFormById,
@@ -15,73 +16,36 @@ module.exports = function (uuid) {
     return api;
 
     function findAllForms() {
-        return mock;
+        return FormModel.find();
     }
 
     function findFormById(formId) {
-        for (var f in mock) {
-            if (mock[f]._id === formId) {
-                return mock[f];
-            }
-        }
-        return null;
+        return FormModel.findById(formId);
     }
 
     function findFormByTitle(title) {
-        for (var f in mock) {
-            if (mock[f].title === title) {
-                return mock[f];
-            }
-        }
-        return null;
+        return FormModel.findOne({title: title});
     }
 
     function findUserFormByTitle(userId, title) {
-        for (var f in mock) {
-            if (mock[f].title === title && mock[f].userId == userId) {
-                return mock[f];
-            }
-        }
-        return null;
+        return FormModel.findOne({userId: userId, title: title});
     }
 
     function findAllFormsForUser(userId) {
-        var forms = mock.filter(function (form, index, arr) {
-            return (form.userId == userId);
-        });
-        return forms;
+        return FormModel.find({userId: userId});
     }
 
     function createFormForUser(userId, form) {
-        form._id = uuid.v4();
         form.userId = userId;
-        mock.push(form);
-        return mock;
+        return FormModel.create(form);
     }
 
-    function updateFormById(formId, newForm) {
-        for (var f in mock) {
-            if (mock[f]._id === formId) {
-                mock[f] = newForm;
-                return mock;
-            }
-        }
-        return null;
+    function updateFormById(formId, form) {
+        delete form._id;
+        return FormModel.update({_id: formId}, {$set: form});
     }
 
     function deleteFormById(formId) {
-        var index = findIndexByFormId(formId);
-        mock.splice(index, 1);
-        return mock;
-    }
-
-    function findIndexByFormId(formId) {
-        var index = 0;
-        for (var i = 0; i < mock.length; i++) {
-            if (mock[i]._id === formId) {
-                return index;
-            }
-            index++;
-        }
+        return FormModel.remove({_id: formId});
     }
 }
