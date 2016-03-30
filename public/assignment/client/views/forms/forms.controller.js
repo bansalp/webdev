@@ -81,6 +81,7 @@
                             .updateFormById(form._id, form)
                             .then(function (response) {
                                 var status = response.data;
+                                console.log(status);
                                 if (status.n == 1 && status.nModified == 1 && status.ok == 1) {
                                     vm.forms[vm.selected] = form;
                                     vm.selected = -1;
@@ -98,8 +99,9 @@
                 .deleteFormById(vm.forms[index]._id)
                 .then(function (response) {
                     var status = response.data;
+                    console.log(status);
                     if (status.n == 1 && status.ok == 1) {
-                        vm.forms.splice(vm.selected, 1);
+                        vm.forms.splice(index, 1);
                         vm.selected = -1;
                         vm.form = {};
                     }
