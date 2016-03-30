@@ -1,3 +1,4 @@
+"use strict";
 module.exports = function (db) {
     var FieldSchema = require("./field.schema.server.js")(db);
     var FormSchema = db.Schema({
