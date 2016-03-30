@@ -82,7 +82,7 @@
                             .then(function (response) {
                                 var status = response.data;
                                 console.log(status);
-                                if (status.n == 1 && status.nModified == 1 && status.ok == 1) {
+                                if ((status.n == 1 || status.nModified == 1) && status.ok == 1) {
                                     vm.forms[vm.selected] = form;
                                     vm.selected = -1;
                                     vm.form = {};
