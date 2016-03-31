@@ -24,15 +24,27 @@ module.exports = function (formModel) {
     }
 
     function cloneFieldForForm(formId, field) {
-        var existingField = getFieldForForm(formId, field._id);
-        var jsonString = JSON.stringify(existingField);
-        var jsonStringNew = jsonString;
-        var newField = JSON.parse(jsonStringNew);
-        var fields = getFieldsForForm(formId);
-        var index = findIndexByFieldId(fields, existingField._id);
-        newField._id = uuid.v4();
-        fields.splice(index + 1, 0, newField);
-        return fields;
+        return Form
+            .findById(formId)
+            .then(
+                function (form) {
+                    var index = findIndexByFieldId(form.fields, field._id);
+                    delete field._id;
+                    form.fields.splice(index + 1, 0, field);
+                    return form.save();
+                }
+            );
+
+
+        //var existingField = getFieldForForm(formId, field._id);
+        //var jsonString = JSON.stringify(existingField);
+        //var jsonStringNew = jsonString;
+        //var newField = JSON.parse(jsonStringNew);
+        //var fields = getFieldsForForm(formId);
+        //var index = findIndexByFieldId(fields, existingField._id);
+        //newField._id = uuid.v4();
+        //fields.splice(index + 1, 0, newField);
+        //return fields;
     }
 
     function findFormById(formId) {
@@ -94,7 +106,7 @@ module.exports = function (formModel) {
     function findIndexByFieldId(fields, fieldId) {
         var index = 0;
         for (var i = 0; i < fields.length; i++) {
-            if (fields[i]._id === fieldId) {
+            if (fields[i]._id == fieldId) {
                 return index;
             }
             index++;
@@ -102,9 +114,13 @@ module.exports = function (formModel) {
     }
 
     function reorderFields(formId, start, end) {
-        var form = findFormById(formId);
-        var fields = form.fields;
-        fields.splice(end, 0, fields.splice(start, 1)[0]);
-        return fields;
+        return Form
+            .findById(formId)
+            .then(
+                function (form) {
+                    form.fields.splice(end, 0, form.fields.splice(start, 1)[0]);
+                    form.save();
+                }
+            );
     }
 }

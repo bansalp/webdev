@@ -27,8 +27,17 @@ module.exports = function (app, fieldModel) {
     function cloneFieldForForm(req, res) {
         var formId = req.params.formId;
         var field = req.body;
-        var fields = model.cloneFieldForForm(formId, field);
-        res.json(fields);
+
+        fieldModel
+            .cloneFieldForForm(formId, field)
+            .then(
+                function (form) {
+                    res.json(form.fields);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function getFieldsForForm(req, res) {
@@ -99,7 +108,16 @@ module.exports = function (app, fieldModel) {
         var formId = req.params.formId;
         var start = req.params.start;
         var end = req.params.end;
-        var fields = model.reorderFields(formId, start, end);
-        res.json(fields);
+
+        fieldModel
+            .reorderFields(formId, start, end)
+            .then(
+                function (form) {
+                    res.json(form.fields);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 }
