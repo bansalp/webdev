@@ -11,7 +11,8 @@ module.exports = function (db) {
         findAllFormsForUser: findAllFormsForUser,
         createFormForUser: createFormForUser,
         updateFormById: updateFormById,
-        deleteFormById: deleteFormById
+        deleteFormById: deleteFormById,
+        getMongooseModel: getMongooseModel
     };
     return api;
 
@@ -42,10 +43,15 @@ module.exports = function (db) {
 
     function updateFormById(formId, form) {
         delete form._id;
+        form.updated = Date.now();
         return FormModel.update({_id: formId}, {$set: form});
     }
 
     function deleteFormById(formId) {
         return FormModel.remove({_id: formId});
+    }
+
+    function getMongooseModel() {
+        return FormModel;
     }
 }

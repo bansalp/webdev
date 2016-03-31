@@ -1,7 +1,7 @@
 "use strict";
-var mock = require("./form.mock.json");
+module.exports = function (formModel) {
+    var Form = formModel.getMongooseModel();
 
-module.exports = function (uuid) {
     var api = {
         createFieldForForm: createFieldForForm,
         cloneFieldForForm: cloneFieldForForm,
@@ -14,15 +14,13 @@ module.exports = function (uuid) {
     return api;
 
     function createFieldForForm(formId, field) {
-        var fields = getFieldsForForm(formId);
-        field._id = uuid.v4();
-        if (!fields) {
-            fields = [];
-            var form = findFormById(formId);
-            form.fields = fields;
-        }
-        fields.push(field);
-        return fields;
+        return Form.findById(formId)
+            .then(
+                function (form) {
+                    form.fields.push(field);
+                    return form.save();
+                }
+            );
     }
 
     function cloneFieldForForm(formId, field) {
@@ -47,32 +45,50 @@ module.exports = function (uuid) {
     }
 
     function getFieldsForForm(formId) {
-        var form = mock.filter(function (frm, index, arr) {
-            return (frm._id == formId);
-        });
-        return form[0].fields;
+        return Form
+            .findById(formId)
+            .select("fields");
     }
 
     function getFieldForForm(formId, fieldId) {
-        var fields = getFieldsForForm(formId);
-        var field = fields.filter(function (fld, index, arr) {
-            return (fld._id === fieldId);
-        });
-        return field[0];
+        return Form
+            .findById(formId)
+            .then(
+                function (form) {
+                    return form.fields.id(fieldId);
+                }
+            );
     }
 
     function deleteFieldFromForm(formId, fieldId) {
-        var fields = getFieldsForForm(formId);
-        var fieldIndex = findIndexByFieldId(fields, fieldId);
-        fields.splice(fieldIndex, 1);
-        return fields;
+        return Form
+            .findById(formId)
+            .then(
+                function (form) {
+                    form.fields.id(fieldId).remove();
+                    return form.save();
+                }
+            );
     }
 
     function updateField(formId, fieldId, field) {
-        var fields = getFieldsForForm(formId);
-        var fieldIndex = findIndexByFieldId(fields, fieldId);
-        fields[fieldIndex] = field;
-        return fields;
+        return Form
+            .findById(formId)
+            .then(
+                function (form) {
+                    form.updated = Date.now();
+                    var dbField = form.fields.id(fieldId);
+                    dbField.label = field.label;
+                    dbField.type = field.type;
+                    if (field.placeholder || field.placeholder == "") {
+                        dbField.placeholder = field.placeholder;
+                    }
+                    if (field.options.length > 0) {
+                        dbField.options = field.options;
+                    }
+                    return form.save();
+                }
+            );
     }
 
     function findIndexByFieldId(fields, fieldId) {
