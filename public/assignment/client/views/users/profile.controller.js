@@ -35,6 +35,7 @@
                                 var resUser = res.data;
                                 if (resUser) {
                                     vm.user = resUser;
+                                    alert("Profile updated successfully!")
                                 }
                             });
                     }
