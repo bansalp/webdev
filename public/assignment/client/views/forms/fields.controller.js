@@ -38,11 +38,13 @@
                 {"label": "Option Y", "value": "OPTION_Y"},
                 {"label": "Option Z", "value": "OPTION_Z"}
             ]
-            }
+            },
+            {"label": "New Email Field", "type": "EMAIL", "placeholder": "New Field"},
+            {"label": "New Password Field", "type": "PASSWORD", "placeholder": "New Field"}
         ];
 
         function init() {
-            vm.fieldTypes = ["Single Line Text Field", "Multi Line Text Field", "Date Field", "Dropdown Field", "Checkboxes Field", "Radio Buttons Field"];
+            vm.fieldTypes = ["Single Line Text Field", "Multi Line Text Field", "Date Field", "Dropdown Field", "Checkboxes Field", "Radio Buttons Field", "Email Field", "Password Field"];
             vm.fieldType = -1;
             vm.formId = $routeParams.formId;
 

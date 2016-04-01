@@ -2,7 +2,10 @@
 module.exports = function (db) {
     var FieldSchema = db.Schema({
         label: String,
-        type: String,
+        type: {
+            type: String,
+            enum: ["TEXT", "TEXTAREA", "DATE", "OPTIONS", "CHECKBOXES", "RADIOS", "EMAIL", "PASSWORD"]
+        },
         placeholder: String,
         options: [{
             label: String,
