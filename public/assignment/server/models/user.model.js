@@ -43,6 +43,8 @@ module.exports = function (db) {
         delete user._id;
         var emails = user.emails.toString().split(",");
         user.emails = emails;
+        var phones = user.phones.toString().split(",");
+        user.phones = phones;
         return UserModel.update({_id: userId}, {$set: user});
     }
 
