@@ -26,16 +26,9 @@
             UserService
                 .updateUser(user)
                 .then(function (response) {
-                    var users = response.data;
-                    if (users) {
-                        UserService
-                            .findUserByUsername(user.username)
-                            .then(function (res) {
-                                var resUser = res.data;
-                                if (resUser) {
-                                    vm.user = resUser;
-                                }
-                            });
+                    if (response.data) {
+                        vm.user = response.data;
+                        alert("Profile updated successfully!");
                     }
                     else {
                         alert("Error updating user information!")

@@ -25,9 +25,7 @@
                             .createUser(user)
                             .then(function (res) {
                                 if (res.data) {
-                                    UserService
-                                        .findUserByUsername(user.username)
-                                        .then(redirectToProfile);
+                                    redirectToProfile(res);
                                 }
                             });
                     }

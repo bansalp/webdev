@@ -1,6 +1,8 @@
-var mock = require("./user.mock.json");
+"use strict";
+module.exports = function (db) {
+    var UserSchema = require("./user.schema.server.js")(db);
+    var UserModel = db.model('mt_user', UserSchema);
 
-module.exports = function (uuid) {
     var api = {
         findAllUsers: findAllUsers,
         findUserById: findUserById,
@@ -13,65 +15,36 @@ module.exports = function (uuid) {
     return api;
 
     function findAllUsers() {
-        return mock;
+        return UserModel.find();
     }
 
     function findUserById(userId) {
-        for (var u in mock) {
-            if (mock[u]._id === userId) {
-                return mock[u];
-            }
-        }
-        return null;
+        return UserModel.findById(userId);
     }
 
     function findUserByUsername(username) {
-        for (var u in mock) {
-            if (mock[u].username === username) {
-                return mock[u];
-            }
-        }
-        return null;
+        return UserModel.findOne({username: username});
     }
 
     function findUserByCredentials(credentials) {
-        for (var u in mock) {
-            if (mock[u].username === credentials.username && mock[u].password === credentials.password) {
-                return mock[u];
+        return UserModel.findOne(
+            {
+                username: credentials.username,
+                password: credentials.password
             }
-        }
-        return null;
+        );
     }
 
     function createUser(user) {
-        user._id = uuid.v4();
-        mock.push(user);
-        return mock;
+        return UserModel.create(user);
     }
 
-    function updateUser(userId, newUser) {
-        for (var u in mock) {
-            if (mock[u]._id == userId) {
-                mock[u] = newUser;
-                return mock;
-            }
-        }
-        return null;
+    function updateUser(userId, user) {
+        delete user._id;
+        return UserModel.update({_id: userId}, {$set: user});
     }
 
     function deleteUserById(userId) {
-        var index = findIndexByUserId(userId);
-        mock.splice(index, 1);
-        return mock;
-    }
-
-    function findIndexByUserId(userId) {
-        var index = 0;
-        for (var i = 0; i < mock.length; i++) {
-            if (mock[i]._id === userId) {
-                return index;
-            }
-            index++;
-        }
+        return UserModel.remove({_id: userId});
     }
 }

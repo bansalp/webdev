@@ -20,31 +20,31 @@
         return api;
 
         function findUserByCredentials(user) {
-            return $http.get("/api/assignment/user?username=" + user.username + "&password=" + user.password);
+            return $http.get("/api/project/user?username=" + user.username + "&password=" + user.password);
         }
 
         function findUserByUsername(username) {
-            return $http.get("/api/assignment/user?username=" + username);
+            return $http.get("/api/project/user?username=" + username);
         }
 
         function findUserById(userId) {
-            return $http.get("/api/assignment/user/" + userId);
+            return $http.get("/api/project/user/" + userId);
         }
 
         function findAllUsers() {
-            return $http.get("/api/assignment/user");
+            return $http.get("/api/project/user");
         }
 
         function createUser(user) {
-            return $http.post("/api/assignment/user", user);
+            return $http.post("/api/project/user", user);
         }
 
         function updateUser(user) {
-            return $http.put("/api/assignment/user/" + user._id, user);
+            return $http.put("/api/project/user/" + user._id, user);
         }
 
         function deleteUserById(userId) {
-            return $http.delete("/api/assignment/user/" + userId);
+            return $http.delete("/api/project/user/" + userId);
         }
 
         function setCurrentUser(user) {
@@ -52,11 +52,11 @@
         }
 
         function getCurrentUser() {
-            return $http.get("/api/assignment/loggedin");
+            return $http.get("/api/project/loggedin");
         }
 
         function logout() {
-            return $http.get("/api/assignment/logout");
+            return $http.get("/api/project/logout");
         }
     }
 
