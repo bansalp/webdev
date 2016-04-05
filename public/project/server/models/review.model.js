@@ -1,9 +1,10 @@
-var mock = require("./review.mock.json");
+"use strict";
+module.exports = function (db) {
+    var ReviewSchema = require("./review.schema.server.js")(db);
+    var ReviewModel = db.model('mt_review', ReviewSchema);
 
-module.exports = function (uuid) {
     var api = {
         findAllReviewsByMovieId: findAllReviewsByMovieId,
-        movieAvgRatingByMovieId: movieAvgRatingByMovieId,
         addReview: addReview,
         updateReview: updateReview,
         deleteReview: deleteReview
@@ -11,57 +12,22 @@ module.exports = function (uuid) {
     return api;
 
     function findAllReviewsByMovieId(movieId) {
-        var reviews = mock.filter(function (review, index, arr) {
-            return (review.movieId == movieId);
-        });
-        return reviews;
-    }
-
-    function movieAvgRatingByMovieId(movieId) {
-        var reviews = findAllReviewsByMovieId(movieId);
-        var avgRating = 0;
-        for (var i = 0; i < reviews.length; i++) {
-            avgRating += reviews[i].rating;
-        }
-        return (avgRating / reviews.length);
+        return ReviewModel.find({movieId: movieId});
     }
 
     function addReview(userId, movieId, review) {
-        review._id = uuid.v4();
         review.userId = userId;
         review.movieId = movieId;
+        return ReviewModel.create(review);
+    }
+
+    function updateReview(reviewId, review) {
+        delete review._id;
         review.timestamp = new Date();
-        mock.push(review);
-        var reviews = findAllReviewsByMovieId(movieId);
-        return reviews;
+        return ReviewModel.update({_id: reviewId}, {$set: review});
     }
 
-    function updateReview(movieId, reviewId, review) {
-        review.timestamp = new Date();
-        for (var r in mock) {
-            if (mock[r]._id == reviewId) {
-                mock[r] = review;
-                var reviews = findAllReviewsByMovieId(movieId);
-                return reviews;
-            }
-        }
-        return null;
-    }
-
-    function deleteReview(movieId, reviewId) {
-        var index = findIndexByReviewId(reviewId);
-        mock.splice(index, 1);
-        var reviews = findAllReviewsByMovieId(movieId);
-        return reviews;
-    }
-
-    function findIndexByReviewId(reviewId) {
-        var index = 0;
-        for (var i = 0; i < mock.length; i++) {
-            if (mock[i]._id == reviewId) {
-                return index;
-            }
-            index++;
-        }
+    function deleteReview(reviewId) {
+        return ReviewModel.remove({_id: reviewId});
     }
 }

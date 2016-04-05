@@ -35,7 +35,6 @@
                     }
                 });
 
-            movieAvgRatingByMovieId(vm.movieId);
             movieDetailsByMovieId(vm.movieId);
         }
 
@@ -43,14 +42,15 @@
             init();
         }
 
-        function movieAvgRatingByMovieId(movieId) {
-            ReviewService
-                .movieAvgRatingByMovieId(movieId)
-                .then(function (response) {
-                    if (response.data) {
-                        vm.avgRating = response.data;
-                    }
-                });
+        function movieAvgRatingByMovieId(reviews) {
+            var avgRating = 0;
+            for (var i = 0; i < reviews.length; i++) {
+                avgRating += parseInt(reviews[i].rating);
+            }
+            vm.avgRating = (avgRating / reviews.length);
+            if (isNaN(vm.avgRating)) {
+                vm.avgRating = 0;
+            }
         }
 
         function movieDetailsByMovieId(movieId) {
@@ -67,6 +67,7 @@
                     if (response.data) {
                         vm.reviews = response.data;
                         findUserByReviewUserId(vm.reviews);
+                        movieAvgRatingByMovieId(vm.reviews);
                     }
                 });
         }
@@ -78,8 +79,9 @@
                     if (response.data) {
                         vm.selectedIndex = -1;
                         vm.review = {};
-                        findAllReviewsByMovieId(vm.movieId);
-                        movieAvgRatingByMovieId(vm.movieId);
+                        vm.reviews.push(response.data);
+                        findUserByReviewUserId(vm.reviews);
+                        movieAvgRatingByMovieId(vm.reviews);
                     }
                 });
         }
@@ -102,11 +104,14 @@
             ReviewService
                 .updateReview(vm.movieId, review._id, review)
                 .then(function (response) {
-                    if (response.data) {
+                    var status = response.data;
+                    console.log(status);
+                    if ((status.n == 1 || status.nModified == 1) && status.ok == 1) {
+                        vm.reviews[vm.selectedIndex] = review;
                         vm.selectedIndex = -1;
                         vm.review = {};
-                        findAllReviewsByMovieId(vm.movieId);
-                        movieAvgRatingByMovieId(vm.movieId);
+                        findUserByReviewUserId(vm.reviews);
+                        movieAvgRatingByMovieId(vm.reviews);
                     }
                 });
         }
@@ -116,11 +121,14 @@
             ReviewService
                 .deleteReview(vm.movieId, reviewId)
                 .then(function (response) {
-                    if (response.data) {
+                    var status = response.data;
+                    console.log(status);
+                    if (status.n == 1 && status.ok == 1) {
+                        vm.reviews.splice(index, 1);
                         vm.selectedIndex = -1;
                         vm.review = {};
-                        findAllReviewsByMovieId(vm.movieId);
-                        movieAvgRatingByMovieId(vm.movieId);
+                        findUserByReviewUserId(vm.reviews);
+                        movieAvgRatingByMovieId(vm.reviews);
                     }
                 });
         }

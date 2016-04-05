@@ -8,7 +8,6 @@
     function ReviewService($http) {
         var api = {
             findAllReviewsByMovieId: findAllReviewsByMovieId,
-            movieAvgRatingByMovieId: movieAvgRatingByMovieId,
             addReview: addReview,
             updateReview: updateReview,
             deleteReview: deleteReview
@@ -17,10 +16,6 @@
 
         function findAllReviewsByMovieId(movieId) {
             return $http.get("/api/project/movie/" + movieId + "/reviews");
-        }
-
-        function movieAvgRatingByMovieId(movieId) {
-            return $http.get("/api/project/movie/" + movieId + "/avgrating");
         }
 
         function addReview(userId, movieId, review) {
