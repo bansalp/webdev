@@ -22,7 +22,7 @@
                     var resUser = response.data;
                     if (resUser) {
                         UserService.setCurrentUser(resUser);
-                        $state.go("profile.edit-profile");
+                        $state.go("profile.edit-profile", {username: resUser.username});
                     }
                     else {
                         alert("Wrong username or password!")

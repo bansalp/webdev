@@ -1,4 +1,6 @@
 <div class="row">
-    <div ui-view="sidebar"></div>
-    <div ui-view="content"></div>
+    <div ng-include="'views/users/profile/sidebar.view.html'"></div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div ui-view></div>
+    </div>
 </div>

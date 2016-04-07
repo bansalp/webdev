@@ -44,22 +44,19 @@
                 controllerAs: "registerControllerModel"
             })
             .state("profile", {
-                views: {
-                    "": {
-                        templateUrl: "views/users/profile/profile.view.html"
-                    },
-
-                    "sidebar@profile": {
-                        templateUrl: "views/users/profile/sidebar.view.html"
-                    },
-
-                    "content@profile": {
-                        templateUrl: "views/users/profile/content.view.html"
-                    }
+                url: "/profile",
+                templateUrl: "views/users/profile/profile.view.html",
+                controller: "ProfileController",
+                controllerAs: "profileControllerModel",
+                params: {
+                    username: null
+                },
+                resolve: {
+                    checkLoggedIn: checkLoggedIn
                 }
             })
             .state("profile.edit-profile", {
-                url: "/profile/edit-profile",
+                url: "/:username/edit-profile",
                 templateUrl: "views/users/profile/edit-profile.view.html",
                 controller: "EditProfileController",
                 controllerAs: "editProfileControllerModel",
@@ -68,27 +65,27 @@
                 }
             })
             .state("profile.change-password", {
-                url: "/profile/change-password",
+                url: "/:username/change-password",
                 templateUrl: "views/users/profile/change-password.view.html"
             })
             .state("profile.followers", {
-                url: "/profile/followers",
+                url: "/:username/followers",
                 templateUrl: "views/users/profile/followers.view.html"
             })
             .state("profile.following", {
-                url: "/profile/following",
+                url: "/:username/following",
                 templateUrl: "views/users/profile/following.view.html"
             })
             .state("profile.reviews", {
-                url: "/profile/reviews",
+                url: "/:username/reviews",
                 templateUrl: "views/users/profile/reviews.view.html"
             })
             .state("profile.likes", {
-                url: "/profile/likes",
+                url: "/:username/likes",
                 templateUrl: "views/users/profile/likes.view.html"
             })
             .state("profile.dislikes", {
-                url: "/profile/dislikes",
+                url: "/:username/dislikes",
                 templateUrl: "views/users/profile/dislikes.view.html"
             })
             .state("admin", {

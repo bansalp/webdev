@@ -12,13 +12,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown visible-xs">
+                <li class="dropdown visible-xs" ng-show="user">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">Quick Links
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li ui-sref-active="active" ng-show="user">
-                            <a ui-sref="profile.edit-profile">Edit Profile</a>
-                        </li>
                         <li ui-sref-active="active" ng-show="user">
                             <a ui-sref="profile.change-password">Change Password</a>
                         </li>
@@ -47,7 +44,7 @@
                     <a ui-sref="login">Login</a>
                 </li>
                 <li ng-show="user">
-                    <a ui-sref="profile.edit-profile">{{user.username}}</a>
+                    <a ui-sref="profile.edit-profile({username: user.username})">{{user.username}}</a>
                 </li>
                 <li ng-show="user" ng-click="headerControllerModel.logout()">
                     <a href="">Logout</a>
