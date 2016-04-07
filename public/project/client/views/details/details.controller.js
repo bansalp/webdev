@@ -13,7 +13,8 @@
         vm.updateReview = updateReview;
         vm.deleteReview = deleteReview;
         vm.cancelReview = cancelReview;
-        //vm.findUserFirstNameByUserId = findUserFirstNameByUserId;
+        vm.likeMovie = likeMovie;
+        vm.undoLikeMovie = undoLikeMovie;
 
         vm.review = {
             "rating": 0,
@@ -68,6 +69,7 @@
                         vm.reviews = response.data;
                         findUserByReviewUserId(vm.reviews);
                         movieAvgRatingByMovieId(vm.reviews);
+                        isMovieLiked();
                     }
                 });
         }
@@ -138,23 +140,51 @@
         }
 
         function findUserByReviewUserId(reviews) {
-            var promiseArray = [];
-            var result = [];
-            for (var i = 0; i < reviews.length; i++) {
-                promiseArray
-                    .push(
-                        UserService.findUserById(reviews[i].userId)
-                            .then(function (response) {
-                                if (response.data) {
-                                    result.push(response.data);
-                                }
-                            }));
-            }
+            reviews.forEach(function (element, index, array) {
+                UserService.findUserById(reviews[index].userId)
+                    .then(function (response) {
+                        if (response.data) {
+                            reviews[index].userFirstName = response.data.firstName;
+                        }
+                    });
+            });
+        }
 
-            $q.all(promiseArray)
-                .then(function () {
-                    for (var i = 0; i < result.length; i++) {
-                        reviews[i].userFirstName = result[i].firstName;
+        function likeMovie() {
+            UserService
+                .likeMovie(vm.user._id, vm.movieId)
+                .then(function (response) {
+                    var status = response.data;
+                    console.log(status);
+                    if ((status.n == 1 || status.nModified == 1) && status.ok == 1) {
+                        vm.isLiked = true;
+                    }
+                });
+        }
+
+        function undoLikeMovie() {
+            UserService
+                .undoLikeMovie(vm.user._id, vm.movieId)
+                .then(function (response) {
+                    var status = response.data;
+                    console.log(status);
+                    if ((status.n == 1 || status.nModified == 1) && status.ok == 1) {
+                        vm.isLiked = false;
+                    }
+                });
+        }
+
+        function isMovieLiked() {
+            UserService
+                .isMovieLiked(vm.user._id, vm.movieId)
+                .then(function (response) {
+                    var user = response.data;
+                    if (user) {
+                        console.log(user);
+                        vm.isLiked = true;
+                    }
+                    else {
+                        vm.isLiked = false;
                     }
                 });
         }

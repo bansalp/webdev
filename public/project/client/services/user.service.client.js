@@ -13,6 +13,9 @@
             createUser: createUser,
             updateUser: updateUser,
             deleteUserById: deleteUserById,
+            likeMovie: likeMovie,
+            undoLikeMovie: undoLikeMovie,
+            isMovieLiked: isMovieLiked,
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
             logout: logout
@@ -45,6 +48,18 @@
 
         function deleteUserById(userId) {
             return $http.delete("/api/project/user/" + userId);
+        }
+
+        function likeMovie(userId, movieId) {
+            return $http.put("/api/project/user/" + userId + "/movie/" + movieId + "/like");
+        }
+
+        function undoLikeMovie(userId, movieId) {
+            return $http.put("/api/project/user/" + userId + "/movie/" + movieId + "/undolike");
+        }
+
+        function isMovieLiked(userId, movieId) {
+            return $http.get("/api/project/user/" + userId + "/movie/" + movieId + "/ismovieliked");
         }
 
         function setCurrentUser(user) {

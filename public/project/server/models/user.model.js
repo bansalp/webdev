@@ -10,7 +10,10 @@ module.exports = function (db) {
         findUserByCredentials: findUserByCredentials,
         createUser: createUser,
         updateUser: updateUser,
-        deleteUserById: deleteUserById
+        deleteUserById: deleteUserById,
+        likeMovie: likeMovie,
+        undoLikeMovie: undoLikeMovie,
+        isMovieLiked: isMovieLiked
     };
     return api;
 
@@ -46,5 +49,17 @@ module.exports = function (db) {
 
     function deleteUserById(userId) {
         return UserModel.remove({_id: userId});
+    }
+
+    function likeMovie(userId, movieId) {
+        return UserModel.update({_id: userId}, {$addToSet: {likes: movieId}});
+    }
+
+    function undoLikeMovie(userId, movieId) {
+        return UserModel.update({_id: userId}, {$pullAll: {likes: [movieId]}});
+    }
+
+    function isMovieLiked(userId, movieId) {
+        return UserModel.findOne({_id: userId, likes: {$in: [movieId]}});
     }
 }

@@ -6,7 +6,8 @@ module.exports = function (db) {
         firstName: String,
         lastName: String,
         email: String,
-        phone: String
+        phone: String,
+        likes: [String]
     }, {collection: 'mt_user'});
     return UserSchema;
 };

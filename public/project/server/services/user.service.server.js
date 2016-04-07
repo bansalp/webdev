@@ -5,6 +5,9 @@ module.exports = function (app, userModel) {
     app.get("/api/project/user/:id", findUserById);
     app.put("/api/project/user/:id", updateUser);
     app.delete("/api/project/user/:id", deleteUserById);
+    app.put("/api/project/user/:userId/movie/:movieId/like", likeMovie);
+    app.put("/api/project/user/:userId/movie/:movieId/undolike", undoLikeMovie);
+    app.get("/api/project/user/:userId/movie/:movieId/ismovieliked", isMovieLiked);
     app.get("/api/project/loggedin", loggedin);
     app.get("/api/project/logout", logout);
 
@@ -131,6 +134,51 @@ module.exports = function (app, userModel) {
             .then(
                 function (response) {
                     res.json(response);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function likeMovie(req, res) {
+        var reqMovieId = req.params.movieId;
+        var reqUserId = req.params.userId;
+        userModel
+            .likeMovie(reqUserId, reqMovieId)
+            .then(
+                function (response) {
+                    res.json(response);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function undoLikeMovie(req, res) {
+        var reqMovieId = req.params.movieId;
+        var reqUserId = req.params.userId;
+        userModel
+            .undoLikeMovie(reqUserId, reqMovieId)
+            .then(
+                function (response) {
+                    res.json(response);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function isMovieLiked(req, res) {
+        var reqMovieId = req.params.movieId;
+        var reqUserId = req.params.userId;
+        userModel
+            .isMovieLiked(reqUserId, reqMovieId)
+            .then(
+                function (user) {
+                    res.json(user);
                 },
                 function (err) {
                     res.status(400).send(err);
