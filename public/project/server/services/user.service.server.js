@@ -8,6 +8,8 @@ module.exports = function (app, userModel) {
     app.put("/api/project/user/:userId/movie/:movieId/like", likeMovie);
     app.put("/api/project/user/:userId/movie/:movieId/undolike", undoLikeMovie);
     app.get("/api/project/user/:userId/movie/:movieId/ismovieliked", isMovieLiked);
+    app.put("/api/project/user/:loggedInUserId/follows/:navigateUserId", follow);
+    app.put("/api/project/user/:loggedInUserId/unfollows/:navigateUserId", unfollow);
     app.get("/api/project/loggedin", loggedin);
     app.get("/api/project/logout", logout);
 
@@ -184,6 +186,50 @@ module.exports = function (app, userModel) {
                     res.status(400).send(err);
                 }
             );
+    }
+
+    function follow(req, res) {
+        var loggedInUserId = req.params.loggedInUserId;
+        var navigateUserId = req.params.navigateUserId;
+        userModel
+            .following(loggedInUserId, navigateUserId)
+            .then(
+                function (response) {
+                    return userModel.followers(navigateUserId, loggedInUserId);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (response) {
+                    res.json(response);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                });
+    }
+
+    function unfollow(req, res) {
+        var loggedInUserId = req.params.loggedInUserId;
+        var navigateUserId = req.params.navigateUserId;
+        userModel
+            .removeFollowing(loggedInUserId, navigateUserId)
+            .then(
+                function (response) {
+                    return userModel.removeFollowers(navigateUserId, loggedInUserId);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (response) {
+                    res.json(response);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                });
     }
 
     function loggedin(req, res) {

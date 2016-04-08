@@ -13,7 +13,11 @@ module.exports = function (db) {
         deleteUserById: deleteUserById,
         likeMovie: likeMovie,
         undoLikeMovie: undoLikeMovie,
-        isMovieLiked: isMovieLiked
+        isMovieLiked: isMovieLiked,
+        following: following,
+        followers: followers,
+        removeFollowing: removeFollowing,
+        removeFollowers: removeFollowers
     };
     return api;
 
@@ -61,5 +65,21 @@ module.exports = function (db) {
 
     function isMovieLiked(userId, movieId) {
         return UserModel.findOne({_id: userId, likes: {$in: [movieId]}});
+    }
+
+    function following(loggedInUserId, navigateUserId) {
+        return UserModel.update({_id: loggedInUserId}, {$addToSet: {following: navigateUserId}});
+    }
+
+    function followers(navigateUserId, loggedInUserId) {
+        return UserModel.update({_id: navigateUserId}, {$addToSet: {followers: loggedInUserId}});
+    }
+
+    function removeFollowing(loggedInUserId, navigateUserId) {
+        return UserModel.update({_id: loggedInUserId}, {$pullAll: {following: [navigateUserId]}});
+    }
+
+    function removeFollowers(navigateUserId, loggedInUserId) {
+        return UserModel.update({_id: navigateUserId}, {$pullAll: {followers: [loggedInUserId]}});
     }
 }

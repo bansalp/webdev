@@ -1,4 +1,4 @@
-<div class="col-sm-3 col-md-2 sidebar">
+<div class="col-sm-3 col-md-2 sidebar" ng-controller="SidebarController as sidebarControllerModel">
     <ul class="nav nav-sidebar">
         <li ui-sref-active="active" ng-show="user">
             <a ui-sref=".edit-profile({username: profileControllerModel.username})">Edit Profile</a>
@@ -20,6 +20,20 @@
         </li>
         <li ui-sref-active="active" ng-show="user">
             <a ui-sref=".dislikes({username: profileControllerModel.username})">Dislikes</a>
+        </li>
+        <li ng-show="user">
+            <a href=""
+               ng-click="sidebarControllerModel.follow()"
+               ng-hide="sidebarControllerModel.alreadyFollowing"
+               class="btn btn-block btn-success">Follow
+            </a>
+        </li>
+        <li ng-show="user">
+            <a href=""
+               ng-click="sidebarControllerModel.unfollow()"
+               ng-show="sidebarControllerModel.alreadyFollowing"
+               class="btn btn-block btn-danger">Unfollow
+            </a>
         </li>
     </ul>
 </div>

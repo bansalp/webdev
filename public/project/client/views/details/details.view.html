@@ -78,8 +78,10 @@
                         </small>
                     </h4>
                     <h4 class="media-heading">
-                        <small>By <a href="">{{review.userFirstName}}</a> on {{review.timestamp |
-                            date : 'mediumDate'}}
+                        <small>By
+                            <a ui-sref="profile.edit-profile({username: review.userId})">{{review.userFirstName}}</a>
+                            on
+                            {{review.timestamp | date : 'mediumDate'}}
                         </small>
                     </h4>
                     <p class="text-justify">

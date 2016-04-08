@@ -16,6 +16,8 @@
             likeMovie: likeMovie,
             undoLikeMovie: undoLikeMovie,
             isMovieLiked: isMovieLiked,
+            follow: follow,
+            unfollow: unfollow,
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
             logout: logout
@@ -60,6 +62,14 @@
 
         function isMovieLiked(userId, movieId) {
             return $http.get("/api/project/user/" + userId + "/movie/" + movieId + "/ismovieliked");
+        }
+
+        function follow(loggedInUserId, navigateUserId) {
+            return $http.put("/api/project/user/" + loggedInUserId + "/follows/" + navigateUserId);
+        }
+
+        function unfollow(loggedInUserId, navigateUserId) {
+            return $http.put("/api/project/user/" + loggedInUserId + "/unfollows/" + navigateUserId);
         }
 
         function setCurrentUser(user) {
