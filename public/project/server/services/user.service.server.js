@@ -10,6 +10,7 @@ module.exports = function (app, userModel) {
     app.get("/api/project/user/:userId/movie/:movieId/ismovieliked", isMovieLiked);
     app.put("/api/project/user/:loggedInUserId/follows/:navigateUserId", follow);
     app.put("/api/project/user/:loggedInUserId/unfollows/:navigateUserId", unfollow);
+    app.get("/api/project/user/:loggedInUserId/isalreadyfollowing/:navigateUserId", isAlreadyFollowing);
     app.get("/api/project/loggedin", loggedin);
     app.get("/api/project/logout", logout);
 
@@ -230,6 +231,21 @@ module.exports = function (app, userModel) {
                 function (err) {
                     res.status(400).send(err);
                 });
+    }
+
+    function isAlreadyFollowing(req, res) {
+        var loggedInUserId = req.params.loggedInUserId;
+        var navigateUserId = req.params.navigateUserId;
+        userModel
+            .isAlreadyFollowing(loggedInUserId, navigateUserId)
+            .then(
+                function (user) {
+                    res.json(user);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function loggedin(req, res) {

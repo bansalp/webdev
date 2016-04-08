@@ -7,8 +7,8 @@
     function ProfileController($stateParams) {
         var vm = this;
 
-        vm.username = $stateParams.username;
-        console.log(vm.username);
+        vm.userId = $stateParams.userId;
+        console.log(vm.userId);
 
         function init() {
 

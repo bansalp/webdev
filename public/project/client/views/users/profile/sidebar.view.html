@@ -1,34 +1,34 @@
 <div class="col-sm-3 col-md-2 sidebar" ng-controller="SidebarController as sidebarControllerModel">
     <ul class="nav nav-sidebar">
         <li ui-sref-active="active" ng-show="user">
-            <a ui-sref=".edit-profile({username: profileControllerModel.username})">Edit Profile</a>
+            <a ui-sref=".edit-profile({userId: profileControllerModel.userId})">Edit Profile</a>
         </li>
         <li ui-sref-active="active" ng-show="user">
-            <a ui-sref=".change-password({username: profileControllerModel.username})">Change Password</a>
+            <a ui-sref=".change-password({userId: profileControllerModel.userId})">Change Password</a>
         </li>
         <li ui-sref-active="active" ng-show="user">
-            <a ui-sref=".followers({username: profileControllerModel.username})">Followers</a>
+            <a ui-sref=".followers({userId: profileControllerModel.userId})">Followers</a>
         </li>
         <li ui-sref-active="active" ng-show="user">
-            <a ui-sref=".following({username: profileControllerModel.username})">Following</a>
+            <a ui-sref=".following({userId: profileControllerModel.userId})">Following</a>
         </li>
         <li ui-sref-active="active" ng-show="user">
-            <a ui-sref=".reviews({username: profileControllerModel.username})">Reviews</a>
+            <a ui-sref=".reviews({userId: profileControllerModel.userId})">Reviews</a>
         </li>
         <li ui-sref-active="active" ng-show="user">
-            <a ui-sref=".likes({username: profileControllerModel.username})">Likes</a>
+            <a ui-sref=".likes({userId: profileControllerModel.userId})">Likes</a>
         </li>
         <li ui-sref-active="active" ng-show="user">
-            <a ui-sref=".dislikes({username: profileControllerModel.username})">Dislikes</a>
+            <a ui-sref=".dislikes({userId: profileControllerModel.userId})">Dislikes</a>
         </li>
-        <li ng-show="user">
+        <li ng-show="user._id != sidebarControllerModel.navigateUserId">
             <a href=""
                ng-click="sidebarControllerModel.follow()"
                ng-hide="sidebarControllerModel.alreadyFollowing"
                class="btn btn-block btn-success">Follow
             </a>
         </li>
-        <li ng-show="user">
+        <li ng-show="user._id != sidebarControllerModel.navigateUserId">
             <a href=""
                ng-click="sidebarControllerModel.unfollow()"
                ng-show="sidebarControllerModel.alreadyFollowing"

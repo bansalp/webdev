@@ -49,14 +49,14 @@
                 controller: "ProfileController",
                 controllerAs: "profileControllerModel",
                 params: {
-                    username: null
+                    userId: null
                 },
                 resolve: {
                     checkLoggedIn: checkLoggedIn
                 }
             })
             .state("profile.edit-profile", {
-                url: "/:username/edit-profile",
+                url: "/:userId/edit-profile",
                 templateUrl: "views/users/profile/edit-profile.view.html",
                 controller: "EditProfileController",
                 controllerAs: "editProfileControllerModel",
@@ -65,27 +65,27 @@
                 }
             })
             .state("profile.change-password", {
-                url: "/:username/change-password",
+                url: "/:userId/change-password",
                 templateUrl: "views/users/profile/change-password.view.html"
             })
             .state("profile.followers", {
-                url: "/:username/followers",
+                url: "/:userId/followers",
                 templateUrl: "views/users/profile/followers.view.html"
             })
             .state("profile.following", {
-                url: "/:username/following",
+                url: "/:userId/following",
                 templateUrl: "views/users/profile/following.view.html"
             })
             .state("profile.reviews", {
-                url: "/:username/reviews",
+                url: "/:userId/reviews",
                 templateUrl: "views/users/profile/reviews.view.html"
             })
             .state("profile.likes", {
-                url: "/:username/likes",
+                url: "/:userId/likes",
                 templateUrl: "views/users/profile/likes.view.html"
             })
             .state("profile.dislikes", {
-                url: "/:username/dislikes",
+                url: "/:userId/dislikes",
                 templateUrl: "views/users/profile/dislikes.view.html"
             })
             .state("admin", {

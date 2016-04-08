@@ -18,6 +18,7 @@
             isMovieLiked: isMovieLiked,
             follow: follow,
             unfollow: unfollow,
+            isAlreadyFollowing: isAlreadyFollowing,
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
             logout: logout
@@ -70,6 +71,10 @@
 
         function unfollow(loggedInUserId, navigateUserId) {
             return $http.put("/api/project/user/" + loggedInUserId + "/unfollows/" + navigateUserId);
+        }
+
+        function isAlreadyFollowing(loggedInUserId, navigateUserId) {
+            return $http.get("/api/project/user/" + loggedInUserId + "/isalreadyfollowing/" + navigateUserId);
         }
 
         function setCurrentUser(user) {

@@ -39,7 +39,7 @@
             var user = response.data;
             if (user) {
                 UserService.setCurrentUser(user);
-                $state.go("profile.edit-profile", {username: user.username});
+                $state.go("profile.edit-profile", {userId: user._id});
             }
         }
     }

@@ -7,7 +7,7 @@
     function SidebarController($stateParams, UserService) {
         var vm = this;
 
-        vm.navigateUserId = $stateParams.username;
+        vm.navigateUserId = $stateParams.userId;
         vm.follow = follow;
         vm.unfollow = unfollow;
 
@@ -20,6 +20,7 @@
                         vm.loggedInUserId = user._id;
                         console.log("Want to follow: " + vm.navigateUserId);
                         console.log("Logged in as: " + vm.loggedInUserId)
+                        isAlreadyFollowing();
                     }
                 });
         }
@@ -52,6 +53,19 @@
                     }
                     else {
                         vm.alreadyFollowing = true;
+                    }
+                });
+        }
+
+        function isAlreadyFollowing() {
+            UserService
+                .isAlreadyFollowing(vm.loggedInUserId, vm.navigateUserId)
+                .then(function (response) {
+                    if (response.data) {
+                        vm.alreadyFollowing = true;
+                    }
+                    else {
+                        vm.alreadyFollowing = false;
                     }
                 });
         }
