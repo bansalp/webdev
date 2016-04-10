@@ -4,8 +4,10 @@
         .module("MovieTimeApp")
         .controller("ReviewsController", ReviewsController);
 
-    function ReviewsController(UserService, ReviewService) {
+    function ReviewsController($stateParams, UserService, ReviewService) {
         var vm = this;
+
+        vm.navigateUserId = $stateParams.userId;
 
         function init() {
             UserService
@@ -14,7 +16,8 @@
                     var user = response.data;
                     if (user) {
                         vm.user = user;
-                        return ReviewService.findAllReviewsByUserId(vm.user._id);
+                        vm.loggedInUserId = user._id;
+                        return ReviewService.findAllReviewsByUserId(vm.navigateUserId);
                     }
                 })
                 .then(function (response) {
