@@ -23,7 +23,7 @@
         };
 
         MovieService.getImageURL(function (response) {
-            vm.imageUrl = response;
+            vm.imageUrl = response.substring(0, response.length - 1);
         });
 
         function init() {
@@ -75,8 +75,9 @@
         }
 
         function addReview(review) {
+            vm.movie.imageUrl = vm.imageUrl + vm.movie.backdrop_path;
             ReviewService
-                .addReview(vm.user._id, vm.movieId, review)
+                .addReview(vm.user._id, vm.movieId, review, vm.movie)
                 .then(function (response) {
                     if (response.data) {
                         vm.selectedIndex = -1;

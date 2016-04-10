@@ -18,8 +18,12 @@
             return $http.get("/api/project/movie/" + movieId + "/reviews");
         }
 
-        function addReview(userId, movieId, review) {
-            return $http.post("/api/project/user/" + userId + "/movie/" + movieId, review);
+        function addReview(userId, movieId, review, movie) {
+            return $http.post("/api/project/user/" + userId + "/movie/" + movieId,
+                {
+                    "review": review,
+                    "movie": movie
+                });
         }
 
         function updateReview(movieId, reviewId, review) {
