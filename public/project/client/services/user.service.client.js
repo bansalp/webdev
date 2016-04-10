@@ -19,6 +19,7 @@
             follow: follow,
             unfollow: unfollow,
             isAlreadyFollowing: isAlreadyFollowing,
+            findAllFollowingUsers: findAllFollowingUsers,
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
             logout: logout
@@ -75,6 +76,10 @@
 
         function isAlreadyFollowing(loggedInUserId, navigateUserId) {
             return $http.get("/api/project/user/" + loggedInUserId + "/isalreadyfollowing/" + navigateUserId);
+        }
+
+        function findAllFollowingUsers(userId) {
+            return $http.get("/api/project/user/" + userId + "/following");
         }
 
         function setCurrentUser(user) {

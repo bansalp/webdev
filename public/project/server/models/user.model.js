@@ -18,7 +18,8 @@ module.exports = function (db) {
         followers: followers,
         removeFollowing: removeFollowing,
         removeFollowers: removeFollowers,
-        isAlreadyFollowing: isAlreadyFollowing
+        isAlreadyFollowing: isAlreadyFollowing,
+        findAllFollowingUsers: findAllFollowingUsers
     };
     return api;
 
@@ -86,5 +87,9 @@ module.exports = function (db) {
 
     function isAlreadyFollowing(loggedInUserId, navigateUserId) {
         return UserModel.findOne({_id: loggedInUserId, following: {$in: [navigateUserId]}});
+    }
+
+    function findAllFollowingUsers(userIds) {
+        return UserModel.find({_id: {$in: userIds}});
     }
 }

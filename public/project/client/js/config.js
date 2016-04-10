@@ -74,13 +74,15 @@
             })
             .state("profile.following", {
                 url: "/:userId/following",
-                templateUrl: "views/users/profile/following.view.html"
+                templateUrl: "views/users/profile/following.view.html",
+                controller: "FollowingController",
+                controllerAs: "followingControllerModel"
             })
             .state("profile.reviews", {
                 url: "/:userId/reviews",
                 templateUrl: "views/users/profile/reviews.view.html",
                 controller: "ReviewsController",
-                controllerAs: "reviewsControllerModel",
+                controllerAs: "reviewsControllerModel"
             })
             .state("profile.likes", {
                 url: "/:userId/likes",
