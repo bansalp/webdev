@@ -14,14 +14,14 @@
             </h3>
             <div ng-hide="user.itsMe">
                 <a href=""
-                   ng-click="followingControllerModel.follow()"
+                   ng-click="followingControllerModel.follow($index)"
                    ng-hide="user.alreadyFollowing"
                    class="btn btn-success">Follow
                 </a>
             </div>
             <div ng-hide="user.itsMe">
                 <a href=""
-                   ng-click="followingControllerModel.unfollow()"
+                   ng-click="followingControllerModel.unfollow($index)"
                    ng-show="user.alreadyFollowing"
                    class="btn btn-danger">Unfollow
                 </a>

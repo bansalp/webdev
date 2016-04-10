@@ -7,6 +7,9 @@
     function FollowingController($q, $stateParams, UserService) {
         var vm = this;
 
+        vm.follow = follow;
+        vm.unfollow = unfollow;
+
         vm.navigateUserId = $stateParams.userId;
 
         function init() {
@@ -67,6 +70,38 @@
             $q.all(promiseArray).then(function () {
                 vm.users = result;
             });
+        }
+
+        function follow(index) {
+            var userId = vm.users[index]._id;
+            UserService
+                .follow(vm.loggedInUserId, userId)
+                .then(function (response) {
+                    var status = response.data;
+                    console.log(status);
+                    if ((status.n == 1 || status.nModified == 1) && status.ok == 1) {
+                        vm.users[index].alreadyFollowing = true;
+                    }
+                    else {
+                        vm.users[index].alreadyFollowing = false;
+                    }
+                });
+        }
+
+        function unfollow(index) {
+            var userId = vm.users[index]._id;
+            UserService
+                .unfollow(vm.loggedInUserId, userId)
+                .then(function (response) {
+                    var status = response.data;
+                    console.log(status);
+                    if ((status.n == 1 || status.nModified == 1) && status.ok == 1) {
+                        vm.users[index].alreadyFollowing = false;
+                    }
+                    else {
+                        vm.users[index].alreadyFollowing = true;
+                    }
+                });
         }
     }
 
