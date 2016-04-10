@@ -70,7 +70,9 @@
             })
             .state("profile.followers", {
                 url: "/:userId/followers",
-                templateUrl: "views/users/profile/followers.view.html"
+                templateUrl: "views/users/profile/followers.view.html",
+                controller: "FollowersController",
+                controllerAs: "followersControllerModel"
             })
             .state("profile.following", {
                 url: "/:userId/following",

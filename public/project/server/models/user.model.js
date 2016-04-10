@@ -19,7 +19,8 @@ module.exports = function (db) {
         removeFollowing: removeFollowing,
         removeFollowers: removeFollowers,
         isAlreadyFollowing: isAlreadyFollowing,
-        findAllFollowingUsers: findAllFollowingUsers
+        findAllFollowingUsers: findAllFollowingUsers,
+        findAllFollowersUsers: findAllFollowersUsers
     };
     return api;
 
@@ -90,6 +91,10 @@ module.exports = function (db) {
     }
 
     function findAllFollowingUsers(userIds) {
+        return UserModel.find({_id: {$in: userIds}});
+    }
+
+    function findAllFollowersUsers(userIds) {
         return UserModel.find({_id: {$in: userIds}});
     }
 }

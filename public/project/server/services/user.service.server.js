@@ -13,6 +13,7 @@ module.exports = function (app, userModel) {
     app.put("/api/project/user/:loggedInUserId/unfollows/:navigateUserId", unfollow);
     app.get("/api/project/user/:loggedInUserId/isalreadyfollowing/:navigateUserId", isAlreadyFollowing);
     app.get("/api/project/user/:userId/following", findAllFollowingUsers);
+    app.get("/api/project/user/:userId/followers", findAllFollowersUsers);
     app.get("/api/project/loggedin", loggedin);
     app.get("/api/project/logout", logout);
 
@@ -257,6 +258,28 @@ module.exports = function (app, userModel) {
             .then(
                 function (user) {
                     return userModel.findAllFollowingUsers(user.following);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (users) {
+                    res.json(users);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function findAllFollowersUsers(req, res) {
+        var reqUserId = req.params.userId;
+        userModel
+            .findUserById(reqUserId)
+            .then(
+                function (user) {
+                    return userModel.findAllFollowersUsers(user.followers);
                 },
                 function (err) {
                     res.status(400).send(err);

@@ -20,6 +20,7 @@
             unfollow: unfollow,
             isAlreadyFollowing: isAlreadyFollowing,
             findAllFollowingUsers: findAllFollowingUsers,
+            findAllFollowersUsers: findAllFollowersUsers,
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
             logout: logout
@@ -80,6 +81,10 @@
 
         function findAllFollowingUsers(userId) {
             return $http.get("/api/project/user/" + userId + "/following");
+        }
+
+        function findAllFollowersUsers(userId) {
+            return $http.get("/api/project/user/" + userId + "/followers");
         }
 
         function setCurrentUser(user) {
