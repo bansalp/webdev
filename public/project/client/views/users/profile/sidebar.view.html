@@ -18,9 +18,6 @@
         <li ui-sref-active="active" ng-show="user">
             <a ui-sref=".likes({userId: profileControllerModel.userId})">Likes</a>
         </li>
-        <li ui-sref-active="active" ng-show="user">
-            <a ui-sref=".dislikes({userId: profileControllerModel.userId})">Dislikes</a>
-        </li>
         <li ng-show="user._id != sidebarControllerModel.navigateUserId">
             <a href=""
                ng-click="sidebarControllerModel.follow()"

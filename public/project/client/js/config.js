@@ -88,11 +88,9 @@
             })
             .state("profile.likes", {
                 url: "/:userId/likes",
-                templateUrl: "views/users/profile/likes.view.html"
-            })
-            .state("profile.dislikes", {
-                url: "/:userId/dislikes",
-                templateUrl: "views/users/profile/dislikes.view.html"
+                templateUrl: "views/users/profile/likes.view.html",
+                controller: "LikesController",
+                controllerAs: "likesControllerModel"
             })
             .state("admin", {
                 url: "/admin",

@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = function (app, userModel) {
+module.exports = function (app, userModel, movieModel) {
     app.post("/api/project/user", createUser);
     app.get("/api/project/user", findUser);
     app.get("/api/project/user/:id", findUserById);
@@ -14,6 +14,7 @@ module.exports = function (app, userModel) {
     app.get("/api/project/user/:loggedInUserId/isalreadyfollowing/:navigateUserId", isAlreadyFollowing);
     app.get("/api/project/user/:userId/following", findAllFollowingUsers);
     app.get("/api/project/user/:userId/followers", findAllFollowersUsers);
+    app.get("/api/project/user/:userId/likes", findAllLikedMovies);
     app.get("/api/project/loggedin", loggedin);
     app.get("/api/project/logout", logout);
 
@@ -288,6 +289,28 @@ module.exports = function (app, userModel) {
             .then(
                 function (users) {
                     res.json(users);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function findAllLikedMovies(req, res) {
+        var reqUserId = req.params.userId;
+        userModel
+            .findUserById(reqUserId)
+            .then(
+                function (user) {
+                    return movieModel.findAllLikedMovies(user.likes);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (movies) {
+                    res.json(movies);
                 },
                 function (err) {
                     res.status(400).send(err);

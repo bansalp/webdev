@@ -6,7 +6,8 @@ module.exports = function (db) {
 
     var api = {
         addMovie: addMovie,
-        findMovieByMovieId: findMovieByMovieId
+        findMovieByMovieId: findMovieByMovieId,
+        findAllLikedMovies: findAllLikedMovies
     };
     return api;
 
@@ -21,5 +22,9 @@ module.exports = function (db) {
 
     function findMovieByMovieId(movieId) {
         return MovieModel.findById(movieId);
+    }
+
+    function findAllLikedMovies(movieIds) {
+        return MovieModel.find({_id: {$in: movieIds}});
     }
 }

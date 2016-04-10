@@ -21,6 +21,7 @@
             isAlreadyFollowing: isAlreadyFollowing,
             findAllFollowingUsers: findAllFollowingUsers,
             findAllFollowersUsers: findAllFollowersUsers,
+            findAllLikedMovies: findAllLikedMovies,
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
             logout: logout
@@ -85,6 +86,10 @@
 
         function findAllFollowersUsers(userId) {
             return $http.get("/api/project/user/" + userId + "/followers");
+        }
+
+        function findAllLikedMovies(userId) {
+            return $http.get("/api/project/user/" + userId + "/likes");
         }
 
         function setCurrentUser(user) {
