@@ -9,7 +9,6 @@
         function init() {
             $rootScope.$on('$viewContentLoading',
                 function (event, viewConfig) {
-                    console.log(event);
                     $rootScope.isToggleMenuVisible = $state.includes("profile");
                 });
         }
