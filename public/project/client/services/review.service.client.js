@@ -10,7 +10,8 @@
             findAllReviewsByMovieId: findAllReviewsByMovieId,
             addReview: addReview,
             updateReview: updateReview,
-            deleteReview: deleteReview
+            deleteReview: deleteReview,
+            findAllReviewsByUserId: findAllReviewsByUserId
         };
         return api;
 
@@ -28,6 +29,10 @@
 
         function deleteReview(movieId, reviewId) {
             return $http.delete("/api/project/movie/" + movieId + "/review/" + reviewId);
+        }
+
+        function findAllReviewsByUserId(userId) {
+            return $http.get("/api/project/user/" + userId + "/reviews");
         }
     }
 

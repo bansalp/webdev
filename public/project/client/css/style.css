@@ -70,3 +70,8 @@ body {
 .green {
     color: #008000;
 }
+
+.media-object-movie {
+    max-height: 100px;
+    max-width: 100px;
+}

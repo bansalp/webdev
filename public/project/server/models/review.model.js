@@ -7,7 +7,8 @@ module.exports = function (db) {
         findAllReviewsByMovieId: findAllReviewsByMovieId,
         addReview: addReview,
         updateReview: updateReview,
-        deleteReview: deleteReview
+        deleteReview: deleteReview,
+        findAllReviewsByUserId: findAllReviewsByUserId
     };
     return api;
 
@@ -29,5 +30,9 @@ module.exports = function (db) {
 
     function deleteReview(reviewId) {
         return ReviewModel.remove({_id: reviewId});
+    }
+
+    function findAllReviewsByUserId(userId) {
+        return ReviewModel.find({userId: userId});
     }
 }

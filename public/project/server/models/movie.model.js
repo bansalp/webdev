@@ -1,10 +1,12 @@
 "use strict";
+
 module.exports = function (db) {
     var MovieSchema = require("./movie.schema.server.js")(db);
     var MovieModel = db.model('mt_movie', MovieSchema);
 
     var api = {
-        addMovie: addMovie
+        addMovie: addMovie,
+        findMovieByMovieId: findMovieByMovieId
     };
     return api;
 
@@ -16,5 +18,9 @@ module.exports = function (db) {
         };
 
         return MovieModel.findOneAndUpdate({_id: newMovie._id}, newMovie, {upsert: true});
+    }
+
+    function findMovieByMovieId(movieId) {
+        return MovieModel.findById(movieId);
     }
 }

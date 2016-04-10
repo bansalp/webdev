@@ -78,7 +78,9 @@
             })
             .state("profile.reviews", {
                 url: "/:userId/reviews",
-                templateUrl: "views/users/profile/reviews.view.html"
+                templateUrl: "views/users/profile/reviews.view.html",
+                controller: "ReviewsController",
+                controllerAs: "reviewsControllerModel",
             })
             .state("profile.likes", {
                 url: "/:userId/likes",
