@@ -8,13 +8,18 @@
     function HeaderController($state, UserService) {
         var vm = this;
 
+        vm.toggleMenu = toggleMenu;
         vm.logout = logout;
 
         function init() {
-
+            
         }
 
         init();
+
+        function toggleMenu() {
+            $("#wrapper").toggleClass("toggled");
+        }
 
         function logout() {
             UserService
