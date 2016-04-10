@@ -22,10 +22,9 @@ module.exports = function (app, reviewModel) {
     function addReview(req, res) {
         var userId = req.params.userId;
         var movieId = req.params.movieId;
-        var review = req.body.review;
-        var movie = req.body.movie;
+        var review = req.body;
         reviewModel
-            .addReview(userId, movieId, review, movie)
+            .addReview(userId, movieId, review)
             .then(
                 function (review) {
                     res.json(review);

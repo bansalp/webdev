@@ -77,7 +77,7 @@
         function addReview(review) {
             vm.movie.imageUrl = vm.imageUrl + vm.movie.backdrop_path;
             ReviewService
-                .addReview(vm.user._id, vm.movieId, review, vm.movie)
+                .addReview(vm.user._id, vm.movieId, review)
                 .then(function (response) {
                     if (response.data) {
                         vm.selectedIndex = -1;
@@ -85,7 +85,11 @@
                         vm.reviews.push(response.data);
                         findUserByReviewUserId(vm.reviews);
                         movieAvgRatingByMovieId(vm.reviews);
+                        return MovieService.addMovie(vm.movie);
                     }
+                })
+                .then(function (response) {
+                    console.log("Movie Inserted !");
                 });
         }
 
@@ -152,6 +156,7 @@
         }
 
         function likeMovie() {
+            vm.movie.imageUrl = vm.imageUrl + vm.movie.backdrop_path;
             UserService
                 .likeMovie(vm.user._id, vm.movieId)
                 .then(function (response) {
@@ -159,7 +164,11 @@
                     console.log(status);
                     if ((status.n == 1 || status.nModified == 1) && status.ok == 1) {
                         vm.isLiked = true;
+                        return MovieService.addMovie(vm.movie);
                     }
+                })
+                .then(function (response) {
+                    console.log("Movie Inserted !");
                 });
         }
 

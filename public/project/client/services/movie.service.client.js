@@ -15,7 +15,8 @@
             findPopularMovies: findPopularMovies,
             getImageURL: getImageURL,
             getMoviesByTitle: getMoviesByTitle,
-            getMovieDetailsById: getMovieDetailsById
+            getMovieDetailsById: getMovieDetailsById,
+            addMovie: addMovie
         };
         return api;
 
@@ -41,6 +42,10 @@
                 .replace("ID", movieId);
             $http.get(url)
                 .success(callback);
+        }
+
+        function addMovie(movie) {
+            return $http.post("/api/project/movie", movie);
         }
     }
 })();
