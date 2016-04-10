@@ -8,8 +8,24 @@
         </a>
         <div class="media-body">
             <h3 class="media-heading">
-                {{user.firstName + " " +user.lastName}}
+                <a ui-sref="profile.edit-profile({userId: user._id})">
+                    {{user.firstName + " " + user.lastName}}
+                </a>
             </h3>
+            <div ng-hide="user.itsMe">
+                <a href=""
+                   ng-click="followersControllerModel.follow($index)"
+                   ng-hide="user.alreadyFollowing"
+                   class="btn btn-success">Follow
+                </a>
+            </div>
+            <div ng-hide="user.itsMe">
+                <a href=""
+                   ng-click="followersControllerModel.unfollow($index)"
+                   ng-show="user.alreadyFollowing"
+                   class="btn btn-danger">Unfollow
+                </a>
+            </div>
         </div>
     </div>
 
