@@ -2,7 +2,7 @@
 
 <div ng-repeat="review in reviewsControllerModel.reviews">
     <div class="media">
-        <a class="pull-left" href="#">
+        <a class="pull-left" href="">
             <img class="media-object media-object-movie" ng-src={{review.movie.imageUrl}} alt="">
         </a>
         <div class="media-body">
@@ -11,6 +11,13 @@
                     {{review.movie.title}}
                 </a>
             </h4>
+            <small>
+                        <span>
+                            <ng-rating ng-model="review.rating"
+                                       editable="false">
+                            </ng-rating>
+                        </span>
+            </small>
             <h4 class="media-heading">
                 <small>
                     On {{review.timestamp | date : 'mediumDate'}}
