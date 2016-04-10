@@ -7,6 +7,8 @@
     function ProfileController($stateParams) {
         var vm = this;
 
+        vm.toggleMenu = toggleMenu;
+        
         vm.userId = $stateParams.userId;
         console.log(vm.userId);
 
@@ -15,6 +17,10 @@
         }
 
         init();
+
+        function toggleMenu() {
+            $("#wrapper").toggleClass("toggled");
+        }
     }
 
 })();

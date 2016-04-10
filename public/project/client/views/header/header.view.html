@@ -12,31 +12,6 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown visible-xs" ng-show="user">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="">Quick Links
-                        <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li ui-sref-active="active" ng-show="user">
-                            <a ui-sref="profile.change-password">Change Password</a>
-                        </li>
-                        <li ui-sref-active="active" ng-show="user">
-                            <a ui-sref="profile.followers">Followers</a>
-                        </li>
-                        <li ui-sref-active="active" ng-show="user">
-                            <a ui-sref="profile.following">Following</a>
-                        </li>
-                        <li ui-sref-active="active" ng-show="user">
-                            <a ui-sref="profile.reviews">Reviews</a>
-                        </li>
-                        <li ui-sref-active="active" ng-show="user">
-                            <a ui-sref="profile.likes">Likes</a>
-                        </li>
-                        <li ui-sref-active="active" ng-show="user">
-                            <a ui-sref="profile.dislikes">Dislikes</a>
-                        </li>
-                    </ul>
-                </li>
-
                 <li ui-sref-active="active" ng-show="!user">
                     <a ui-sref="register">Register</a>
                 </li>
