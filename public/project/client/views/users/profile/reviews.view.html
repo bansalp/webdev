@@ -17,7 +17,7 @@
                 </small>
             </h4>
             <p class="text-justify">
-                {{review.description}}
+                {{review.description | limitTo:100}} {{review.description.length > 100 ? "..." : ""}}
             </p>
         </div>
     </div>
