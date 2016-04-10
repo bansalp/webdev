@@ -12,12 +12,11 @@ module.exports = function (db) {
 
     function addMovie(movie) {
         var newMovie = {
-            "_id": movie.id.toString(),
             "title": movie.title,
             "imageUrl": movie.imageUrl
         };
 
-        return MovieModel.findOneAndUpdate({_id: newMovie._id}, newMovie, {upsert: true});
+        return MovieModel.findOneAndUpdate({_id: movie.id.toString()}, newMovie, {upsert: true});
     }
 
     function findMovieByMovieId(movieId) {
