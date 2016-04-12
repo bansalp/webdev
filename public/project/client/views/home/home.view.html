@@ -17,14 +17,21 @@
     </div>
 
     <div class="row">
-        <div ng-repeat="movie in movies">
+        <div ng-repeat="movie in movies | limitTo:18">
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
                     <a ui-sref="details({movieId: movie.id})">
+                        <div class="caption">
+                            <h3>{{movie.title | limitTo:20}}{{movie.title.length > 20 ? "..." : ""}}</h3>
+                        </div>
                         <img class="img-responsive" ng-src="{{imageUrl + movie.backdrop_path}}"/>
                     </a>
                     <div class="caption">
-                        <h3>{{movie.title}}</h3>
+                        <h5>{{movie.overview | limitTo:100}}{{movie.overview.length > 100 ? "..." : ""}}</h5>
+                    </div>
+                    <hr class="nomargin">
+                    <div class="caption">
+                        <h5>{{movie.genres[0] + " " + movie.genres[1] + " " + movie.genres[2]}}</h5>
                     </div>
                 </div>
             </div>
