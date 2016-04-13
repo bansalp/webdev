@@ -1,17 +1,57 @@
 @media (max-width: 767px) {
+    .search-box {
+        height: 30px;
+        padding: 5px 10px;
+        font-size: 12px;
+        line-height: 1.5;
+        border-radius: 3px;
+    }
 
+    .brandname {
+        font-size: 24px;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
+    .search-box {
+        height: 46px;
+        padding: 10px 16px;
+        font-size: 18px;
+        line-height: 1.3333333;
+        border-radius: 6px;
+    }
 
+    .brandname {
+        font-size: 36px;
+    }
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
+    .search-box {
+        height: 46px;
+        padding: 10px 16px;
+        font-size: 18px;
+        line-height: 1.3333333;
+        border-radius: 6px;
+    }
 
+    .brandname {
+        font-size: 36px;
+    }
 }
 
 @media (min-width: 1200px) {
+    .search-box {
+        height: 46px;
+        padding: 10px 16px;
+        font-size: 18px;
+        line-height: 1.3333333;
+        border-radius: 6px;
+    }
 
+    .brandname {
+        font-size: 36px;
+    }
 }
 
 body {
