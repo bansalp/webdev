@@ -12,7 +12,8 @@
         vm.movieTitle = $stateParams.movieTitle;
 
         function init() {
-            vm.imageUrl = MovieService.getImageURL();
+            var imageUrl = MovieService.getImageURL();
+            vm.imageUrl = imageUrl.substring(0, imageUrl.length - 1);
 
             MovieService
                 .getGenreList()
