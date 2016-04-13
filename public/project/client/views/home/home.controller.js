@@ -12,7 +12,6 @@
         vm.movieTitle = $stateParams.movieTitle;
 
         var slides = [];
-        var counter = 0;
 
         function init() {
             var imageUrl = MovieService.getImageURL();
@@ -29,6 +28,8 @@
                     });
                 });
 
+            vm.slides = slides;
+
             MovieService
                 .getGenreList()
                 .then(function (response) {
@@ -38,18 +39,6 @@
                     });
                     vm.genreList = map;
                 });
-
-            vm.slide = slides[counter];
-            $interval(function () {
-                if (counter == slides.length) {
-                    counter = 0;
-                    vm.slide = slides[counter];
-                }
-                else {
-                    counter = counter + 1;
-                    vm.slide = slides[counter];
-                }
-            }, 3000, 0);
 
             if (vm.movieTitle) {
                 getMoviesByTitle(vm.movieTitle);
