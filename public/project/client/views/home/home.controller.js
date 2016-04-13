@@ -33,15 +33,7 @@
                 MovieService
                     .findPopularMovies()
                     .then(function (response) {
-                        response.data.results.forEach(function (element1, index1, array1) {
-                            var genres = [];
-                            element1.genre_ids.forEach(function (element2, index2, array2) {
-                                genres.push("#" + getValue(element2));
-                            });
-                            element1.genres = genres;
-                        });
-
-                        vm.movies = response.data.results;
+                        preprocessResponse(response);
                     });
             }
         }
@@ -54,16 +46,37 @@
             MovieService
                 .getMoviesByTitle(movieTitle)
                 .then(function (response) {
-                    response.data.results.forEach(function (element1, index1, array1) {
-                        var genres = [];
-                        element1.genre_ids.forEach(function (element2, index2, array2) {
-                            genres.push("#" + getValue(element2));
-                        });
-                        element1.genres = genres;
-                    });
-
-                    vm.movies = response.data.results;
+                    preprocessResponse(response);
                 });
+        }
+
+        function preprocessResponse(response) {
+            response.data.results.forEach(function (element1, index1, array1) {
+                var genres = [];
+                if (element1.genre_ids.length != 0) {
+                    element1.genre_ids.forEach(function (element2, index2, array2) {
+                        genres.push("#" + getValue(element2));
+                    });
+                }
+                else {
+                    genres.push("#NA");
+                }
+                element1.genres = genres;
+
+                if (element1.backdrop_path) {
+                    element1.imageUrl = vm.imageUrl + element1.backdrop_path;
+                }
+                else {
+                    element1.imageUrl = "/project/client/images/Image-Not-Available.jpg";
+                }
+
+                if (!element1.overview) {
+                    element1.overview = "There is no overview for this movie.";
+                }
+            });
+
+            vm.movies = response.data.results;
+            console.log(vm.movies);
         }
 
         function getValue(key) {
