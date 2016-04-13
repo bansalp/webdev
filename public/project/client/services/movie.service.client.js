@@ -22,6 +22,7 @@
 
         var api = {
             findPopularMovies: findPopularMovies,
+            findUpcomingMovies: findUpcomingMovies,
             getGenreList: getGenreList,
             getImageURL: getImageURL,
             getMoviesByTitle: getMoviesByTitle,
@@ -32,6 +33,10 @@
 
         function findPopularMovies() {
             return $http.get(popularMovieUrl);
+        }
+
+        function findUpcomingMovies() {
+            return $http.get(upcomingUrl);
         }
 
         function getGenreList() {

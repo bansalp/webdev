@@ -75,3 +75,7 @@ body {
     max-height: 100px;
     max-width: 100px;
 }
+
+#myCarousel {
+    margin-bottom: 30px;
+}

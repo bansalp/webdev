@@ -4,16 +4,30 @@
         .module("MovieTimeApp")
         .controller("HomeController", HomeController);
 
-    function HomeController($stateParams, MovieService) {
+    function HomeController($stateParams, $interval, MovieService) {
         var vm = this;
 
         vm.getMoviesByTitle = getMoviesByTitle;
 
         vm.movieTitle = $stateParams.movieTitle;
 
+        var slides = [];
+        var counter = 0;
+
         function init() {
             var imageUrl = MovieService.getImageURL();
             vm.imageUrl = imageUrl.substring(0, imageUrl.length - 1);
+
+            MovieService
+                .findUpcomingMovies()
+                .then(function (response) {
+                    response.data.results.forEach(function (element1, index1, array1) {
+                        if (element1.backdrop_path) {
+                            element1.imageUrl = vm.imageUrl + element1.backdrop_path;
+                            slides.push(element1);
+                        }
+                    });
+                });
 
             MovieService
                 .getGenreList()
@@ -25,6 +39,18 @@
                     vm.genreList = map;
                 });
 
+            vm.slide = slides[counter];
+            $interval(function () {
+                if (counter == slides.length) {
+                    counter = 0;
+                    vm.slide = slides[counter];
+                }
+                else {
+                    counter = counter + 1;
+                    vm.slide = slides[counter];
+                }
+            }, 3000, 0);
+
             if (vm.movieTitle) {
                 getMoviesByTitle(vm.movieTitle);
             }
@@ -34,7 +60,7 @@
                 MovieService
                     .findPopularMovies()
                     .then(function (response) {
-                        preprocessResponse(response);
+                        vm.movies = preprocessResponse(response);
                     });
             }
         }
@@ -47,7 +73,7 @@
             MovieService
                 .getMoviesByTitle(movieTitle)
                 .then(function (response) {
-                    preprocessResponse(response);
+                    vm.movies = preprocessResponse(response);
                 });
         }
 
@@ -76,8 +102,7 @@
                 }
             });
 
-            vm.movies = response.data.results;
-            console.log(vm.movies);
+            return response.data.results;
         }
 
         function getValue(key) {

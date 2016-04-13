@@ -1,15 +1,24 @@
 <div>
 
-    <div class="jumbotron text-center">
-        <h1>Movie Time</h1>
-        <p>An Online Movie Store</p>
-        <div class="input-group col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6">
-            <input type="text" class="form-control input-lg" ng-model="homeControllerModel.movie.title"
-                   placeholder="Search for a movie by title">
-            <a ui-sref="home({movieTitle: homeControllerModel.movie.title})"
-               class="input-group-addon input-lg btn-primary btn-search">
-                <i class="glyphicon glyphicon-search"></i>
-            </a>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img ng-src="{{homeControllerModel.slide.imageUrl}}">
+            </div>
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Movie Time</h1>
+                    <p>An Online Movie Store</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control input-lg" ng-model="homeControllerModel.movie.title"
+                               placeholder="Search for a movie by title">
+                        <a ui-sref="home({movieTitle: homeControllerModel.movie.title})"
+                           class="input-group-addon input-lg btn-primary btn-search">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
