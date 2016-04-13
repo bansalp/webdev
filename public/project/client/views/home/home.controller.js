@@ -9,6 +9,10 @@
 
         vm.getMoviesByTitle = getMoviesByTitle;
 
+        vm.slide = function (dir) {
+            $('#myCarousel').carousel(dir);
+        };
+
         vm.movieTitle = $stateParams.movieTitle;
 
         var slides = [];
