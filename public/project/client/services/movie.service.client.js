@@ -30,33 +30,29 @@
         };
         return api;
 
-        function findPopularMovies(callback) {
-            $http.get(popularMovieUrl)
-                .success(callback);
+        function findPopularMovies() {
+            return $http.get(popularMovieUrl);
         }
 
-        function getGenreList(callback) {
-            $http.get(genreListUrl)
-                .success(callback);
+        function getGenreList() {
+            return $http.get(genreListUrl);
         }
 
-        function getImageURL(callback) {
-            callback(imageUrl);
+        function getImageURL() {
+            return imageUrl;
         }
 
-        function getMoviesByTitle(movieTitle, callback) {
+        function getMoviesByTitle(movieTitle) {
             var url = searchUrl
                 .replace("TITLE", movieTitle)
                 .replace("PAGE", 1);
-            $http.get(url)
-                .success(callback);
+            return $http.get(url);
         }
 
-        function getMovieDetailsById(movieId, callback) {
+        function getMovieDetailsById(movieId) {
             var url = detailsUrl
                 .replace("ID", movieId);
-            $http.get(url)
-                .success(callback);
+            return $http.get(url);
         }
 
         function addMovie(movie) {

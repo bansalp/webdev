@@ -14,6 +14,7 @@
                 url: "/home/:movieTitle",
                 templateUrl: "views/home/home.view.html",
                 controller: "HomeController",
+                controllerAs: "homeControllerModel",
                 resolve: {
                     getLoggedIn: getLoggedIn
                 }

@@ -4,10 +4,10 @@
         .module("MovieTimeApp")
         .controller("DetailsController", DetailsController);
 
-    function DetailsController($stateParams, $q, MovieService, ReviewService, UserService) {
+    function DetailsController($stateParams, MovieService, ReviewService, UserService) {
         var vm = this;
 
-        vm.movieId = parseInt($stateParams.movieId);
+        vm.movieId = $stateParams.movieId;
         vm.addReview = addReview;
         vm.selectReview = selectReview;
         vm.updateReview = updateReview;
@@ -16,17 +16,16 @@
         vm.likeMovie = likeMovie;
         vm.undoLikeMovie = undoLikeMovie;
 
-        vm.review = {
-            "rating": 0,
-            "title": "",
-            "description": ""
-        };
-
-        MovieService.getImageURL(function (response) {
-            vm.imageUrl = response.substring(0, response.length - 1);
-        });
-
         function init() {
+            vm.review = {
+                "rating": 0,
+                "title": "",
+                "description": ""
+            };
+
+            var imageUrl = MovieService.getImageURL();
+            vm.imageUrl = imageUrl.substring(0, imageUrl.length - 1);
+
             UserService
                 .getCurrentUser()
                 .then(function (response) {
@@ -55,10 +54,12 @@
         }
 
         function movieDetailsByMovieId(movieId) {
-            MovieService.getMovieDetailsById(movieId, function (response) {
-                vm.movie = response;
-                findAllReviewsByMovieId(movieId);
-            });
+            MovieService
+                .getMovieDetailsById(movieId)
+                .then(function (response) {
+                    vm.movie = response.data;
+                    findAllReviewsByMovieId(movieId);
+                });
         }
 
         function findAllReviewsByMovieId(movieId) {

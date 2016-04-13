@@ -4,64 +4,70 @@
         .module("MovieTimeApp")
         .controller("HomeController", HomeController);
 
-    function HomeController($scope, $stateParams, MovieService) {
-        $scope.getMoviesByTitle = getMoviesByTitle;
+    function HomeController($stateParams, MovieService) {
+        var vm = this;
 
-        $scope.movieTitle = $stateParams.movieTitle;
-        MovieService.getImageURL(function (response) {
-            $scope.imageUrl = response;
-        });
+        vm.getMoviesByTitle = getMoviesByTitle;
 
-        MovieService.getGenreList(function (response) {
-            var map = new Object();
+        vm.movieTitle = $stateParams.movieTitle;
 
-            response.genres.forEach(function (element, index, array) {
-                map[element.id] = element.name;
-            });
+        function init() {
+            vm.imageUrl = MovieService.getImageURL();
 
-            $scope.genreList = map;
-        });
-
-        if ($scope.movieTitle) {
-            console.log($scope.movieTitle);
-            getMoviesByTitle($scope.movieTitle);
-        }
-        else {
-            $scope.pageHeader = "Popular Movies";
-            MovieService.findPopularMovies(function (response) {
-                response.results.forEach(function (element1, index1, array1) {
-                    var genres = [];
-                    element1.genre_ids.forEach(function (element2, index2, array2) {
-                        genres.push("#" + getValue(element2));
+            MovieService
+                .getGenreList()
+                .then(function (response) {
+                    var map = new Object();
+                    response.data.genres.forEach(function (element, index, array) {
+                        map[element.id] = element.name;
                     });
-                    element1.genres = genres;
+                    vm.genreList = map;
                 });
 
-                console.log(response.results);
+            if (vm.movieTitle) {
+                getMoviesByTitle(vm.movieTitle);
+            }
+            else {
+                vm.pageHeader = "Popular Movies";
 
-                $scope.movies = response.results;
-            });
+                MovieService
+                    .findPopularMovies()
+                    .then(function (response) {
+                        response.data.results.forEach(function (element1, index1, array1) {
+                            var genres = [];
+                            element1.genre_ids.forEach(function (element2, index2, array2) {
+                                genres.push("#" + getValue(element2));
+                            });
+                            element1.genres = genres;
+                        });
+
+                        vm.movies = response.data.results;
+                    });
+            }
         }
+
+        init();
 
         function getMoviesByTitle(movieTitle) {
-            $scope.pageHeader = "Search Results";
-            MovieService.getMoviesByTitle(movieTitle, function (response) {
-                response.results.forEach(function (element1, index1, array1) {
-                    var genres = [];
-                    element1.genre_ids.forEach(function (element2, index2, array2) {
-                        genres.push("#" + getValue(element2));
+            vm.pageHeader = "Search Results";
+
+            MovieService
+                .getMoviesByTitle(movieTitle)
+                .then(function (response) {
+                    response.data.results.forEach(function (element1, index1, array1) {
+                        var genres = [];
+                        element1.genre_ids.forEach(function (element2, index2, array2) {
+                            genres.push("#" + getValue(element2));
+                        });
+                        element1.genres = genres;
                     });
-                    element1.genres = genres;
+
+                    vm.movies = response.data.results;
                 });
-
-                console.log(response.results);
-
-                $scope.movies = response.results;
-            });
         }
 
         function getValue(key) {
-            return $scope.genreList[key];
+            return vm.genreList[key];
         }
     }
 
