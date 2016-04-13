@@ -16,7 +16,8 @@
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
             logout: logout,
-            login: login
+            login: login,
+            register: register
         };
         return api;
 
@@ -58,6 +59,10 @@
 
         function login(user) {
             return $http.post("/api/assignment/login", user);
+        }
+
+        function register(user) {
+            return $http.post("/api/assignment/register", user);
         }
     }
 

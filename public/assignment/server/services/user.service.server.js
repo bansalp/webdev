@@ -13,6 +13,7 @@ module.exports = function (app, userModel) {
     app.delete("/api/assignment/user/:id", deleteUserById);
     app.get("/api/assignment/loggedin", loggedin);
     app.get("/api/assignment/logout", logout);
+    app.post('/api/assignment/register', register);
 
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -175,5 +176,41 @@ module.exports = function (app, userModel) {
         } else {
             next();
         }
+    }
+
+    function register(req, res) {
+        var newUser = req.body;
+        newUser.roles = ['student'];
+
+        userModel
+            .findUserByUsername(newUser.username)
+            .then(
+                function (user) {
+                    if (user) {
+                        res.json(null);
+                    } else {
+                        return userModel.createUser(newUser);
+                    }
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (user) {
+                    if (user) {
+                        req.login(user, function (err) {
+                            if (err) {
+                                res.status(400).send(err);
+                            } else {
+                                res.json(user);
+                            }
+                        });
+                    }
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 }

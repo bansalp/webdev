@@ -18,32 +18,19 @@
 
         function register(user) {
             UserService
-                .findUserByUsername(user.username)
-                .then(function (response) {
-                    var resUser = response.data;
-                    if (!resUser) {
-                        UserService
-                            .createUser(user)
-                            .then(function (res) {
-                                if (res.data) {
-                                    UserService
-                                        .findUserByUsername(user.username)
-                                        .then(redirectToProfile);
-                                }
-                            });
-                    }
-                    else {
+                .register(user)
+                .then(
+                    function (response) {
+                        var user = response.data;
+                        if (user != null) {
+                            UserService.setCurrentUser(user);
+                            $location.url("/profile");
+                        }
+                    },
+                    function (err) {
                         alert("User already exists");
                     }
-                });
-        }
-
-        function redirectToProfile(response) {
-            var user = response.data;
-            if (user) {
-                UserService.setCurrentUser(user);
-                $location.url("/profile");
-            }
+                );
         }
     }
 
