@@ -57,7 +57,15 @@
             MovieService
                 .getMovieDetailsById(movieId)
                 .then(function (response) {
-                    vm.movie = response.data;
+                    var movie = response.data;
+                    if (movie.backdrop_path) {
+                        movie.imageUrl = vm.imageUrl + movie.backdrop_path;
+                    }
+                    else {
+                        movie.imageUrl = "/project/client/images/Image-Not-Available.jpg";
+                    }
+
+                    vm.movie = movie;
                     findAllReviewsByMovieId(movieId);
                 });
         }
