@@ -1,5 +1,11 @@
 "use strict";
+
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
 module.exports = function (app, userModel) {
+    var auth = authorized;
+    app.post("/api/assignment/login", passport.authenticate('local'), login);
     app.post("/api/assignment/user", createUser);
     app.get("/api/assignment/user", findUser);
     app.get("/api/assignment/user/:id", findUserById);
@@ -7,6 +13,50 @@ module.exports = function (app, userModel) {
     app.delete("/api/assignment/user/:id", deleteUserById);
     app.get("/api/assignment/loggedin", loggedin);
     app.get("/api/assignment/logout", logout);
+
+    passport.use(new LocalStrategy(localStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+
+    function localStrategy(username, password, done) {
+        userModel
+            .findUserByCredentials({username: username, password: password})
+            .then(
+                function (user) {
+                    if (!user) {
+                        return done(null, false);
+                    }
+                    return done(null, user);
+                },
+                function (err) {
+                    if (err) {
+                        return done(err);
+                    }
+                }
+            );
+    }
+
+    function serializeUser(user, done) {
+        done(null, user);
+    }
+
+    function deserializeUser(user, done) {
+        userModel
+            .findUserById(user._id)
+            .then(
+                function (user) {
+                    done(null, user);
+                },
+                function (err) {
+                    done(err, null);
+                }
+            );
+    }
+
+    function login(req, res) {
+        var user = req.user;
+        res.json(user);
+    }
 
     function createUser(req, res) {
         var reqUser = req.body;
@@ -111,11 +161,19 @@ module.exports = function (app, userModel) {
     }
 
     function loggedin(req, res) {
-        res.json(req.session.currentUser);
+        res.send(req.isAuthenticated() ? req.user : null);
     }
 
     function logout(req, res) {
-        req.session.destroy();
+        req.logOut();
         res.send(200);
+    }
+
+    function authorized(req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.send(401);
+        } else {
+            next();
+        }
     }
 }

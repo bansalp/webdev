@@ -17,18 +17,18 @@
         init();
 
         function login(user) {
-            UserService
-                .findUserByCredentials(user)
-                .then(function (response) {
-                    var resUser = response.data;
-                    if (resUser) {
-                        UserService.setCurrentUser(resUser);
-                        $location.url("/profile");
-                    }
-                    else {
-                        alert("Wrong username or password!")
-                    }
-                });
+            if (user)
+                UserService
+                    .login(user)
+                    .then(
+                        function (response) {
+                            UserService.setCurrentUser(response.data);
+                            $location.url("/profile");
+                        },
+                        function (err) {
+                            alert("Wrong username or password!");
+                        }
+                    );
         }
     }
 

@@ -15,7 +15,8 @@
             deleteUserById: deleteUserById,
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
-            logout: logout
+            logout: logout,
+            login: login
         };
         return api;
 
@@ -53,6 +54,10 @@
 
         function logout() {
             return $http.get("/api/assignment/logout");
+        }
+
+        function login(user) {
+            return $http.post("/api/assignment/login", user);
         }
     }
 

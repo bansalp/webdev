@@ -1,9 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
-var passport      = require('passport');
-var cookieParser  = require('cookie-parser');
-var session       = require('express-session');
+var passport = require('passport');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var uuid = require('node-uuid');
 var mongoose = require("mongoose");
 
@@ -42,3 +42,5 @@ require("./public/assignment/server/app.js")(app, uuid, db);
 require("./public/project/server/app.js")(app, db);
 
 app.listen(port, ipaddress);
+
+console.log("Server started...");
