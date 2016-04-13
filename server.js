@@ -24,8 +24,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(multer());
 
+var secret = process.env.SESSION_SECRET || 'this is the secret';
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: secret,
     resave: true,
     saveUninitialized: true
 }));
