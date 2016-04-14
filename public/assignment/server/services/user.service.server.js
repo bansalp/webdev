@@ -6,7 +6,6 @@ var LocalStrategy = require('passport-local').Strategy;
 module.exports = function (app, userModel) {
     var auth = authorized;
     app.post("/api/assignment/login", passport.authenticate('assignment'), login);
-    app.post("/api/assignment/user", createUser);
     app.get("/api/assignment/user", findUser);
     app.get("/api/assignment/user/:id", findUserById);
     app.put("/api/assignment/user/:id", updateUser);
@@ -14,6 +13,10 @@ module.exports = function (app, userModel) {
     app.get("/api/assignment/loggedin", loggedin);
     app.get("/api/assignment/logout", logout);
     app.post('/api/assignment/register', register);
+    app.post('/api/assignment/admin/user', auth, createUser);
+    app.get('/api/assignment/admin/user', auth, findAllUsersAdmin);
+    app.delete('/api/assignment/admin/user/:userId', auth, deleteUser);
+    app.put('/api/assignment/admin/user/:userId', auth, updateUserAdmin);
 
     passport.use('assignment', new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -35,6 +38,84 @@ module.exports = function (app, userModel) {
                     }
                 }
             );
+    }
+
+    function updateUserAdmin(req, res) {
+        var newUser = req.body;
+        if (!isAdmin(req.user)) {
+            delete newUser.roles;
+        }
+        if (typeof newUser.roles == "string") {
+            newUser.roles = newUser.roles.split(",");
+        }
+
+        userModel
+            .updateUser(req.params.userId, newUser)
+            .then(
+                function (user) {
+                    return userModel.findAllUsers();
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (users) {
+                    res.json(users);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function deleteUser(req, res) {
+        if (isAdmin(req.user)) {
+            userModel
+                .deleteUserById(req.params.userId)
+                .then(
+                    function (user) {
+                        return userModel.findAllUsers();
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    }
+                )
+                .then(
+                    function (users) {
+                        res.json(users);
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    }
+                );
+        } else {
+            res.status(403);
+        }
+    }
+
+    function findAllUsersAdmin(req, res) {
+        if (isAdmin(req.user)) {
+            userModel
+                .findAllUsers()
+                .then(
+                    function (users) {
+                        res.json(users);
+                    },
+                    function () {
+                        res.status(400).send(err);
+                    }
+                );
+        } else {
+            res.status(403);
+        }
+    }
+
+    function isAdmin(user) {
+        if (user.roles.indexOf("admin") > -1) {
+            return true
+        }
+        return false;
     }
 
     function serializeUser(user, done) {
@@ -60,15 +141,43 @@ module.exports = function (app, userModel) {
     }
 
     function createUser(req, res) {
-        var reqUser = req.body;
+        var newUser = req.body;
+        if (newUser.roles && newUser.roles.length > 1) {
+            newUser.roles = newUser.roles.split(",");
+        } else {
+            newUser.roles = ["student"];
+        }
         userModel
-            .createUser(reqUser)
+            .findUserByUsername(newUser.username)
             .then(
                 function (user) {
-                    req.session.currentUser = user;
-                    res.json(user);
+                    // if the user does not already exist
+                    if (user == null) {
+                        // create a new user
+                        return userModel.createUser(newUser)
+                            .then(
+                                // fetch all the users
+                                function () {
+                                    return userModel.findAllUsers();
+                                },
+                                function (err) {
+                                    res.status(400).send(err);
+                                }
+                            );
+                        // if the user already exists, then just fetch all the users
+                    } else {
+                        return userModel.findAllUsers();
+                    }
                 },
                 function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (users) {
+                    res.json(users);
+                },
+                function () {
                     res.status(400).send(err);
                 }
             );

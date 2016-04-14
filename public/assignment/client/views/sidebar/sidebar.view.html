@@ -1,8 +1,11 @@
 <div class="col-sm-3 col-md-2 sidebar" ng-controller="SidebarController as sidebarControllerModel">
     <ul class="nav nav-sidebar">
         <li ng-class="{'active': mainControllerModel.$location.url() == '/home'}"><a href="#/home">Home</a></li>
-        <li ng-class="{'active': mainControllerModel.$location.url() == '/profile'}" ng-show="user"><a href="#/profile">Profile</a></li>
-        <li ng-class="{'active': mainControllerModel.$location.url() == '/admin'}" ng-show="user"><a href="#/admin">Admin</a></li>
-        <li ng-class="{'active': mainControllerModel.$location.url() == '/forms' || mainControllerModel.$location.url().indexOf('/fields') > -1}" ng-show="user"><a href="#/forms">Forms</a></li>
+        <li ng-class="{'active': mainControllerModel.$location.url() == '/profile'}" ng-show="user"><a href="#/profile">Profile</a>
+        </li>
+        <li ng-class="{'active': mainControllerModel.$location.url() == '/admin'}"
+            ng-show="user && user.roles.indexOf('admin') > -1"><a href="#/admin">Admin</a></li>
+        <li ng-class="{'active': mainControllerModel.$location.url() == '/forms' || mainControllerModel.$location.url().indexOf('/fields') > -1}"
+            ng-show="user"><a href="#/forms">Forms</a></li>
     </ul>
 </div>

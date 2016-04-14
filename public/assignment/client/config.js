@@ -50,9 +50,9 @@
             .when("/admin", {
                 templateUrl: "views/admin/admin.view.html",
                 controller: "AdminController",
-                controllerAs: "adminControllerModel",
+                controllerAs: "model",
                 resolve: {
-                    checkLoggedIn: checkLoggedIn
+                    checkAdmin: checkAdmin
                 }
             })
             .otherwise({
@@ -87,6 +87,33 @@
                     $location.url("/home");
                 }
             });
+        return deferred.promise;
+    }
+
+    function checkAdmin(UserService, $q, $location) {
+        var deferred = $q.defer();
+
+        UserService
+            .getCurrentUser()
+            .then(function (response) {
+                var user = response.data;
+
+                if (user) {
+                    if (user != null && user.roles.indexOf('admin') != -1) {
+                        UserService.setCurrentUser(user);
+                        deferred.resolve();
+                    }
+                    else {
+                        deferred.reject();
+                        $location.url("/home");
+                    }
+                }
+                else {
+                    deferred.reject();
+                    $location.url("/home");
+                }
+            });
+
         return deferred.promise;
     }
 

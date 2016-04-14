@@ -46,7 +46,7 @@
 
 /* Table Bordered - admin.view.html, forms.view.html */
 
-.table-bordered>tbody>tr>td {
+.table-bordered > tbody > tr > td {
     vertical-align: middle;
 }
 
@@ -71,7 +71,7 @@
 }
 
 .selected-form {
-    background-color: #D9E4EC!important;
+    background-color: #D9E4EC !important;
 }
 
 /**********************************************************************************************************************/
@@ -88,7 +88,7 @@
     background-color: #428bca;
 }
 
-.div-for-xs-active>a:focus, .div-for-xs-active>a:hover {
+.div-for-xs-active > a:focus, .div-for-xs-active > a:hover {
     text-decoration: none;
 }
 
@@ -97,7 +97,7 @@
     text-align: center;
 }
 
-.div-for-xs>a:focus, .div-for-xs>a:hover {
+.div-for-xs > a:focus, .div-for-xs > a:hover {
     text-decoration: none;
 }
 
@@ -109,6 +109,10 @@
 .a-for-xs {
     color: #428bca;
     text-decoration: none;
+}
+
+.nowrap {
+    white-space: nowrap;
 }
 
 /**********************************************************************************************************************/
