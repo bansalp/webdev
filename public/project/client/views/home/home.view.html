@@ -42,6 +42,13 @@
         <h3 class="page-header h3-page-header">{{homeControllerModel.pageHeader}}</h3>
     </div>
 
+    <div class="row" ng-show="homeControllerModel.error">
+        <div class="alert alert-warning alert-box" role="alert">
+            <b>Warning! </b>
+            {{homeControllerModel.error}}
+        </div>
+    </div>
+
     <div class="row">
         <div ng-repeat="movie in homeControllerModel.movies | limitTo:18">
             <div class="col-sm-6 col-md-4">

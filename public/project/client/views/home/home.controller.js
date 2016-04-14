@@ -56,9 +56,20 @@
 
                 MovieService
                     .findPopularMovies()
-                    .then(function (response) {
-                        vm.movies = preprocessResponse(response);
-                    });
+                    .then(
+                        function (response) {
+                            var movies = preprocessResponse(response);
+                            if (movies.length != 0) {
+                                vm.movies = movies;
+                                vm.error = null;
+                            }
+                            else {
+                                vm.error = "Change a few things up and try submitting again.";
+                            }
+                        },
+                        function (err) {
+                            vm.error = "Change a few things up and try submitting again.";
+                        });
             }
         }
 
@@ -69,9 +80,20 @@
 
             MovieService
                 .getMoviesByTitle(movieTitle)
-                .then(function (response) {
-                    vm.movies = preprocessResponse(response);
-                });
+                .then(
+                    function (response) {
+                        var movies = preprocessResponse(response);
+                        if (movies.length != 0) {
+                            vm.movies = movies;
+                            vm.error = null;
+                        }
+                        else {
+                            vm.error = "Change a few things up and try submitting again.";
+                        }
+                    },
+                    function (err) {
+                        vm.error = "Change a few things up and try submitting again.";
+                    });
         }
 
         function preprocessResponse(response) {
