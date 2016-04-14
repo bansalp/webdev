@@ -36,6 +36,20 @@
                 });
 
             MovieService
+                .findUpcomingMovies()
+                .then(
+                    function (response) {
+                        var upcoming = [];
+                        response.data.results.forEach(function (element1, index1, array1) {
+                            if (element1.backdrop_path) {
+                                element1.imageUrl = vm.imageUrl + element1.backdrop_path;
+                                upcoming.push(element1);
+                            }
+                        });
+                        vm.upcoming = upcoming;
+                    });
+
+            MovieService
                 .getVideoKey(vm.movieId)
                 .then(function (response) {
                     var videos = response.data.results;

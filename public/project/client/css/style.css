@@ -145,3 +145,11 @@ body {
 .margin-top {
     margin-top: 15px;
 }
+
+.no-left-padding {
+    padding-left: 0px;
+}
+
+.less-padding {
+    padding: 5px;
+}
