@@ -50,6 +50,14 @@
                     });
 
             MovieService
+                .getMovieCredits(vm.movieId)
+                .then(function (response) {
+                    var casts = response.data.cast;
+                    vm.casts = casts;
+                    console.log(vm.casts);
+                });
+
+            MovieService
                 .getVideoKey(vm.movieId)
                 .then(function (response) {
                     var videos = response.data.results;

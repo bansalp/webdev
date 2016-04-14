@@ -37,17 +37,13 @@
             <div class="panel-body">
                 <h5>Plot</h5>
                 <p>{{detailsControllerModel.movie.overview}}</p>
-                <h5>Release Date</h5>
-                <p>{{detailsControllerModel.movie.release_date}}</p>
-                <h5>Popularity</h5>
-                <p>{{detailsControllerModel.movie.popularity}}</p>
-                <h5>Genres</h5>
-                <ul ng-repeat="movieGenre in detailsControllerModel.movie.genres">
-                    <li>{{movieGenre.name}}</li>
-                </ul>
                 <h5>Production Companies</h5>
                 <ul ng-repeat="movieProductionCompany in detailsControllerModel.movie.production_companies">
                     <li>{{movieProductionCompany.name}}</li>
+                </ul>
+                <h5>Cast</h5>
+                <ul ng-repeat="cast in detailsControllerModel.casts">
+                    <li>{{cast.name + " - " + cast.character}}</li>
                 </ul>
             </div>
 

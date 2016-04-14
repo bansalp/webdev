@@ -30,6 +30,7 @@
             getMovieDetailsById: getMovieDetailsById,
             getVideoKey: getVideoKey,
             getYoutubeEmbedUrl: getYoutubeEmbedUrl,
+            getMovieCredits: getMovieCredits,
             addMovie: addMovie
         };
         return api;
@@ -79,6 +80,12 @@
             var url = youtubeEmbedUrl
                 .replace("KEY", key);
             return url;
+        }
+
+        function getMovieCredits(movieId) {
+            var url = creditsUrl
+                .replace("MOVIEID", movieId);
+            return $http.get(url);
         }
 
         function addMovie(movie) {
