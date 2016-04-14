@@ -6,7 +6,7 @@
 
 
     function MovieService($http) {
-        var popularMovieUrl = "http://api.themoviedb.org/3/discover/movie?api_key=0989313de69b690eda213c2c6387e038&sort_by=popularity.desc&language=en";
+        var popularMovieUrl = "http://api.themoviedb.org/3/discover/movie?api_key=0989313de69b690eda213c2c6387e038&sort_by=popularity.desc&language=en&page=PAGE";
         var genreListUrl = "http://api.themoviedb.org/3/genre/movie/list?api_key=0989313de69b690eda213c2c6387e038&language=en";
         var creditsUrl = "http://api.themoviedb.org/3/movie/MOVIEID/credits?api_key=0989313de69b690eda213c2c6387e038&language=en";
         var videoUrl = "http://api.themoviedb.org/3/movie/MOVIEID/videos?api_key=0989313de69b690eda213c2c6387e038&language=en";
@@ -31,8 +31,10 @@
         };
         return api;
 
-        function findPopularMovies() {
-            return $http.get(popularMovieUrl);
+        function findPopularMovies(page) {
+            var url = popularMovieUrl
+                .replace("PAGE", page);
+            return $http.get(url);
         }
 
         function findUpcomingMovies() {
@@ -47,10 +49,10 @@
             return imageUrl;
         }
 
-        function getMoviesByTitle(movieTitle) {
+        function getMoviesByTitle(movieTitle, page) {
             var url = searchUrl
                 .replace("TITLE", movieTitle)
-                .replace("PAGE", 1);
+                .replace("PAGE", page);
             return $http.get(url);
         }
 

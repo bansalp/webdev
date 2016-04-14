@@ -8,6 +8,7 @@
         var vm = this;
 
         vm.getMoviesByTitle = getMoviesByTitle;
+        vm.myPagingFunction = myPagingFunction;
 
         vm.slide = function (dir) {
             $('#myCarousel').carousel(dir);
@@ -18,6 +19,8 @@
         var slides = [];
 
         function init() {
+            vm.paginationCounter = 1;
+
             $('#myCarousel').carousel({
                 interval: 5000
             });
@@ -49,13 +52,13 @@
                 });
 
             if (vm.movieTitle) {
-                getMoviesByTitle(vm.movieTitle);
+                getMoviesByTitle(vm.movieTitle, vm.paginationCounter);
             }
             else {
                 vm.pageHeader = "Popular Movies";
 
                 MovieService
-                    .findPopularMovies()
+                    .findPopularMovies(vm.paginationCounter)
                     .then(
                         function (response) {
                             var movies = preprocessResponse(response);
@@ -75,11 +78,11 @@
 
         init();
 
-        function getMoviesByTitle(movieTitle) {
+        function getMoviesByTitle(movieTitle, page) {
             vm.pageHeader = "Search Results";
 
             MovieService
-                .getMoviesByTitle(movieTitle)
+                .getMoviesByTitle(movieTitle, page)
                 .then(
                     function (response) {
                         var movies = preprocessResponse(response);
@@ -96,10 +99,44 @@
                     });
         }
 
+        function myPagingFunction() {
+            if (vm.paginationCounter == 1) {
+                vm.paginationCounter = vm.paginationCounter + 1;
+            }
+            else {
+                if (vm.movieTitle) {
+                    vm.busy = true;
+                    MovieService
+                        .getMoviesByTitle(vm.movieTitle, vm.paginationCounter)
+                        .then(
+                            function (response) {
+                                var movies = preprocessResponse(response);
+                                if (movies.length != 0) {
+                                    vm.movies.push.apply(vm.movies, movies);
+                                    vm.busy = false;
+                                }
+                            });
+                }
+                else {
+                    vm.busy = true;
+                    MovieService
+                        .findPopularMovies(vm.paginationCounter)
+                        .then(
+                            function (response) {
+                                var movies = preprocessResponse(response);
+                                if (movies.length != 0) {
+                                    vm.movies.push.apply(vm.movies, movies);
+                                    vm.busy = false;
+                                }
+                            });
+                }
+            }
+        }
+
         function preprocessResponse(response) {
             response.data.results.forEach(function (element1, index1, array1) {
                 var genres = [];
-                if (element1.genre_ids.length != 0) {
+                if (element1.genre_ids.length != 0 && element1.genre_ids) {
                     element1.genre_ids.forEach(function (element2, index2, array2) {
                         genres.push("#" + getValue(element2));
                     });

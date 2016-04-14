@@ -49,8 +49,11 @@
         </div>
     </div>
 
-    <div class="row">
-        <div ng-repeat="movie in homeControllerModel.movies | limitTo:18">
+    <div class="row"
+         infinite-scroll="homeControllerModel.myPagingFunction()"
+         infinite-scroll-disabled='homeControllerModel.busy'
+         infinite-scroll-distance="1">
+        <div ng-repeat="movie in homeControllerModel.movies">
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
                     <span class="label label-default pull-right">Release: {{movie.release_date}}</span>
@@ -65,7 +68,8 @@
                     </div>
                     <hr class="nomargin">
                     <div class="caption">
-                        <h5 class="text-muted">{{movie.genres[0] + " " + movie.genres[1] + " " + movie.genres[2]}}</h5>
+                        <h5 class="text-muted">
+                            {{movie.genres[0] + " " + movie.genres[1] + " " + movie.genres[2]}}</h5>
                     </div>
                 </div>
             </div>
