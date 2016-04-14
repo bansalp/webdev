@@ -14,12 +14,15 @@
                 <i class="fa fa-thumbs-o-up green"></i>
             </a>
         </h2>
-        <h6>
-            <ng-rating ng-model="detailsControllerModel.avgRating"
-                       editable="false"
-                       show-grade="true">
-            </ng-rating>
-        </h6>
+
+        <span class="h5" ng-show="detailsControllerModel.avgRating != 0">
+            Average Rating:
+                <ng-rating ng-model="detailsControllerModel.avgRating"
+                           editable="false"
+                           show-grade="true">
+                </ng-rating>
+        </span>
+
         <div class="caption">
             <span class="h5 text-muted" ng-repeat="genre in detailsControllerModel.movie.genres">
             {{"#" + genre.name + " "}}
