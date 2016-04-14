@@ -4,6 +4,7 @@
 <div class="panel panel-default">
 
     <div class="panel-body">
+        <span class="label label-default pull-right">Release: {{detailsControllerModel.movie.release_date}}</span>
         <h2>
             {{detailsControllerModel.movie.title}}
             <a href="" ng-click="detailsControllerModel.likeMovie()" ng-hide="detailsControllerModel.isLiked">
@@ -19,6 +20,11 @@
                        show-grade="true">
             </ng-rating>
         </h6>
+        <div class="caption">
+            <span class="h5 text-muted" ng-repeat="genre in detailsControllerModel.movie.genres">
+            {{"#" + genre.name + " "}}
+        </span>
+        </div>
         <hr>
         <h5>Plot</h5>
         <p>{{detailsControllerModel.movie.overview}}</p>

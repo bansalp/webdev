@@ -66,6 +66,7 @@
                     }
 
                     vm.movie = movie;
+                    console.log(movie);
                     findAllReviewsByMovieId(movieId);
                 });
         }
