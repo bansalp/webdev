@@ -36,17 +36,17 @@
                 });
 
             MovieService
-                .findUpcomingMovies()
+                .findTopRatedMovies()
                 .then(
                     function (response) {
-                        var upcoming = [];
+                        var toprated = [];
                         response.data.results.forEach(function (element1, index1, array1) {
                             if (element1.backdrop_path) {
                                 element1.imageUrl = vm.imageUrl + element1.backdrop_path;
-                                upcoming.push(element1);
+                                toprated.push(element1);
                             }
                         });
-                        vm.upcoming = upcoming;
+                        vm.toprated = toprated;
                     });
 
             MovieService

@@ -33,31 +33,218 @@
 
                 <hr class="nomargin margin-top">
             </div>
-            <div class="row">
-                <div class="col-sm-7">
-                    <div class="panel-body">
-                        <h5>Plot</h5>
-                        <p>{{detailsControllerModel.movie.overview}}</p>
-                        <h5>Release Date</h5>
-                        <p>{{detailsControllerModel.movie.release_date}}</p>
-                        <h5>Popularity</h5>
-                        <p>{{detailsControllerModel.movie.popularity}}</p>
-                        <h5>Genres</h5>
-                        <ul ng-repeat="movieGenre in detailsControllerModel.movie.genres">
-                            <li>{{movieGenre.name}}</li>
-                        </ul>
-                        <h5>Production Companies</h5>
-                        <ul ng-repeat="movieProductionCompany in detailsControllerModel.movie.production_companies">
-                            <li>{{movieProductionCompany.name}}</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-5">
-                    <div class="panel-body">
 
+            <div class="panel-body">
+                <h5>Plot</h5>
+                <p>{{detailsControllerModel.movie.overview}}</p>
+                <h5>Release Date</h5>
+                <p>{{detailsControllerModel.movie.release_date}}</p>
+                <h5>Popularity</h5>
+                <p>{{detailsControllerModel.movie.popularity}}</p>
+                <h5>Genres</h5>
+                <ul ng-repeat="movieGenre in detailsControllerModel.movie.genres">
+                    <li>{{movieGenre.name}}</li>
+                </ul>
+                <h5>Production Companies</h5>
+                <ul ng-repeat="movieProductionCompany in detailsControllerModel.movie.production_companies">
+                    <li>{{movieProductionCompany.name}}</li>
+                </ul>
+            </div>
+
+            <div>
+                <hr>
+                <div class="panel-heading">
+                    <h4>Customer Reviews</h4>
+                </div>
+
+                <div ng-repeat="review in detailsControllerModel.reviews">
+                    <div class="panel-body">
+                        <div ng-if="detailsControllerModel.selectedIndex === $index">
+                            <p>
+                                <ng-rating ng-model="detailsControllerModel.editReview.rating"
+                                           editable="true">
+                                </ng-rating>
+                            </p>
+                            <form>
+                                <div class="form-group">
+                                    <input type="text" class="form-control"
+                                           placeholder="Please enter title of the review"
+                                           ng-model="detailsControllerModel.editReview.title"/>
+                                </div>
+                                <div class="form-group">
+                    <textarea class="form-control" rows="3" placeholder="Please enter description of the review"
+                              ng-model="detailsControllerModel.editReview.description"></textarea>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="media" ng-hide="detailsControllerModel.selectedIndex === $index">
+                            <a class="pull-left" href="#">
+                                <img class="media-object" src="http://placehold.it/64x64" alt="">
+                            </a>
+                            <div class="media-body">
+                                <h4 class="media-heading">{{review.title}}
+                                    <small>
+                        <span>
+                            <ng-rating ng-model="review.rating"
+                                       editable="false"
+                                       show-grade="true">
+                            </ng-rating>
+                        </span>
+                                    </small>
+                                </h4>
+                                <h4 class="media-heading">
+                                    <small>By
+                                        <a ui-sref="profile.edit-profile({userId: review.userId})">{{review.userFirstName}}</a>
+                                        on
+                                        {{review.timestamp | date : 'mediumDate'}}
+                                    </small>
+                                </h4>
+                                <p class="text-justify">
+                                    {{review.description}}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="btn-group-md pull-right">
+                            <a href="" class="btn btn-success" role="button"
+                               ng-if="detailsControllerModel.selectedIndex === $index"
+                               ng-click="detailsControllerModel.updateReview(detailsControllerModel.editReview)">Update</a>
+                            <a href="" class="btn btn-danger" role="button"
+                               ng-if="detailsControllerModel.selectedIndex === $index"
+                               ng-click="detailsControllerModel.cancelReview()">Cancel</a>
+                        </div>
+
+                        <div class="btn-group-md pull-right">
+                            <a href="" class="btn btn-warning" role="button"
+                               ng-if="detailsControllerModel.selectedIndex !== $index && detailsControllerModel.user._id == review.userId"
+                               ng-click="detailsControllerModel.selectReview($index)">Edit</a>
+                            <a href="" class="btn btn-danger" role="button"
+                               ng-if="detailsControllerModel.selectedIndex !== $index && detailsControllerModel.user._id == review.userId"
+                               ng-click="detailsControllerModel.deleteReview($index)">Delete</a>
+                        </div>
+                    </div>
+
+                    <!--<hr>-->
+                    <!--<hr>-->
+
+                    <!--<div class="panel-body">-->
+                    <!--<p>-->
+                    <!--<i class="fa fa-star-o fa-2x"></i>-->
+                    <!--<i class="fa fa-star-o fa-2x"></i>-->
+                    <!--<i class="fa fa-star-o fa-2x"></i>-->
+                    <!--<i class="fa fa-star-o fa-2x"></i>-->
+                    <!--<i class="fa fa-star-o fa-2x"></i>-->
+                    <!--</p>-->
+
+                    <!--<form ng-if="selectedIndex === $index">-->
+                    <!--<div class="form-group">-->
+                    <!--<input type="text" class="form-control" placeholder="Please enter title of the review"-->
+                    <!--ng-model="editReview.title"/>-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                    <!--<textarea class="form-control" rows="3" placeholder="Please enter description of the review"-->
+                    <!--ng-model="editReview.description"></textarea>-->
+                    <!--</div>-->
+                    <!--<a href="" class="btn btn-success" ng-click="updateReview(editReview)" role="button">Update</a>-->
+                    <!--<a href="" class="btn btn-danger" ng-click="cancelReview()" role="button">Cancel</a>-->
+                    <!--</form>-->
+
+                    <!--<div ng-hide="selectedIndex === $index">-->
+                    <!--<h3 class="media-heading">{{review.title}}-->
+                    <!--<small>{{review.timestamp | date : 'mediumDate'}}</small>-->
+                    <!--</h3>-->
+                    <!--<p>-->
+                    <!--{{review.description}}-->
+                    <!--</p>-->
+                    <!--</div>-->
+
+                    <!--<div class="btn-group-md pull-right">-->
+                    <!--<a href="" ng-if="selectedIndex !== $index" ng-click="selectReview($index)" class="btn btn-warning"-->
+                    <!--role="button">Select</a>-->
+                    <!--<a href="" ng-click="deleteReview($index)" class="btn btn-danger" role="button">Delete</a>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<hr>-->
+                    <!--<hr>-->
+
+                    <!--<div class="panel-body">-->
+                    <!--<div class="media">-->
+                    <!--<a class="pull-left" href="#">-->
+                    <!--<img class="media-object" src="http://placehold.it/64x64" alt="">-->
+                    <!--</a>-->
+                    <!--<div class="media-body">-->
+                    <!--<h4 class="media-heading">Lorem Ipsum-->
+                    <!--<small>-->
+                    <!--<span>-->
+                    <!--<i class="fa fa-star-o fa-1x"></i>-->
+                    <!--<i class="fa fa-star-o fa-1x"></i>-->
+                    <!--<i class="fa fa-star-o fa-1x"></i>-->
+                    <!--<i class="fa fa-star-o fa-1x"></i>-->
+                    <!--<i class="fa fa-star-o fa-1x"></i>-->
+                    <!--</span>-->
+                    <!--</small>-->
+                    <!--</h4>-->
+                    <!--<h4 class="media-heading">-->
+                    <!--<small>By <a href="">FirstName</a> on Mar 10, 2016</small>-->
+                    <!--</h4>-->
+                    <!--<p>-->
+                    <!--Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo.-->
+                    <!--Cras-->
+                    <!--purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi-->
+                    <!--vulputate-->
+                    <!--fringilla. Donec lacinia congue felis in faucibus.-->
+                    <!--</p>-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="media">-->
+                    <!--<a class="pull-left" href="#">-->
+                    <!--<img class="media-object" src="http://placehold.it/64x64" alt="">-->
+                    <!--</a>-->
+                    <!--<div class="media-body">-->
+                    <!--<h4 class="media-heading">Leave a comment:-->
+                    <!--</h4>-->
+                    <!--<form role="form">-->
+                    <!--<div class="form-group">-->
+                    <!--<textarea class="form-control" rows="1"></textarea>-->
+                    <!--</div>-->
+                    <!--<button type="submit" class="btn btn-primary">Submit</button>-->
+                    <!--</form>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <hr class="nomargin">
+                </div>
+
+                <div class="panel-body">
+                    <div class="well">
+                        <h4>Write a Review:</h4>
+                        <p>
+                            <ng-rating ng-model="detailsControllerModel.review.rating"
+                                       editable="true">
+                            </ng-rating>
+                        </p>
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Please enter title of the review"
+                                       ng-model="detailsControllerModel.review.title"/>
+                            </div>
+                            <div class="form-group">
+                    <textarea class="form-control" rows="3" placeholder="Please enter description of the review"
+                              ng-model="detailsControllerModel.review.description"></textarea>
+                            </div>
+                            <a href="" class="btn btn-success"
+                               ng-click="detailsControllerModel.addReview(detailsControllerModel.review)"
+                               role="button">Submit</a>
+                        </form>
                     </div>
                 </div>
             </div>
+
+
         </div>
     </div>
     <div class="col-sm-4 margin-top">
@@ -77,208 +264,17 @@
             </div>
             <div class="panel-body less-padding">
                 <div class="caption">
-                    <h5>Upcoming movies</h5>
+                    <h5>Top rated movies</h5>
                 </div>
             </div>
-            <div class="panel-body less-padding" ng-repeat="upcom in detailsControllerModel.upcoming">
-                <a ui-sref="details({movieId: upcom.id})">
-                    <img class="img-responsive" ng-src="{{upcom.imageUrl}}"/>
+            <div class="panel-body less-padding" ng-repeat="item in detailsControllerModel.toprated | limitTo:5">
+                <a ui-sref="details({movieId: item.id})">
+                    <img class="img-responsive" ng-src="{{item.imageUrl}}"/>
                     <div class="caption">
-                        <h5>{{upcom.title | limitTo:50}}{{upcom.title.length > 50 ? "..." : ""}}</h5>
+                        <h5>{{item.title | limitTo:50}}{{item.title.length > 50 ? "..." : ""}}</h5>
                     </div>
                 </a>
             </div>
-        </div>
-    </div>
-</div>
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Customer Reviews</h3>
-    </div>
-
-    <div ng-repeat="review in detailsControllerModel.reviews">
-        <div class="panel-body">
-            <div ng-if="detailsControllerModel.selectedIndex === $index">
-                <p>
-                    <ng-rating ng-model="detailsControllerModel.editReview.rating"
-                               editable="true">
-                    </ng-rating>
-                </p>
-                <form>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Please enter title of the review"
-                               ng-model="detailsControllerModel.editReview.title"/>
-                    </div>
-                    <div class="form-group">
-                    <textarea class="form-control" rows="3" placeholder="Please enter description of the review"
-                              ng-model="detailsControllerModel.editReview.description"></textarea>
-                    </div>
-                </form>
-            </div>
-
-            <div class="media" ng-hide="detailsControllerModel.selectedIndex === $index">
-                <a class="pull-left" href="#">
-                    <img class="media-object" src="http://placehold.it/64x64" alt="">
-                </a>
-                <div class="media-body">
-                    <h4 class="media-heading">{{review.title}}
-                        <small>
-                        <span>
-                            <ng-rating ng-model="review.rating"
-                                       editable="false"
-                                       show-grade="true">
-                            </ng-rating>
-                        </span>
-                        </small>
-                    </h4>
-                    <h4 class="media-heading">
-                        <small>By
-                            <a ui-sref="profile.edit-profile({userId: review.userId})">{{review.userFirstName}}</a>
-                            on
-                            {{review.timestamp | date : 'mediumDate'}}
-                        </small>
-                    </h4>
-                    <p class="text-justify">
-                        {{review.description}}
-                    </p>
-                </div>
-            </div>
-
-            <div class="btn-group-md pull-right">
-                <a href="" class="btn btn-success" role="button"
-                   ng-if="detailsControllerModel.selectedIndex === $index"
-                   ng-click="detailsControllerModel.updateReview(detailsControllerModel.editReview)">Update</a>
-                <a href="" class="btn btn-danger" role="button"
-                   ng-if="detailsControllerModel.selectedIndex === $index"
-                   ng-click="detailsControllerModel.cancelReview()">Cancel</a>
-            </div>
-
-            <div class="btn-group-md pull-right">
-                <a href="" class="btn btn-warning" role="button"
-                   ng-if="detailsControllerModel.selectedIndex !== $index && detailsControllerModel.user._id == review.userId"
-                   ng-click="detailsControllerModel.selectReview($index)">Edit</a>
-                <a href="" class="btn btn-danger" role="button"
-                   ng-if="detailsControllerModel.selectedIndex !== $index && detailsControllerModel.user._id == review.userId"
-                   ng-click="detailsControllerModel.deleteReview($index)">Delete</a>
-            </div>
-        </div>
-
-        <!--<hr>-->
-        <!--<hr>-->
-
-        <!--<div class="panel-body">-->
-        <!--<p>-->
-        <!--<i class="fa fa-star-o fa-2x"></i>-->
-        <!--<i class="fa fa-star-o fa-2x"></i>-->
-        <!--<i class="fa fa-star-o fa-2x"></i>-->
-        <!--<i class="fa fa-star-o fa-2x"></i>-->
-        <!--<i class="fa fa-star-o fa-2x"></i>-->
-        <!--</p>-->
-
-        <!--<form ng-if="selectedIndex === $index">-->
-        <!--<div class="form-group">-->
-        <!--<input type="text" class="form-control" placeholder="Please enter title of the review"-->
-        <!--ng-model="editReview.title"/>-->
-        <!--</div>-->
-        <!--<div class="form-group">-->
-        <!--<textarea class="form-control" rows="3" placeholder="Please enter description of the review"-->
-        <!--ng-model="editReview.description"></textarea>-->
-        <!--</div>-->
-        <!--<a href="" class="btn btn-success" ng-click="updateReview(editReview)" role="button">Update</a>-->
-        <!--<a href="" class="btn btn-danger" ng-click="cancelReview()" role="button">Cancel</a>-->
-        <!--</form>-->
-
-        <!--<div ng-hide="selectedIndex === $index">-->
-        <!--<h3 class="media-heading">{{review.title}}-->
-        <!--<small>{{review.timestamp | date : 'mediumDate'}}</small>-->
-        <!--</h3>-->
-        <!--<p>-->
-        <!--{{review.description}}-->
-        <!--</p>-->
-        <!--</div>-->
-
-        <!--<div class="btn-group-md pull-right">-->
-        <!--<a href="" ng-if="selectedIndex !== $index" ng-click="selectReview($index)" class="btn btn-warning"-->
-        <!--role="button">Select</a>-->
-        <!--<a href="" ng-click="deleteReview($index)" class="btn btn-danger" role="button">Delete</a>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-
-        <!--<hr>-->
-        <!--<hr>-->
-
-        <!--<div class="panel-body">-->
-        <!--<div class="media">-->
-        <!--<a class="pull-left" href="#">-->
-        <!--<img class="media-object" src="http://placehold.it/64x64" alt="">-->
-        <!--</a>-->
-        <!--<div class="media-body">-->
-        <!--<h4 class="media-heading">Lorem Ipsum-->
-        <!--<small>-->
-        <!--<span>-->
-        <!--<i class="fa fa-star-o fa-1x"></i>-->
-        <!--<i class="fa fa-star-o fa-1x"></i>-->
-        <!--<i class="fa fa-star-o fa-1x"></i>-->
-        <!--<i class="fa fa-star-o fa-1x"></i>-->
-        <!--<i class="fa fa-star-o fa-1x"></i>-->
-        <!--</span>-->
-        <!--</small>-->
-        <!--</h4>-->
-        <!--<h4 class="media-heading">-->
-        <!--<small>By <a href="">FirstName</a> on Mar 10, 2016</small>-->
-        <!--</h4>-->
-        <!--<p>-->
-        <!--Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo.-->
-        <!--Cras-->
-        <!--purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi-->
-        <!--vulputate-->
-        <!--fringilla. Donec lacinia congue felis in faucibus.-->
-        <!--</p>-->
-        <!--</div>-->
-        <!--</div>-->
-
-        <!--<div class="media">-->
-        <!--<a class="pull-left" href="#">-->
-        <!--<img class="media-object" src="http://placehold.it/64x64" alt="">-->
-        <!--</a>-->
-        <!--<div class="media-body">-->
-        <!--<h4 class="media-heading">Leave a comment:-->
-        <!--</h4>-->
-        <!--<form role="form">-->
-        <!--<div class="form-group">-->
-        <!--<textarea class="form-control" rows="1"></textarea>-->
-        <!--</div>-->
-        <!--<button type="submit" class="btn btn-primary">Submit</button>-->
-        <!--</form>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <hr class="nomargin">
-    </div>
-
-    <div class="panel-body">
-        <div class="well">
-            <h4>Write a Review:</h4>
-            <p>
-                <ng-rating ng-model="detailsControllerModel.review.rating"
-                           editable="true">
-                </ng-rating>
-            </p>
-            <form>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Please enter title of the review"
-                           ng-model="detailsControllerModel.review.title"/>
-                </div>
-                <div class="form-group">
-                    <textarea class="form-control" rows="3" placeholder="Please enter description of the review"
-                              ng-model="detailsControllerModel.review.description"></textarea>
-                </div>
-                <a href="" class="btn btn-success"
-                   ng-click="detailsControllerModel.addReview(detailsControllerModel.review)"
-                   role="button">Submit</a>
-            </form>
         </div>
     </div>
 </div>
