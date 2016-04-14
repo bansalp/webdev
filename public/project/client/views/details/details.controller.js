@@ -4,7 +4,7 @@
         .module("MovieTimeApp")
         .controller("DetailsController", DetailsController);
 
-    function DetailsController($stateParams, MovieService, ReviewService, UserService) {
+    function DetailsController($stateParams, $sce, MovieService, ReviewService, UserService) {
         var vm = this;
 
         vm.movieId = $stateParams.movieId;
@@ -33,6 +33,16 @@
                     if (user) {
                         vm.user = user;
                     }
+                });
+
+            MovieService
+                .getVideoKey(vm.movieId)
+                .then(function (response) {
+                    var videos = response.data.results;
+                    videos.forEach(function (element, index, array) {
+                        element.url = $sce.trustAsResourceUrl(MovieService.getYoutubeEmbedUrl(element.key));
+                    });
+                    vm.videos = videos;
                 });
 
             movieDetailsByMovieId(vm.movieId);

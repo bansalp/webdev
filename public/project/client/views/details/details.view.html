@@ -1,6 +1,15 @@
 <img class="img-responsive margin-top"
      ng-src="{{detailsControllerModel.movie.imageUrl}}"/>
 
+<div ng-repeat="video in detailsControllerModel.videos" ng-show="detailsControllerModel.videos.length > 0">
+    <iframe width="300"
+            height="200"
+            ng-src="{{video.url}}"
+            frameborder="0"
+            allowfullscreen>
+    </iframe>
+</div>
+
 <div class="panel panel-default">
 
     <div class="panel-body">
@@ -28,7 +37,9 @@
             {{"#" + genre.name + " "}}
         </span>
         </div>
+
         <hr>
+
         <h5>Plot</h5>
         <p>{{detailsControllerModel.movie.overview}}</p>
         <h5>Release Date</h5>
