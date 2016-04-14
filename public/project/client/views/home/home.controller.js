@@ -18,6 +18,10 @@
         var slides = [];
 
         function init() {
+            $('#myCarousel').carousel({
+                interval: 5000
+            });
+
             var imageUrl = MovieService.getImageURL();
             vm.imageUrl = imageUrl.substring(0, imageUrl.length - 1);
 
