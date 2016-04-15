@@ -153,3 +153,12 @@ body {
 .less-padding {
     padding: 5px;
 }
+
+.bottom-margin {
+    margin-bottom: 10px;
+}
+
+.cast-object {
+    width: 48px;
+    height: 48px;
+}

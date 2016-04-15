@@ -42,9 +42,18 @@
                     <li>{{movieProductionCompany.name}}</li>
                 </ul>
                 <h5>Cast</h5>
-                <ul ng-repeat="cast in detailsControllerModel.casts">
-                    <li>{{cast.name + " - " + cast.character}}</li>
-                </ul>
+                <div ng-repeat="cast in detailsControllerModel.casts">
+                    <div class="media bottom-margin">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object cast-object" ng-src="{{cast.imageUrl}}" alt="">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h6 class="media-heading">{{cast.name + " - " + cast.character}}</h6>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div>

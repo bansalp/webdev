@@ -52,9 +52,14 @@
             MovieService
                 .getMovieCredits(vm.movieId)
                 .then(function (response) {
-                    var casts = response.data.cast;
+                    var casts = [];
+                    response.data.cast.forEach(function (element1, index1, array1) {
+                        if (element1.profile_path) {
+                            element1.imageUrl = vm.imageUrl + element1.profile_path;
+                            casts.push(element1);
+                        }
+                    });
                     vm.casts = casts;
-                    console.log(vm.casts);
                 });
 
             MovieService
