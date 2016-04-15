@@ -285,18 +285,20 @@
                     </iframe>
                 </div>
             </div>
-            <div class="panel-body less-padding">
-                <div class="caption">
-                    <h5>Top rated movies</h5>
-                </div>
-            </div>
-            <div class="panel-body less-padding" ng-repeat="item in detailsControllerModel.toprated | limitTo:5">
-                <a ui-sref="details({movieId: item.id})">
-                    <img class="img-responsive" ng-src="{{item.imageUrl}}"/>
+            <div ng-show="detailsControllerModel.similar.length > 0">
+                <div class="panel-body less-padding">
                     <div class="caption">
-                        <h5>{{item.title | limitTo:50}}{{item.title.length > 50 ? "..." : ""}}</h5>
+                        <h5>Similar movies</h5>
                     </div>
-                </a>
+                </div>
+                <div class="panel-body less-padding" ng-repeat="item in detailsControllerModel.similar | limitTo:5">
+                    <a ui-sref="details({movieId: item.id})">
+                        <img class="img-responsive" ng-src="{{item.imageUrl}}"/>
+                        <div class="caption">
+                            <h5>{{item.title | limitTo:50}}{{item.title.length > 50 ? "..." : ""}}</h5>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

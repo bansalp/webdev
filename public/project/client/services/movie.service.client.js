@@ -24,6 +24,7 @@
             findPopularMovies: findPopularMovies,
             findUpcomingMovies: findUpcomingMovies,
             findTopRatedMovies: findTopRatedMovies,
+            findSimilarMovies: findSimilarMovies,
             getGenreList: getGenreList,
             getImageURL: getImageURL,
             getMoviesByTitle: getMoviesByTitle,
@@ -47,6 +48,12 @@
 
         function findTopRatedMovies() {
             return $http.get(topratedUrl);
+        }
+
+        function findSimilarMovies(movieId) {
+            var url = similarUrl
+                .replace("MOVIEID", movieId);
+            return $http.get(url);
         }
 
         function getGenreList() {

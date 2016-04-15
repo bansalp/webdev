@@ -36,17 +36,17 @@
                 });
 
             MovieService
-                .findTopRatedMovies()
+                .findSimilarMovies(vm.movieId)
                 .then(
                     function (response) {
-                        var toprated = [];
+                        var similar = [];
                         response.data.results.forEach(function (element1, index1, array1) {
                             if (element1.backdrop_path) {
                                 element1.imageUrl = vm.imageUrl + element1.backdrop_path;
-                                toprated.push(element1);
+                                similar.push(element1);
                             }
                         });
-                        vm.toprated = toprated;
+                        vm.similar = similar;
                     });
 
             MovieService
