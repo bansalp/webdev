@@ -54,7 +54,7 @@
                 .then(function (response) {
                     var casts = [];
                     response.data.cast.forEach(function (element1, index1, array1) {
-                        if (element1.profile_path) {
+                        if (element1.profile_path && element1.name && element1.character) {
                             element1.imageUrl = vm.imageUrl + element1.profile_path;
                             casts.push(element1);
                         }
