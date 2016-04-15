@@ -15,6 +15,9 @@
         };
 
         vm.movieTitle = $stateParams.movieTitle;
+        vm.movie = {
+            "title": vm.movieTitle
+        };
 
         var slides = [];
 
