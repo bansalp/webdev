@@ -16,14 +16,14 @@
                 <a href=""
                    ng-click="followingControllerModel.follow($index)"
                    ng-hide="user.alreadyFollowing"
-                   class="btn btn-success">Follow
+                   class="btn-sm btn-success">Follow
                 </a>
             </div>
             <div ng-hide="user.itsMe">
                 <a href=""
                    ng-click="followingControllerModel.unfollow($index)"
                    ng-show="user.alreadyFollowing"
-                   class="btn btn-danger">Unfollow
+                   class="btn-sm btn-danger">Unfollow
                 </a>
             </div>
         </div>
