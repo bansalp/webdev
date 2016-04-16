@@ -31,13 +31,15 @@
 <h1 class="page-header less-top-margin">Reviews</h1>
 
 <div class="row" ng-hide="reviewsControllerModel.reviews.length > 0">
-    <div ng-show="reviewsControllerModel.loggedInUserId == reviewsControllerModel.navigateUserId">
-        <b>Info! </b>
-        You have not posted any reviews yet.
-    </div>
-    <div ng-hide="reviewsControllerModel.loggedInUserId == reviewsControllerModel.navigateUserId">
-        <b>Info! </b>
-        User has not posted any reviews yet.
+    <div class="alert alert-info alert-box" role="alert">
+        <div ng-show="reviewsControllerModel.loggedInUserId == reviewsControllerModel.navigateUserId">
+            <b>Info! </b>
+            You have not posted any reviews yet.
+        </div>
+        <div ng-hide="reviewsControllerModel.loggedInUserId == reviewsControllerModel.navigateUserId">
+            <b>Info! </b>
+            User has not posted any reviews yet.
+        </div>
     </div>
 </div>
 
