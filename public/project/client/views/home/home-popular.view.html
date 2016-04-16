@@ -15,11 +15,11 @@
      infinite-scroll-distance="1">
     <div ng-repeat="movie in homePopularControllerModel.movies">
         <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
+            <div class="thumbnail height-limit">
                 <span class="label label-default pull-right">Release: {{movie.release_date}}</span>
                 <a ui-sref="details({movieId: movie.id})">
                     <div class="caption">
-                        <h3>{{movie.title | limitTo:20}}{{movie.title.length > 20 ? "..." : ""}}</h3>
+                        <h3>{{movie.title | limitTo:18}}{{movie.title.length > 18 ? "..." : ""}}</h3>
                     </div>
                     <img class="img-responsive" ng-src="{{movie.imageUrl}}"/>
                 </a>
