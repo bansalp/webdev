@@ -8,6 +8,7 @@
                 <div class="input-group">
                     <input type="text" class="form-control search-box"
                            ng-model="homeControllerModel.movie.title"
+                           ng-keypress="homeControllerModel.myFunc($event, homeControllerModel.movie.title)"
                            placeholder="Search for a movie by title">
                     <a ui-sref="home.result({movieTitle: homeControllerModel.movie.title})"
                        class="input-group-addon search-box btn-primary btn-search">

@@ -4,11 +4,12 @@
         .module("MovieTimeApp")
         .controller("HomeController", HomeController);
 
-    function HomeController(MovieService) {
+    function HomeController($state, MovieService) {
         var vm = this;
 
         vm.slide = slide;
         vm.preprocessResponse = preprocessResponse;
+        vm.myFunc = myFunc;
 
         var slides = [];
 
@@ -86,6 +87,12 @@
 
         function getValue(key) {
             return vm.genreList[key];
+        }
+
+        function myFunc(event, movieTitle) {
+            if (event.keyCode === 13) {
+                $state.go("home.result", {movieTitle: movieTitle});
+            }
         }
     }
 
