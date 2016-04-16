@@ -4,13 +4,6 @@
     <form>
         <div class="form-group">
             <div class="input-group">
-                <img src="/experiments/project/images/profile-image.png" class="thumbnail profile-photo"/>
-                <input type="file">
-                <p class="help-block"></p>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="input-group">
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-user"></i>
                     </span>
@@ -52,6 +45,14 @@
                     </span>
                 <input type="email" class="form-control" placeholder="Email"
                        ng-model="editProfileControllerModel.user.email">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-upload"></i>
+                    </span>
+                <input type="file" class="form-control" placeholder="Profile Image">
             </div>
         </div>
         <div class="form-group">

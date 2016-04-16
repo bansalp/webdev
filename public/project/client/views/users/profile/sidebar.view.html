@@ -1,29 +1,31 @@
 <div id="sidebar-wrapper" ng-controller="SidebarController as sidebarControllerModel">
     <ul class="sidebar-nav">
-        <div ng-show="user._id != sidebarControllerModel.navigateUserId" class="margin-top text-align-center">
+        <div class="margin-top text-align-center">
             <div class="display-inline-block bottom-margin">
                 <a href="">
                     <img class="thumbnail profile-photo"
                          src="/experiments/project/images/profile-image.png"
                          alt="">
                 </a>
-                <a href=""
-                   ng-click="sidebarControllerModel.follow()"
-                   ng-hide="sidebarControllerModel.alreadyFollowing"
-                   class="btn btn-success">Follow
-                </a>
-                <a href=""
-                   ng-click="sidebarControllerModel.unfollow()"
-                   ng-show="sidebarControllerModel.alreadyFollowing"
-                   class="btn btn-danger">Unfollow
-                </a>
+                <div ng-show="user._id != sidebarControllerModel.navigateUserId">
+                    <a href=""
+                       ng-click="sidebarControllerModel.follow()"
+                       ng-hide="sidebarControllerModel.alreadyFollowing"
+                       class="btn btn-success">Follow
+                    </a>
+                    <a href=""
+                       ng-click="sidebarControllerModel.unfollow()"
+                       ng-show="sidebarControllerModel.alreadyFollowing"
+                       class="btn btn-danger">Unfollow
+                    </a>
+                </div>
             </div>
         </div>
 
-        <li ui-sref-active="active" ng-show="user">
+        <li ui-sref-active="active" ng-show="user" ng-hide="user._id != sidebarControllerModel.navigateUserId">
             <a ui-sref=".edit-profile({userId: profileControllerModel.userId})">Edit Profile</a>
         </li>
-        <li ui-sref-active="active" ng-show="user">
+        <li ui-sref-active="active" ng-show="user" ng-hide="user._id != sidebarControllerModel.navigateUserId">
             <a ui-sref=".change-password({userId: profileControllerModel.userId})">Change Password</a>
         </li>
         <li ui-sref-active="active" ng-show="user">
