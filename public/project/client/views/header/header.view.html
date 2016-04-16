@@ -37,18 +37,18 @@
                         Login
                     </a>
                 </li>
-                <li ng-show="user">
+                <li ui-sref-active="active" ng-show="user">
                     <a ui-sref="profile.edit-profile({userId: user._id})" class="visible-xs" data-toggle="collapse"
                        data-target="#navbar">
-                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <i class="fa fa-cog" aria-hidden="true"></i>
                         {{user.username}}
                     </a>
                     <a ui-sref="profile.edit-profile({userId: user._id})" class="hidden-xs">
-                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <i class="fa fa-cog" aria-hidden="true"></i>
                         {{user.username}}
                     </a>
                 </li>
-                <li ng-show="user" ng-click="headerControllerModel.logout()">
+                <li ui-sref-active="active" ng-show="user" ng-click="headerControllerModel.logout()">
                     <a href="" class="visible-xs" data-toggle="collapse" data-target="#navbar">
                         <i class="fa fa-sign-out" aria-hidden="true"></i>
                         Logout
