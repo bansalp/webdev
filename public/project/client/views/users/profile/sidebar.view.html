@@ -24,22 +24,40 @@
         </div>
 
         <li ui-sref-active="active" ng-show="user" ng-hide="user._id != sidebarControllerModel.navigateUserId">
-            <a ui-sref=".edit-profile({userId: profileControllerModel.userId})">Edit Profile</a>
+            <a ui-sref=".edit-profile({userId: profileControllerModel.userId})">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                Edit Profile
+            </a>
         </li>
         <li ui-sref-active="active" ng-show="user" ng-hide="user._id != sidebarControllerModel.navigateUserId">
-            <a ui-sref=".change-password({userId: profileControllerModel.userId})">Change Password</a>
+            <a ui-sref=".change-password({userId: profileControllerModel.userId})">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+                Change Password
+            </a>
         </li>
         <li ui-sref-active="active" ng-show="user">
-            <a ui-sref=".followers({userId: profileControllerModel.userId})">Followers</a>
+            <a ui-sref=".followers({userId: profileControllerModel.userId})">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                Followers
+            </a>
         </li>
         <li ui-sref-active="active" ng-show="user">
-            <a ui-sref=".following({userId: profileControllerModel.userId})">Following</a>
+            <a ui-sref=".following({userId: profileControllerModel.userId})">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                Following
+            </a>
         </li>
         <li ui-sref-active="active" ng-show="user">
-            <a ui-sref=".reviews({userId: profileControllerModel.userId})">Reviews</a>
+            <a ui-sref=".reviews({userId: profileControllerModel.userId})">
+                <i class="fa fa-comments" aria-hidden="true"></i>
+                Reviews
+            </a>
         </li>
         <li ui-sref-active="active" ng-show="user">
-            <a ui-sref=".likes({userId: profileControllerModel.userId})">Likes</a>
+            <a ui-sref=".likes({userId: profileControllerModel.userId})">
+                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                Likes
+            </a>
         </li>
     </ul>
 </div>

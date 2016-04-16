@@ -3,7 +3,10 @@
     <div class="col-xs-4 col-sm-3">
         <a ui-sref="profile.followers({userId: editProfileControllerModel.loggedOnUser._id})">
             <div class="row">
-                <h4>Followers</h4>
+                <h5>
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    Followers
+                </h5>
             </div>
             <div class="row">
                 {{editProfileControllerModel.loggedOnUser.followers.length}}
@@ -13,7 +16,10 @@
     <div class="col-xs-4 col-sm-3">
         <a ui-sref="profile.following({userId: editProfileControllerModel.loggedOnUser._id})">
             <div class="row">
-                <h4>Following</h4>
+                <h5>
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    Following
+                </h5>
             </div>
             <div class="row">
                 {{editProfileControllerModel.loggedOnUser.following.length}}
