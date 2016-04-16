@@ -106,11 +106,6 @@ body {
     margin: 0px 0 20px;
 }
 
-.profile-photo {
-    width: 200px;
-    height: 200px;
-}
-
 .nowrap {
     white-space: nowrap;
 }
@@ -127,7 +122,7 @@ body {
     color: #008000;
 }
 
-.media-object-movie {
+.media-object-movie, .profile-photo {
     max-height: 100px;
     max-width: 100px;
 }

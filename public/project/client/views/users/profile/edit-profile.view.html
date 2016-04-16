@@ -1,62 +1,62 @@
-<h1 class="page-header">Edit Profile !</h1>
+<h1 class="page-header">Edit Profile</h1>
 
-<form class="form-horizontal">
-    <div class="form-group">
-        <div class="input-group">
-            <a href="" class="thumbnail profile-photo">
-                <img src="/experiments/project/images/profile-image.png"/>
-            </a>
-            <input type="file">
-            <p class="help-block"></p>
+<div>
+    <form>
+        <div class="form-group">
+            <div class="input-group">
+                <img src="/experiments/project/images/profile-image.png" class="thumbnail profile-photo"/>
+                <input type="file">
+                <p class="help-block"></p>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="input-group">
+        <div class="form-group">
+            <div class="input-group">
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-user"></i>
                     </span>
-            <input type="text" class="form-control" placeholder="Username"
-                   ng-model="editProfileControllerModel.user.username" readonly autofocus>
+                <input type="text" class="form-control" placeholder="Username"
+                       ng-model="editProfileControllerModel.user.username" readonly autofocus>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="input-group">
+        <div class="form-group">
+            <div class="input-group">
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-option-horizontal"></i>
                     </span>
-            <input type="text" class="form-control" placeholder="First Name"
-                   ng-model="editProfileControllerModel.user.firstName">
+                <input type="text" class="form-control" placeholder="First Name"
+                       ng-model="editProfileControllerModel.user.firstName">
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="input-group">
+        <div class="form-group">
+            <div class="input-group">
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-option-horizontal"></i>
                     </span>
-            <input type="text" class="form-control" placeholder="Last Name"
-                   ng-model="editProfileControllerModel.user.lastName">
+                <input type="text" class="form-control" placeholder="Last Name"
+                       ng-model="editProfileControllerModel.user.lastName">
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="input-group">
+        <div class="form-group">
+            <div class="input-group">
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-earphone"></i>
                     </span>
-            <input type="text" class="form-control" placeholder="Phone Number"
-                   ng-model="editProfileControllerModel.user.phone">
+                <input type="text" class="form-control" placeholder="Phone Number"
+                       ng-model="editProfileControllerModel.user.phone">
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="input-group">
+        <div class="form-group">
+            <div class="input-group">
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-envelope"></i>
                     </span>
-            <input type="email" class="form-control" placeholder="Email"
-                   ng-model="editProfileControllerModel.user.email">
+                <input type="email" class="form-control" placeholder="Email"
+                       ng-model="editProfileControllerModel.user.email">
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <a href="" class="btn btn-success btn-block"
-           ng-click="editProfileControllerModel.update(editProfileControllerModel.user)">Update</a>
-    </div>
-</form>
+        <div class="form-group">
+            <a href="" class="btn btn-success btn-block"
+               ng-click="editProfileControllerModel.update(editProfileControllerModel.user)">Update</a>
+        </div>
+    </form>
+</div>
