@@ -19,6 +19,7 @@
             UserService
                 .findUserByUsername(user.username)
                 .then(function (response) {
+                    vm.error = "";
                     var resUser = response.data;
                     if (!resUser) {
                         UserService
@@ -30,7 +31,7 @@
                             });
                     }
                     else {
-                        alert("User already exists");
+                        vm.error = "User with username already exists.";
                     }
                 });
         }

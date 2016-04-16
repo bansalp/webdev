@@ -19,13 +19,14 @@
             UserService
                 .findUserByCredentials(user)
                 .then(function (response) {
+                    vm.error = "";
                     var resUser = response.data;
                     if (resUser) {
                         UserService.setCurrentUser(resUser);
                         $state.go("profile.edit-profile", {userId: resUser._id});
                     }
                     else {
-                        alert("Wrong username or password!")
+                        vm.error = "Wrong username or password.";
                     }
                 });
         }
