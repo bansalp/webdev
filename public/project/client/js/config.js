@@ -6,15 +6,34 @@
 
     function configuration($stateProvider, $urlRouterProvider) {
         $urlRouterProvider
-            .when("/details/", "/home")
-            .otherwise("/home/");
+            .when("/details/", "/home/popular")
+            .when("/home", "/home/popular")
+            .otherwise("/home/popular");
 
         $stateProvider
             .state("home", {
-                url: "/home/:movieTitle",
+                url: "/home",
                 templateUrl: "views/home/home.view.html",
                 controller: "HomeController",
                 controllerAs: "homeControllerModel",
+                resolve: {
+                    getLoggedIn: getLoggedIn
+                }
+            })
+            .state("home.result", {
+                url: "/result/:movieTitle",
+                templateUrl: "views/home/home-result.view.html",
+                controller: "HomeResultController",
+                controllerAs: "homeResultControllerModel",
+                resolve: {
+                    getLoggedIn: getLoggedIn
+                }
+            })
+            .state("home.popular", {
+                url: "/popular",
+                templateUrl: "views/home/home-popular.view.html",
+                controller: "HomePopularController",
+                controllerAs: "homePopularControllerModel",
                 resolve: {
                     getLoggedIn: getLoggedIn
                 }
