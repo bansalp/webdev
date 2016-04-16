@@ -1,4 +1,28 @@
-<h1 class="page-header">Edit Profile</h1>
+<div class="row text-center">
+    <div class="col-xs-4 col-sm-6"></div>
+    <div class="col-xs-4 col-sm-3">
+        <a ui-sref="profile.followers({userId: editProfileControllerModel.loggedOnUser._id})">
+            <div class="row">
+                <h4>Followers</h4>
+            </div>
+            <div class="row">
+                {{editProfileControllerModel.loggedOnUser.followers.length}}
+            </div>
+        </a>
+    </div>
+    <div class="col-xs-4 col-sm-3">
+        <a ui-sref="profile.following({userId: editProfileControllerModel.loggedOnUser._id})">
+            <div class="row">
+                <h4>Following</h4>
+            </div>
+            <div class="row">
+                {{editProfileControllerModel.loggedOnUser.following.length}}
+            </div>
+        </a>
+    </div>
+</div>
+
+<h1 class="page-header less-top-margin">Profile</h1>
 
 <div>
     <form>

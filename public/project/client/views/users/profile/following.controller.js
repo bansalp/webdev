@@ -28,6 +28,15 @@
                     if (users) {
                         vm.users = users;
                         isAlreadyFollowing(vm.users);
+
+                        UserService
+                            .findUserById(vm.navigateUserId)
+                            .then(function (response) {
+                                var user = response.data;
+                                if (user) {
+                                    vm.navigatedUser = user;
+                                }
+                            });
                     }
                 });
         }

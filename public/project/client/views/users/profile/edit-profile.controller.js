@@ -16,6 +16,15 @@
                     var user = response.data;
                     if (user) {
                         vm.user = user;
+
+                        UserService
+                            .findUserById(vm.user._id)
+                            .then(function (response) {
+                                var user = response.data;
+                                if (user) {
+                                    vm.loggedOnUser = user;
+                                }
+                            });
                     }
                 });
         }

@@ -2,12 +2,10 @@
 
     angular
         .module("MovieTimeApp")
-        .controller("ReviewsController", ReviewsController);
+        .controller("ChangePasswordController", ChangePasswordController);
 
-    function ReviewsController($stateParams, UserService, ReviewService) {
+    function ChangePasswordController(UserService) {
         var vm = this;
-
-        vm.navigateUserId = $stateParams.userId;
 
         function init() {
             UserService
@@ -16,21 +14,13 @@
                     var user = response.data;
                     if (user) {
                         vm.user = user;
-                        vm.loggedInUserId = user._id;
-                        return ReviewService.findAllReviewsByUserId(vm.navigateUserId);
-                    }
-                })
-                .then(function (response) {
-                    var reviews = response.data;
-                    if (reviews) {
-                        vm.reviews = reviews;
 
                         UserService
-                            .findUserById(vm.navigateUserId)
+                            .findUserById(vm.user._id)
                             .then(function (response) {
                                 var user = response.data;
                                 if (user) {
-                                    vm.navigatedUser = user;
+                                    vm.loggedOnUser = user;
                                 }
                             });
                     }

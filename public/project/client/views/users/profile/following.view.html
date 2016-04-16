@@ -1,4 +1,28 @@
-<h1 class="page-header">Following</h1>
+<div class="row text-center">
+    <div class="col-xs-4 col-sm-6"></div>
+    <div class="col-xs-4 col-sm-3">
+        <a ui-sref="profile.followers({userId: followingControllerModel.navigatedUser._id})">
+            <div class="row">
+                <h4>Followers</h4>
+            </div>
+            <div class="row">
+                {{followingControllerModel.navigatedUser.followers.length}}
+            </div>
+        </a>
+    </div>
+    <div class="col-xs-4 col-sm-3">
+        <a ui-sref="profile.following({userId: followingControllerModel.navigatedUser._id})">
+            <div class="row">
+                <h4>Following</h4>
+            </div>
+            <div class="row">
+                {{followingControllerModel.navigatedUser.following.length}}
+            </div>
+        </a>
+    </div>
+</div>
+
+<h1 class="page-header less-top-margin">Following</h1>
 
 <div ng-repeat="user in followingControllerModel.users">
     <div class="media">
@@ -8,7 +32,7 @@
         </a>
         <div class="media-body">
             <h3 class="media-heading">
-                <a ui-sref="profile.edit-profile({userId: user._id})">
+                <a ui-sref="profile.reviews({userId: user._id})">
                     {{user.firstName + " " + user.lastName}}
                 </a>
             </h3>

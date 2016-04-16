@@ -27,6 +27,15 @@
                     var movies = response.data;
                     if (movies) {
                         isMovieLiked(movies);
+
+                        UserService
+                            .findUserById(vm.navigateUserId)
+                            .then(function (response) {
+                                var user = response.data;
+                                if (user) {
+                                    vm.navigatedUser = user;
+                                }
+                            });
                     }
                 });
         }

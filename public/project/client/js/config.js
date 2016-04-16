@@ -86,7 +86,12 @@
             })
             .state("profile.change-password", {
                 url: "/:userId/change-password",
-                templateUrl: "views/users/profile/change-password.view.html"
+                templateUrl: "views/users/profile/change-password.view.html",
+                controller: "ChangePasswordController",
+                controllerAs: "changePasswordControllerModel",
+                resolve: {
+                    checkLoggedIn: checkLoggedIn
+                }
             })
             .state("profile.followers", {
                 url: "/:userId/followers",

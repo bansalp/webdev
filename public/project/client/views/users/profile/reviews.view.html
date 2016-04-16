@@ -1,4 +1,28 @@
-<h1 class="page-header">Reviews</h1>
+<div class="row text-center">
+    <div class="col-xs-4 col-sm-6"></div>
+    <div class="col-xs-4 col-sm-3">
+        <a ui-sref="profile.followers({userId: reviewsControllerModel.navigatedUser._id})">
+            <div class="row">
+                <h4>Followers</h4>
+            </div>
+            <div class="row">
+                {{reviewsControllerModel.navigatedUser.followers.length}}
+            </div>
+        </a>
+    </div>
+    <div class="col-xs-4 col-sm-3">
+        <a ui-sref="profile.following({userId: reviewsControllerModel.navigatedUser._id})">
+            <div class="row">
+                <h4>Following</h4>
+            </div>
+            <div class="row">
+                {{reviewsControllerModel.navigatedUser.following.length}}
+            </div>
+        </a>
+    </div>
+</div>
+
+<h1 class="page-header less-top-margin">Reviews</h1>
 
 <div ng-repeat="review in reviewsControllerModel.reviews">
     <div class="media">

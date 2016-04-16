@@ -165,3 +165,7 @@ body {
 .display-inline-block {
     display: inline-block;
 }
+
+.less-top-margin {
+    margin-top: 5px;
+}
