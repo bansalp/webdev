@@ -30,6 +30,17 @@
 
 <h1 class="page-header less-top-margin">Following</h1>
 
+<div class="row" ng-hide="followingControllerModel.navigatedUser.following.length > 0">
+    <div ng-show="followingControllerModel.loggedInUserId == followingControllerModel.navigateUserId">
+        <b>Info! </b>
+        You are not following anyone yet.
+    </div>
+    <div ng-hide="followingControllerModel.loggedInUserId == followingControllerModel.navigateUserId">
+        <b>Info! </b>
+        User is not following anyone yet.
+    </div>
+</div>
+
 <div ng-repeat="user in followingControllerModel.users">
     <div class="media">
         <a class="media-left" href="">

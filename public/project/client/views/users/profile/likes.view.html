@@ -30,6 +30,17 @@
 
 <h1 class="page-header less-top-margin">Likes</h1>
 
+<div class="row" ng-hide="likesControllerModel.movies.length > 0">
+    <div ng-show="likesControllerModel.loggedInUserId == likesControllerModel.navigateUserId">
+        <b>Info! </b>
+        You have not liked any movies yet.
+    </div>
+    <div ng-hide="likesControllerModel.loggedInUserId == likesControllerModel.navigateUserId">
+        <b>Info! </b>
+        User has not liked any movies yet.
+    </div>
+</div>
+
 <div ng-repeat="movie in likesControllerModel.movies">
     <div class="media">
         <a class="pull-left" href="">

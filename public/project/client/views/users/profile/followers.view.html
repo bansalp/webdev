@@ -30,6 +30,19 @@
 
 <h1 class="page-header less-top-margin">Followers</h1>
 
+<div class="row" ng-hide="followersControllerModel.navigatedUser.followers.length > 0">
+    <div class="alert alert-info alert-box" role="alert">
+        <div ng-show="followersControllerModel.loggedInUserId == followersControllerModel.navigateUserId">
+            <b>Info! </b>
+            You do not have any followers yet.
+        </div>
+        <div ng-hide="followersControllerModel.loggedInUserId == followersControllerModel.navigateUserId">
+            <b>Info! </b>
+            User does not have any followers yet.
+        </div>
+    </div>
+</div>
+
 <div ng-repeat="user in followersControllerModel.users">
     <div class="media">
         <a class="media-left" href="">
