@@ -1,7 +1,7 @@
 <div id="sidebar-wrapper" ng-controller="SidebarController as sidebarControllerModel">
     <ul class="sidebar-nav">
         <div class="margin-top text-align-center">
-            <div class="display-inline-block bottom-margin">
+            <div class="display-inline-block">
                 <a href="">
                     <img class="thumbnail profile-photo"
                          src="/experiments/project/images/profile-image.png"
@@ -20,6 +20,7 @@
                     </a>
                 </div>
             </div>
+            <div class="bottom-margin" ng-show="user._id != sidebarControllerModel.navigateUserId"></div>
         </div>
 
         <li ui-sref-active="active" ng-show="user" ng-hide="user._id != sidebarControllerModel.navigateUserId">
