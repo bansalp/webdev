@@ -157,3 +157,11 @@ body {
     width: 48px;
     height: 48px;
 }
+
+.text-align-center {
+    text-align: center;
+}
+
+.display-inline-block {
+    display: inline-block;
+}
