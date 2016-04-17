@@ -104,8 +104,15 @@
                         </div>
 
                         <div class="media" ng-hide="detailsControllerModel.selectedIndex === $index">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" src="http://placehold.it/64x64" alt="">
+                            <a class="pull-left" href="">
+                                <img class="media-object"
+                                     src="http://placehold.it/64x64"
+                                     alt=""
+                                     ng-show="!review.imgUrl">
+                                <img class="media-object limit-media-object-dimensions"
+                                     ng-src="{{review.imgUrl}}"
+                                     alt=""
+                                     ng-show="review.imgUrl">
                             </a>
                             <div class="media-body">
                                 <h4 class="media-heading">{{review.title}}

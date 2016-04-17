@@ -197,6 +197,7 @@
                     .then(function (response) {
                         if (response.data) {
                             reviews[index].userFirstName = response.data.firstName;
+                            reviews[index].imgUrl = response.data.imgUrl;
                         }
                     });
             });

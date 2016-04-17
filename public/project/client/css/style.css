@@ -185,3 +185,8 @@ body {
 .less-top-margin {
     margin-top: 5px;
 }
+
+.limit-media-object-dimensions {
+    height: 64px;
+    width: 64px;
+}
