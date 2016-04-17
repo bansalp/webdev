@@ -17,6 +17,8 @@
         vm.undoLikeMovie = undoLikeMovie;
 
         function init() {
+            $('[data-toggle="tooltip"]').tooltip();
+
             vm.review = {
                 "rating": 0,
                 "title": "",

@@ -8,13 +8,27 @@
                 <span class="label label-default pull-left">Release: {{detailsControllerModel.movie.release_date}}</span>
                 <h2>
                     {{detailsControllerModel.movie.title}}
-                    <a href="" ng-click="detailsControllerModel.likeMovie()" ng-hide="detailsControllerModel.isLiked">
-                        <i class="fa fa-thumbs-o-up orange"></i>
-                    </a>
-                    <a href="" ng-click="detailsControllerModel.undoLikeMovie()"
-                       ng-show="detailsControllerModel.isLiked">
-                        <i class="fa fa-thumbs-up green"></i>
-                    </a>
+                    <span ng-show="user._id">
+                        <a href=""
+                           ng-click="detailsControllerModel.likeMovie()"
+                           ng-hide="detailsControllerModel.isLiked">
+                            <i class="fa fa-thumbs-o-up orange"></i>
+                        </a>
+                        <a href=""
+                           ng-click="detailsControllerModel.undoLikeMovie()"
+                           ng-show="detailsControllerModel.isLiked">
+                            <i class="fa fa-thumbs-up green"></i>
+                        </a>
+                    </span>
+                    <span ng-show="!user._id">
+                        <a href=""
+                           data-toggle="tooltip"
+                           data-placement="top"
+                           title="Please login to like!"
+                           ng-disabled="!user._id">
+                            <i class="fa fa-thumbs-o-up orange"></i>
+                        </a>
+                    </span>
                 </h2>
 
         <span class="h5" ng-show="detailsControllerModel.avgRating != 0">
@@ -280,9 +294,11 @@
                     <textarea class="form-control" rows="3" placeholder="Please enter description of the review"
                               ng-model="detailsControllerModel.review.description"></textarea>
                             </div>
-                            <a href="" class="btn btn-success"
+                            <a href="" class="btn btn-success" ng-show="user._id"
                                ng-click="detailsControllerModel.addReview(detailsControllerModel.review)"
                                role="button">Submit</a>
+                            <a href="" class="btn btn-warning" ng-show="!user._id" ng-disabled="!user._id"
+                               role="button">Please login to review!</a>
                         </form>
                     </div>
                 </div>
