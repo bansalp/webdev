@@ -16,6 +16,7 @@
                     var user = response.data;
                     if (user) {
                         vm.user = user;
+                        vm.updateProfileApi = "/api/project/user/" + user._id;
 
                         UserService
                             .findUserById(vm.user._id)

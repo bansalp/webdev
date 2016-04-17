@@ -1,6 +1,9 @@
 "use strict";
 
 module.exports = function (app, userModel, movieModel) {
+    var multer = require('multer');
+    var upload = multer({dest: __dirname + '/../../../uploads'});
+
     app.post("/api/project/user", createUser);
     app.get("/api/project/user", findUser);
     app.get("/api/project/user/:id", findUserById);
@@ -17,6 +20,7 @@ module.exports = function (app, userModel, movieModel) {
     app.get("/api/project/user/:userId/likes", findAllLikedMovies);
     app.get("/api/project/loggedin", loggedin);
     app.get("/api/project/logout", logout);
+    app.post("/api/project/user/:id", upload.single('profileImg'), updateUserWithImage);
 
     function createUser(req, res) {
         var reqUser = req.body;
@@ -325,5 +329,35 @@ module.exports = function (app, userModel, movieModel) {
     function logout(req, res) {
         req.session.destroy();
         res.send(200);
+    }
+
+    function updateUserWithImage(req, res) {
+        var userId = req.params.id;
+        var user = req.body;
+        var imageFile = req.file;
+
+        if (imageFile) {
+            var destination = imageFile.destination;
+            var path = imageFile.path;
+            var originalname = imageFile.originalname;
+            var size = imageFile.size;
+            var mimetype = imageFile.mimetype;
+            var filename = imageFile.filename;
+            user.imgUrl = "/uploads/" + filename;
+        }
+
+        userModel.updateUser(userId, user)
+            .then(function (response) {
+                    return userModel.findUserById(userId);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                })
+            .then(function (response) {
+                req.session.currentUser = response;
+                res.redirect(req.header('Referer') + "#/profile/" + userId + "/edit-profile");
+            }, function (err) {
+                res.status(400).send(err);
+            });
     }
 }

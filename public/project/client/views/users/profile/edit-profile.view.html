@@ -31,14 +31,14 @@
 <h1 class="page-header less-top-margin">Profile</h1>
 
 <div>
-    <form>
+    <form action="{{editProfileControllerModel.updateProfileApi}}" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <div class="input-group">
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-user"></i>
                     </span>
                 <input type="text" class="form-control" placeholder="Username"
-                       ng-model="editProfileControllerModel.user.username" readonly autofocus>
+                       value="{{editProfileControllerModel.user.username}}" readonly autofocus>
             </div>
         </div>
         <div class="form-group">
@@ -47,7 +47,7 @@
                         <i class="glyphicon glyphicon-option-horizontal"></i>
                     </span>
                 <input type="text" class="form-control" placeholder="First Name"
-                       ng-model="editProfileControllerModel.user.firstName">
+                       value="{{editProfileControllerModel.user.firstName}}">
             </div>
         </div>
         <div class="form-group">
@@ -56,7 +56,7 @@
                         <i class="glyphicon glyphicon-option-horizontal"></i>
                     </span>
                 <input type="text" class="form-control" placeholder="Last Name"
-                       ng-model="editProfileControllerModel.user.lastName">
+                       value="{{editProfileControllerModel.user.lastName}}">
             </div>
         </div>
         <div class="form-group">
@@ -65,7 +65,7 @@
                         <i class="glyphicon glyphicon-earphone"></i>
                     </span>
                 <input type="text" class="form-control" placeholder="Phone Number"
-                       ng-model="editProfileControllerModel.user.phone">
+                       value="{{editProfileControllerModel.user.phone}}">
             </div>
         </div>
         <div class="form-group">
@@ -74,7 +74,7 @@
                         <i class="glyphicon glyphicon-envelope"></i>
                     </span>
                 <input type="email" class="form-control" placeholder="Email"
-                       ng-model="editProfileControllerModel.user.email">
+                       value="{{editProfileControllerModel.user.email}}">
             </div>
         </div>
         <div class="form-group">
@@ -82,12 +82,14 @@
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-upload"></i>
                     </span>
-                <input type="file" class="form-control" placeholder="Profile Image">
+                <input type="file" class="form-control"
+                       name="profileImg">
             </div>
         </div>
         <div class="form-group">
-            <a href="" class="btn btn-success btn-block"
-               ng-click="editProfileControllerModel.update(editProfileControllerModel.user)">Update</a>
+            <button type="submit"
+                    class="btn btn-success btn-block">Update
+            </button>
         </div>
     </form>
 </div>
