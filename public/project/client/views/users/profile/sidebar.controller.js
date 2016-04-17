@@ -21,6 +21,15 @@
                         console.log("Want to follow: " + vm.navigateUserId);
                         console.log("Logged in as: " + vm.loggedInUserId)
                         isAlreadyFollowing();
+
+                        UserService
+                            .findUserById(vm.navigateUserId)
+                            .then(function (response) {
+                                var user = response.data;
+                                if (user) {
+                                    vm.navigatedUser = user;
+                                }
+                            });
                     }
                 });
         }

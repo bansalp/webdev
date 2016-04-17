@@ -5,7 +5,12 @@
                 <a href="">
                     <img class="thumbnail profile-photo"
                          src="/experiments/project/images/profile-image.png"
-                         alt="">
+                         alt=""
+                         ng-show="!sidebarControllerModel.navigatedUser.imgUrl">
+                    <img class="thumbnail profile-photo"
+                         ng-src="{{sidebarControllerModel.navigatedUser.imgUrl}}"
+                         alt=""
+                         ng-show="sidebarControllerModel.navigatedUser.imgUrl">
                 </a>
                 <div ng-show="user._id != sidebarControllerModel.navigateUserId">
                     <a href=""
