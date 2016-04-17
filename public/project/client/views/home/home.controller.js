@@ -52,6 +52,7 @@
         };
 
         function preprocessResponse(response) {
+            var result = [];
             response.data.results.forEach(function (element1, index1, array1) {
                 var genres = [];
                 if (element1.genre_ids.length != 0 && element1.genre_ids) {
@@ -80,9 +81,13 @@
                 if (!element1.overview) {
                     element1.overview = "There is no overview for this movie.";
                 }
+
+                if (element1.imageUrl != "/project/client/images/Image-Not-Available.jpg") {
+                    result.push(element1);
+                }
             });
 
-            return response.data.results;
+            return result;
         }
 
         function getValue(key) {
