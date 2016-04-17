@@ -348,7 +348,7 @@ module.exports = function (app, userModel, movieModel, security) {
     }
 
     function loggedin(req, res) {
-        res.send(req.isAuthenticated() ? req.user : null);
+        res.send(req.isAuthenticated() && req.user.type == "project" ? req.user : null);
     }
 
     function logout(req, res) {

@@ -77,7 +77,7 @@ module.exports = function (assignmentUserModel, projectUserModel) {
                     }
                 );
         }
-        else {
+        else if (user.type == "project") {
             projectUserModel
                 .findUserById(user._id)
                 .then(

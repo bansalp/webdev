@@ -232,7 +232,7 @@ module.exports = function (app, userModel, security) {
     }
 
     function loggedin(req, res) {
-        res.send(req.isAuthenticated() ? req.user : null);
+        res.send(req.isAuthenticated() && req.user.type == "assignment" ? req.user : null);
     }
 
     function logout(req, res) {
