@@ -14,10 +14,6 @@
     .carousel-caption {
         margin-bottom: 20px;
     }
-
-    .height-limit {
-        height: auto;
-    }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
@@ -35,10 +31,6 @@
 
     .carousel-caption {
         margin-bottom: 30px;
-    }
-
-    .height-limit {
-        height: 450px;
     }
 }
 
@@ -58,10 +50,6 @@
     .carousel-caption {
         margin-bottom: 40px;
     }
-
-    .height-limit {
-        height: 410px;
-    }
 }
 
 @media (min-width: 1200px) {
@@ -79,10 +67,6 @@
 
     .carousel-caption {
         margin-bottom: 50px;
-    }
-
-    .height-limit {
-        height: 440px;
     }
 }
 
