@@ -34,6 +34,12 @@
                     var user = response.data;
                     if (user) {
                         vm.user = user;
+                        return UserService.findUserById(vm.user._id);
+                    }
+                })
+                .then(function (resposnse) {
+                    if (response.data) {
+                        vm.user = response.data;
                     }
                 });
 

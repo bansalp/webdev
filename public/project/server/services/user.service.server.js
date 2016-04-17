@@ -1,8 +1,10 @@
 "use strict";
 
-module.exports = function (app, userModel, movieModel) {
+module.exports = function (app, userModel, movieModel, security) {
+    var passport = security.getPassport();
     var multer = require('multer');
     var upload = multer({dest: __dirname + '/../../../uploads'});
+    var auth = authorized;
 
     app.post("/api/project/user", createUser);
     app.get("/api/project/user", findUser);
@@ -21,6 +23,21 @@ module.exports = function (app, userModel, movieModel) {
     app.get("/api/project/loggedin", loggedin);
     app.get("/api/project/logout", logout);
     app.post("/api/project/user/:id", upload.single('profileImg'), updateUserWithImage);
+    var auth = authorized;
+    app.post("/api/project/login", passport.authenticate('project'), login);
+
+    function authorized(req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.send(401);
+        } else {
+            next();
+        }
+    }
+
+    function login(req, res) {
+        var user = req.user;
+        res.json(user);
+    }
 
     function createUser(req, res) {
         var reqUser = req.body;
@@ -28,8 +45,16 @@ module.exports = function (app, userModel, movieModel) {
             .createUser(reqUser)
             .then(
                 function (user) {
-                    req.session.currentUser = user;
-                    res.json(user);
+                    if (user) {
+                        req.login(user, function (err) {
+                            if (err) {
+                                res.status(400).send(err);
+                            }
+                            else {
+                                res.json(user);
+                            }
+                        });
+                    }
                 },
                 function (err) {
                     res.status(400).send(err);
@@ -323,11 +348,11 @@ module.exports = function (app, userModel, movieModel) {
     }
 
     function loggedin(req, res) {
-        res.json(req.session.currentUser);
+        res.send(req.isAuthenticated() ? req.user : null);
     }
 
     function logout(req, res) {
-        req.session.destroy();
+        req.logOut();
         res.send(200);
     }
 

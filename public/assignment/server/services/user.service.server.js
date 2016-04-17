@@ -1,10 +1,8 @@
 "use strict";
 
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var bcrypt = require('bcrypt-nodejs');
-
-module.exports = function (app, userModel) {
+var bcrypt = require("bcrypt-nodejs");
+module.exports = function (app, userModel, security) {
+    var passport = security.getPassport();
     var auth = authorized;
     app.post("/api/assignment/login", passport.authenticate('assignment'), login);
     app.get("/api/assignment/user", findUser);
@@ -18,27 +16,6 @@ module.exports = function (app, userModel) {
     app.get('/api/assignment/admin/user', auth, findAllUsersAdmin);
     app.delete('/api/assignment/admin/user/:userId', auth, deleteUser);
     app.put('/api/assignment/admin/user/:userId', auth, updateUserAdmin);
-
-    passport.use('assignment', new LocalStrategy(localStrategy));
-    passport.serializeUser(serializeUser);
-    passport.deserializeUser(deserializeUser);
-
-    function localStrategy(username, password, done) {
-        userModel
-            .findUserByUsername(username)
-            .then(function (user) {
-                    if (user && bcrypt.compareSync(password, user.password)) {
-                        return done(null, user);
-                    } else {
-                        return done(null, false);
-                    }
-                },
-                function (err) {
-                    if (err) {
-                        return done(err);
-                    }
-                });
-    }
 
     function updateUserAdmin(req, res) {
         var newUser = req.body;
@@ -116,23 +93,6 @@ module.exports = function (app, userModel) {
             return true
         }
         return false;
-    }
-
-    function serializeUser(user, done) {
-        done(null, user);
-    }
-
-    function deserializeUser(user, done) {
-        userModel
-            .findUserById(user._id)
-            .then(
-                function (user) {
-                    done(null, user);
-                },
-                function (err) {
-                    done(err, null);
-                }
-            );
     }
 
     function login(req, res) {

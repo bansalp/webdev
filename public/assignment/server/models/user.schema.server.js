@@ -7,7 +7,8 @@ module.exports = function (db) {
         lastName: String,
         emails: [String],
         phones: [String],
-        roles: [String]
+        roles: [String],
+        type: {type: String, default: "assignment"}
     }, {collection: 'user'});
     return UserSchema;
 };

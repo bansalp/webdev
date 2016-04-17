@@ -24,7 +24,8 @@
             findAllLikedMovies: findAllLikedMovies,
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
-            logout: logout
+            logout: logout,
+            login: login
         };
         return api;
 
@@ -102,6 +103,10 @@
 
         function logout() {
             return $http.get("/api/project/logout");
+        }
+
+        function login(user) {
+            return $http.post("/api/project/login", user);
         }
     }
 

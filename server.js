@@ -39,8 +39,11 @@ app.use(express.static(__dirname + '/public'));
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
-require("./public/assignment/server/app.js")(app, uuid, db);
-require("./public/project/server/app.js")(app, db);
+var assignmentUserModel = require("./public/assignment/server/models/user.model.js")(db);
+var projectUserModel = require("./public/project/server/models/user.model.js")(db);
+var security = require("./public/security/security.js")(assignmentUserModel, projectUserModel);
+require("./public/assignment/server/app.js")(app, uuid, db, assignmentUserModel, security);
+require("./public/project/server/app.js")(app, db, projectUserModel, security);
 
 app.listen(port, ipaddress);
 

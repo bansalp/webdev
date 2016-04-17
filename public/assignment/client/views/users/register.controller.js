@@ -25,6 +25,8 @@
                         if (user != null) {
                             UserService.setCurrentUser(user);
                             $location.url("/profile");
+                        } else {
+                            alert("User already exists");
                         }
                     },
                     function (err) {

@@ -10,7 +10,8 @@ module.exports = function (db) {
         phone: String,
         likes: [String],
         followers: [String],
-        following: [String]
+        following: [String],
+        type: {type: String, default: "project"}
     }, {collection: 'mt_user'});
     return UserSchema;
 };
