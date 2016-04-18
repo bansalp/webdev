@@ -178,3 +178,27 @@ body {
 .theadrow {
     background-color: #cccccc;
 }
+
+.plusicon {
+    font-size: 16px;
+    color: blue;
+}
+
+.okicon {
+    font-size: 16px;
+    color: green;
+}
+
+.removeicon {
+    font-size: 16px;
+    color: red;
+}
+
+.pencilicon {
+    font-size: 16px;
+    color: brown;
+}
+
+.table-bordered > tbody > tr > td {
+    vertical-align: middle;
+}
