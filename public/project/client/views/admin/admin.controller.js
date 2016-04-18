@@ -15,7 +15,7 @@
         function init() {
             model.selected = -1;
             UserService
-                .findAllUsers()
+                .findAllUsersAdmin()
                 .then(handleSuccess, handleError);
         }
 
@@ -30,7 +30,7 @@
 
         function remove(user) {
             UserService
-                .deleteUserById(user._id)
+                .deleteUserAdmin(user._id)
                 .then(handleSuccess, handleError);
         }
 
@@ -42,7 +42,7 @@
 
         function add(user) {
             UserService
-                .createUser(user)
+                .createUserAdmin(user)
                 .then(handleSuccess, handleError);
         }
 

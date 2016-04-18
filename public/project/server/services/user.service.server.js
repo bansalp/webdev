@@ -24,6 +24,34 @@ module.exports = function (app, userModel, movieModel, security) {
     app.get("/api/project/logout", logout);
     app.post("/api/project/user/:id", upload.single('profileImg'), updateUserWithImage);
     app.post("/api/project/login", passport.authenticate('project'), login);
+    app.get("/api/project/admin/user", auth, findAllUsersAdmin);
+    //app.post("/api/project/admin/user", auth, createUserAdmin);
+    //app.delete('/api/project/admin/user/:userId', deleteUserAdmin);
+    //app.put('/api/project/admin/user/:userId', updateUserAdmin);
+
+    function findAllUsersAdmin(req, res) {
+        if (isAdmin(req.user)) {
+            userModel
+                .findAllUsers()
+                .then(
+                    function (users) {
+                        res.json(users);
+                    },
+                    function () {
+                        res.status(400).send(err);
+                    }
+                );
+        } else {
+            res.status(403);
+        }
+    }
+
+    function isAdmin(user) {
+        if (user.roles.indexOf("admin") > -1) {
+            return true
+        }
+        return false;
+    }
 
     function authorized(req, res, next) {
         if (!req.isAuthenticated()) {

@@ -11,6 +11,7 @@ module.exports = function (db) {
         likes: [String],
         followers: [String],
         following: [String],
+        roles: {type: String, default: "user", enum: ["user", "admin"]},
         type: {type: String, default: "project"}
     }, {collection: 'mt_user'});
     return UserSchema;

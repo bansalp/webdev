@@ -26,12 +26,27 @@
             getCurrentUser: getCurrentUser,
             logout: logout,
             login: login,
-            updateUserAdmin: updateUserAdmin
+            updateUserAdmin: updateUserAdmin,
+            createUserAdmin: createUserAdmin,
+            deleteUserAdmin: deleteUserAdmin,
+            findAllUsersAdmin: findAllUsersAdmin
         };
         return api;
 
         function updateUserAdmin(userId, user) {
             return $http.put('/api/project/admin/user/' + userId, user);
+        }
+
+        function createUserAdmin(user) {
+            return $http.post('/api/project/admin/user', user);
+        }
+
+        function findAllUsersAdmin() {
+            return $http.get("/api/project/admin/user");
+        }
+
+        function deleteUserAdmin(userId) {
+            return $http.delete('/api/project/admin/user/' + userId);
         }
 
         function findUserByCredentials(user) {
