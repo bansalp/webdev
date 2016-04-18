@@ -58,6 +58,7 @@
                                     vm.busy = false;
                                 }
                             });
+                    vm.paginationCounter = vm.paginationCounter + 1;
                 }
             }
         }
