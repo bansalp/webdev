@@ -23,7 +23,6 @@ module.exports = function (app, userModel, movieModel, security) {
     app.get("/api/project/loggedin", loggedin);
     app.get("/api/project/logout", logout);
     app.post("/api/project/user/:id", upload.single('profileImg'), updateUserWithImage);
-    var auth = authorized;
     app.post("/api/project/login", passport.authenticate('project'), login);
 
     function authorized(req, res, next) {
