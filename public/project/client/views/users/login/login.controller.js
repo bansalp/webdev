@@ -26,9 +26,9 @@
                                 UserService.setCurrentUser(resUser);
                                 $state.go("profile.edit-profile", {userId: resUser._id});
                             }
-                            else {
-                                vm.error = "Wrong username or password.";
-                            }
+                        },
+                        function (err) {
+                            vm.error = "Wrong username or password.";
                         });
             }
         }
