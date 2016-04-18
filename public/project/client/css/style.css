@@ -174,3 +174,7 @@ body {
     height: 64px;
     width: 64px;
 }
+
+.theadrow {
+    background-color: #cccccc;
+}

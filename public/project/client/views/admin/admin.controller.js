@@ -1,74 +1,64 @@
+"use strict";
 (function () {
-
     angular
         .module("MovieTimeApp")
         .controller("AdminController", AdminController);
 
-    function AdminController($scope, UserService) {
+    function AdminController(UserService) {
+        var model = this;
+
+        model.remove = remove;
+        model.update = update;
+        model.add = add;
+        model.select = select;
+
         function init() {
-            UserService.findAllUsers(function (users) {
-                $scope.users = users;
-            });
+            model.selected = -1;
+            UserService
+                .findAllUsers()
+                .then(handleSuccess, handleError);
         }
 
         init();
 
-        $scope.roles = [
-            {name: "user", value: "user"},
-            {name: "admin", value: "admin"}
-        ];
+        model.predicate = 'username';
+        model.reverse = true;
+        model.order = function (predicate) {
+            model.reverse = (model.predicate === predicate) ? !model.reverse : false;
+            model.predicate = predicate;
+        };
 
-        $scope.addUser = addUser;
-        $scope.updateUser = updateUser;
-        $scope.deleteUser = deleteUser;
-        $scope.selectUser = selectUser;
-        $scope.selected = -1;
-
-        function addUser(user)
-        {
-            if(!isUserValid(user)) {
-                return;
-            }
-            UserService.createUser(user, function(newUser) {
-                $scope.selected = -1;
-                $scope.user = {};
-                UserService.findAllUsers(function(users){
-                    $scope.users = users;
-                });
-            });
+        function remove(user) {
+            UserService
+                .deleteUserById(user._id)
+                .then(handleSuccess, handleError);
         }
 
-        function updateUser(user) {
-            if(!isUserValid(user)) {
-                return;
-            }
-            UserService.updateUserById(user._id, user, function(newUser) {
-                $scope.users[$scope.selected] = newUser;
-                $scope.selected = -1;
-                $scope.user = {};
-            });
+        function update(user) {
+            UserService
+                .updateUserAdmin(user._id, user)
+                .then(handleSuccess, handleError);
         }
 
-        function deleteUser(user) {
-            UserService.deleteUserById(user._id, function (users) {
-                $scope.selected = -1;
-                $scope.user = {};
-                $scope.users = users;
-            });
+        function add(user) {
+            UserService
+                .createUser(user)
+                .then(handleSuccess, handleError);
         }
 
-        function selectUser(index) {
-            UserService.findUserByIndex(index, function (user) {
-                $scope.user = user;
-                $scope.selected = index;
-            });
+        function select(user) {
+            model.inputUser = angular.copy(user);
+            model.selected = 0;
         }
 
-        function isUserValid(user) {
-            return user != undefined && user.username.trim() !== "" && user.password.trim() !== "" &&
-                user.firstName.trim() !== "" && user.lastName.trim() !== "" && user.email && user.email.trim() !== "" &&
-                user.role.trim() !== "";
+        function handleSuccess(response) {
+            model.users = response.data;
+            model.inputUser = {};
+            model.selected = -1;
+        }
+
+        function handleError(error) {
+            model.error = error;
         }
     }
-
 })();

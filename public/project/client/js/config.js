@@ -111,7 +111,8 @@
             .state("admin", {
                 url: "/admin",
                 templateUrl: "views/admin/admin.view.html",
-                controller: "AdminController"
+                controller: "AdminController",
+                controllerAs: "model"
             })
     }
 

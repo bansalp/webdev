@@ -25,9 +25,14 @@
             setCurrentUser: setCurrentUser,
             getCurrentUser: getCurrentUser,
             logout: logout,
-            login: login
+            login: login,
+            updateUserAdmin: updateUserAdmin
         };
         return api;
+
+        function updateUserAdmin(userId, user) {
+            return $http.put('/api/project/admin/user/' + userId, user);
+        }
 
         function findUserByCredentials(user) {
             return $http.get("/api/project/user?username=" + user.username + "&password=" + user.password);
