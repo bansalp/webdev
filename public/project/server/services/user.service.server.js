@@ -26,8 +26,34 @@ module.exports = function (app, userModel, movieModel, security) {
     app.post("/api/project/login", passport.authenticate('project'), login);
     app.get("/api/project/admin/user", auth, findAllUsersAdmin);
     app.post("/api/project/admin/user", auth, createUserAdmin);
-    //app.delete('/api/project/admin/user/:userId', deleteUserAdmin);
-    //app.put('/api/project/admin/user/:userId', updateUserAdmin);
+    app.delete('/api/project/admin/user/:userId', auth, deleteUserAdmin);
+    app.put('/api/project/admin/user/:userId', auth, updateUserAdmin);
+
+    function updateUserAdmin(req, res) {
+        var newUser = req.body;
+        if (!isAdmin(req.user)) {
+            delete newUser.roles;
+        }
+
+        userModel
+            .updateUser(req.params.userId, newUser)
+            .then(
+                function (user) {
+                    return userModel.findAllUsers();
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (users) {
+                    res.json(users);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
 
     function findAllUsersAdmin(req, res) {
         if (isAdmin(req.user)) {
@@ -89,6 +115,31 @@ module.exports = function (app, userModel, movieModel, security) {
                     res.status(400).send(err);
                 }
             );
+    }
+
+    function deleteUserAdmin(req, res) {
+        if (isAdmin(req.user)) {
+            userModel
+                .deleteUserById(req.params.userId)
+                .then(
+                    function (user) {
+                        return userModel.findAllUsers();
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    }
+                )
+                .then(
+                    function (users) {
+                        res.json(users);
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    }
+                );
+        } else {
+            res.status(403);
+        }
     }
 
     function authorized(req, res, next) {
