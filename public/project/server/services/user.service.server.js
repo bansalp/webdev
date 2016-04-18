@@ -25,7 +25,7 @@ module.exports = function (app, userModel, movieModel, security) {
     app.post("/api/project/user/:id", upload.single('profileImg'), updateUserWithImage);
     app.post("/api/project/login", passport.authenticate('project'), login);
     app.get("/api/project/admin/user", auth, findAllUsersAdmin);
-    //app.post("/api/project/admin/user", auth, createUserAdmin);
+    app.post("/api/project/admin/user", auth, createUserAdmin);
     //app.delete('/api/project/admin/user/:userId', deleteUserAdmin);
     //app.put('/api/project/admin/user/:userId', updateUserAdmin);
 
@@ -51,6 +51,44 @@ module.exports = function (app, userModel, movieModel, security) {
             return true
         }
         return false;
+    }
+
+    function createUserAdmin(req, res) {
+        var newUser = req.body;
+        userModel
+            .findUserByUsername(newUser.username)
+            .then(
+                function (user) {
+                    // if the user does not already exist
+                    if (user == null) {
+                        // create a new user
+                        return userModel.createUser(newUser)
+                            .then(
+                                // fetch all the users
+                                function () {
+                                    return userModel.findAllUsers();
+                                },
+                                function (err) {
+                                    res.status(400).send(err);
+                                }
+                            );
+                        // if the user already exists, then just fetch all the users
+                    } else {
+                        return userModel.findAllUsers();
+                    }
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (users) {
+                    res.json(users);
+                },
+                function () {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function authorized(req, res, next) {

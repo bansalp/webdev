@@ -149,7 +149,7 @@
         return deferred.promise;
     }
 
-    function checkAdmin(UserService, $q, $location) {
+    function checkAdmin(UserService, $q, $state) {
         var deferred = $q.defer();
 
         UserService
@@ -158,18 +158,18 @@
                 var user = response.data;
 
                 if (user) {
-                    if (user != null && user.roles.indexOf('admin') != -1) {
+                    if (user != null && user.roles == 'admin') {
                         UserService.setCurrentUser(user);
                         deferred.resolve();
                     }
                     else {
                         deferred.reject();
-                        $location.url("/home");
+                        $state.go("home");
                     }
                 }
                 else {
                     deferred.reject();
-                    $location.url("/home");
+                    $state.go("home");
                 }
             });
 
