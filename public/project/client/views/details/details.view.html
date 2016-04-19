@@ -139,9 +139,21 @@
                         </span>
                                     </small>
                                 </h4>
-                                <h4 class="media-heading">
+                                <h4 class="media-heading" ng-show="user">
                                     <small>By
                                         <a ui-sref="profile.reviews({userId: review.userId})">{{review.userFirstName}}</a>
+                                        on
+                                        {{review.timestamp | date : 'mediumDate'}}
+                                    </small>
+                                </h4>
+                                <h4 class="media-heading" ng-show="!user">
+                                    <small>By
+                                        <a href=""
+                                           data-toggle="tooltip"
+                                           data-placement="top"
+                                           title="Please login to view user profile!">
+                                            {{review.userFirstName}}
+                                        </a>
                                         on
                                         {{review.timestamp | date : 'mediumDate'}}
                                     </small>
